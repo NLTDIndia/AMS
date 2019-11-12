@@ -1,0 +1,74 @@
+﻿<div class="box box-primary">
+    <h3 class="box-title">Software</h3>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="Asset_Type">Asset Type</label>
+                <select id="AssetType" name="AssetType" class="form-control">
+                    <option value="1">OS</option>
+                    <option value="2">MS Office</option>
+                    <option value="3">Visual Studio</option>
+                    <option value="3">Sql server</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="From">Serial Number</label>
+                    <input class="form-control" data-val="true" data-val-required="The Model Number field is required." id="SerialNumber" name="SerialNumber" type="text">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="From">Product Name</label>
+                    <input class="form-control" data-val="true" data-val-required="The Product Name field is required." id="HardWareProductName" name="HardWareProductName" type="text">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="From">Licence Number</label>
+                    <input class="form-control" data-val="true" data-val-required="The Model Number field is required." id="ModelNumber" name="ModelNumber" type="text">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="From">Licence Purchase Date</label>
+                    <div class="purchaseDate">
+                        <input class="form-control datepicker" data-val="true" data-val-date="The field Purchase Date must be a date." data-val-required="The Purchase Date field is required." id="PurchaseDate" name="PurchaseDate" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="To">Licence Expiry Date</label>
+                    <div class="warrantyExpiration">
+                        <input class="form-control datepicker" data-val="true" data-val-date="The field Expiry Date must be a date." data-val-required="The Expiry Date field is required." id="warrantyExpiration" name="warrantyExpiration" type="text">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="From">Publisher</label>
+                    <input class="form-control" data-val="true" data-val-required="The Publisher field is required." id="publisher" name="Publisher" type="text">
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label class="required" for="Reason">Software Description</label>
+                    <textarea class="form-control" cols="20" id="softWareDescription" name="SoftWareDescription" rows="2"></textarea>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="Reason" style="color:white">Software Assets</label>
+                    <button type="button" class="btn btn-primary" id="btnCreateSoftwareAsset">
+                        ADD NEW
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/AMS/AMSCalender.js"></script>

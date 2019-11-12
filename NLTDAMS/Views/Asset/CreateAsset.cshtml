@@ -1,0 +1,118 @@
+﻿@model NLTDAMS.ViewModel.AssetViewModel
+@{
+    ViewBag.Title = "Create Asset";
+}
+@using (Html.BeginForm("AssetCreation", "Asset", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "formCreateAsset", @class = "formAssetCreation" }))
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Create New Asset</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="InvoiceNumber">Invoice Number</label>
+                                <input class="form-control" data-val="true" data-val-required="The Invoice Number field is required." id="invoiceNumber" name="hardwareAssetModel.InvoiceNumber" type="text">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="InvoiceDate">Invoice Date</label>
+                                <div>
+                                    <input class="form-control datepicker" data-val="true" data-val-date="The field Invoice Date must be a date." data-val-required="The Invoice Date field is required." id="invoiceDate" name="InvoiceDate" type="text">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="InvoiceFile">Invoice File</label>
+                                <input class="form-control" data-val="true" data-val-required="The Invoice File field is required." id="invoiceFile" name="InvoiceFile" type="file">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="Asset_Category">Asset Category</label>
+                            <select id="AssetCategory" name="AssetCategory" class="form-control">
+                                <option disabled selected value="">Please select value</option>
+                                <option value="1">Hardware</option>
+                                <option value="2">Software</option>
+                                <option value="3">Original Equipment Manufacturer</option>
+                            </select>
+                        </div>
+                    </div>
+                   
+                </div>
+        </div>
+            <div id="partialPlaceHolder"></div>
+            <div class="box-footer" id="footerId">
+                <div id="conformBox"></div>
+                <div class="col-sm-2" style="padding-right:0px;float:right">
+                    <button type="button" class="btn btn-primary pull-right" id="btnSubmit" onclick="SubmitForm(this)">
+                        CREATE ASSET
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+    $("#AssetCategory").on("change", function () {
+    var selectedValue = $(this).children("option:selected").val();
+    //    + "?selectedItem=" + $(this).val();
+    var url = '';
+    if (selectedValue == 1 || selectedValue == 3) {
+        url = '@Url.Action("HardwareAsset", "Asset")' + "?softwareCategory=" + selectedValue;
+    }
+    else if (selectedValue == 2) {
+        url = '@Url.Action("SoftwareAsset", "Asset")';
+    }
+
+    if (url != "" && url != null) {
+        $("#partialPlaceHolder").load(url, function () {
+            $('#partialPlaceHolder').fadeIn('fast');
+        })
+        $("#footerId").show();
+    }
+    else {
+        $("#footerId").hide();
+    }
+    });
+
+ });
+</script>
+<script>
+      var hardwareArray=[];
+    function AddHardwareAsset() {
+        var yourModel = '@Html.Raw(Json.Encode(Model))'
+        //alert(yourModel.hardwareAssetModel.InvoiceNumber);
+         var invoiceNumber = $("#invoiceNumber").val();
+         var modelNumber = $("#modelNumber").val();
+         alert(modelNumber);
+            var element = {
+                InvoiceNumber :invoiceNumber,
+                Model : modelNumber
+            };
+         hardwareArray.push(element);
+        // console.log(JSON.stringify(hardwareArray));
+    }
+    function SubmitForm()
+    {
+        alert(JSON.stringify(hardwareArray));
+        $.ajax({
+        url: '@Url.Action("AddAssets","Asset")',
+             type: 'POST',
+             data: { hardwareList: hardwareArray },
+            function(result) {
+                // TODO: process the server results
+                console.log(result);
+            }
+        });
+    }
+</script>
+<script src="~/Scripts/AMS/CreateAsset.js"></script>
