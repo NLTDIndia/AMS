@@ -96,7 +96,7 @@ namespace AMSService.Service
                 });
             }
 
-            return new SelectList(assetCategoryItems, "Value", "Text");
+            return new SelectList(assetCategoryItems, "Value", "Text", selectedId);
 
         }
     }

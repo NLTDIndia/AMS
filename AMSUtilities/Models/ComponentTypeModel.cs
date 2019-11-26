@@ -17,13 +17,15 @@ namespace AMSUtilities.Models
         public int AssetTypeID { get; set; }
         public SelectList AssetTypes { get; set; }
         [Required]
-        public int AssetCategoryID { get; set; }
+        public int AssetCategoryId { get; set; }
         public SelectList AssetCategories { get; set; }
         public string AssetCategoryName { get; set; }
         public string AssetTypeName { get; set; }
         [Required]
         [Display(Name="Active")]
         public bool IsActive { get; set; }
+        public bool? Mandatory { get; set; }
+        public SelectList AssetType { get; set; }
 
 
     }

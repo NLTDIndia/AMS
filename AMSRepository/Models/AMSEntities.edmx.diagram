@@ -61,6 +61,10 @@
         <AssociationConnector Association="AMSModel.FK_Quotation_QuotationStatus" ManuallyRouted="false" />
         <AssociationConnector Association="AMSModel.FK_Quotation_Vendor" ManuallyRouted="false" />
         <AssociationConnector Association="AMSModel.FK_ComponentType_AssetCategory" />
+        <EntityTypeShape EntityType="AMSModel.ComponentStatus" Width="1.5" PointX="7.375" PointY="4.875" />
+        <EntityTypeShape EntityType="AMSModel.ComponentTracker" Width="1.5" PointX="7.375" PointY="7.75" />
+        <AssociationConnector Association="AMSModel.FK_ComponentAssetMapping_ComponentStatus" />
+        <AssociationConnector Association="AMSModel.FK_ComponentAssetMapping_ComponentTypeID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

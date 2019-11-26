@@ -77,7 +77,13 @@
   <ItemGroup>
     <Compile Include="IService\IAssetService.cs" />
     <Compile Include="IService\IAssetTrackerService.cs" />
+    <Compile Include="IService\IcomponentAssetMappingService.cs" />
+    <Compile Include="IService\IComponentsService.cs" />
+    <Compile Include="IService\IComponentTrackerService.cs" />
     <Compile Include="IService\IEmployeeAssetMappingService.cs" />
+    <Compile Include="IService\IHardwareAssetService.cs" />
+    <Compile Include="IService\IQuotationService.cs" />
+    <Compile Include="IService\ISoftwareAssetService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\AssetTrackerService.cs" />
     <Compile Include="Service\AssetTypeService.cs" />
@@ -86,11 +92,17 @@
     <Compile Include="IService\IAssetCategoryService.cs" />
     <Compile Include="IService\IAssetTypeService.cs" />
     <Compile Include="IService\IVendorService.cs" />
+    <Compile Include="Service\ComponentAssetMappingService.cs" />
+    <Compile Include="Service\ComponentsService.cs" />
+    <Compile Include="Service\ComponentTrackerService.cs" />
     <Compile Include="Service\ComponentTypeService.cs" />
     <Compile Include="Service\EmployeeAssetMappingService.cs" />
     <Compile Include="Service\EmployeeService.cs" />
     <Compile Include="IService\IEmployeeService.cs" />
     <Compile Include="IService\IComponentTypeService.cs" />
+    <Compile Include="Service\HardwareAssetService.cs" />
+    <Compile Include="Service\QuotationService.cs" />
+    <Compile Include="Service\SoftwareAssetService.cs" />
     <Compile Include="Service\VendorService.cs" />
   </ItemGroup>
   <ItemGroup>

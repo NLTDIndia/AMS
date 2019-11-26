@@ -1,13 +1,10 @@
 ﻿@model AMSUtilities.Models.ComponentTypeModel
-
 @{
     ViewBag.Title = "Create";
 }
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "ComponentType", FormMethod.Post, new { @name = "createComponentType", @id = "formCreateComponentType" }))
 {
     @Html.AntiForgeryToken()
-    
     <div class="row">
         <div class="col-sm-12">
             <div class="box box-primary">
@@ -44,8 +41,8 @@
                         </div>
                         <div class="col-sm-5">
                             <div class="form-group">
-                                @Html.DropDownListFor(model => model.AssetCategoryID, Model.AssetCategories, new { onchange = "document.forms[0].submit();", @id = "assetCategory", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.AssetCategoryID, "", new { @class = "text-danger" })
+                                @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { onchange = "setAssetTypes(this.value)", @id = "assetCategory", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.AssetCategoryId, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -70,8 +67,27 @@
                         </div>
                         <div class="col-sm-5">
                             <div class="form-group">
+                                @{
+                                    Model.IsActive = true;
+                                }
                                 @Html.CheckBoxFor(model => model.IsActive)
                                 @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Mandatory, htmlAttributes: new { @class = "control-label col-md-12" })
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                @{
+                                    Model.Mandatory = false;
+                                }
+                                @Html.CheckBoxFor(model => model.Mandatory.Value)
+                                @Html.ValidationMessageFor(model => model.Mandatory, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -87,4 +103,30 @@
         </div>
     </div>
 }
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    //document.forms[0].submit();
+    function setAssetTypes(assetCategoryId) {
+         $.ajax({
+        url: '@Url.Action("SetAssetTypes","ComponentType")',
+             type: 'POST',
+             data: { assetCategoryId: assetCategoryId },
+              success: function(result) {
+                 if(result!="Error" && result!="0" && result!=""){
+                     var sel = $('#assetType');
+                     sel.empty();
+                     $.each(result, function (key, value) {
+                         sel.append($("<option></option>").val(value.Value).html(value.Text));
+                });
+                }
+                },
+                failure: function(response) {
+                    alert(response.responseText);
+                },
+                error: function(response) {
+                    alert(response.responseText);
+                }
+        });
 
+    }
+</script>

@@ -1,5 +1,7 @@
 ﻿@model AMSUtilities.Models.AssetModel
 
+<link href="~/Content/AMS/bootstrap-datetimepicker.css" rel="stylesheet" />
+
 <div class="modal fade" id="modal-Assign">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -22,7 +24,7 @@
                     @Html.HiddenFor(m => m.CreatedDate)
                     @Html.HiddenFor(m => m.CreatedBy)
                     <div class="col-md-12">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 @Html.LabelFor(m => m.AssetName)
                                 <div>
@@ -42,21 +44,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 @Html.LabelFor(m => m.EmployeeID)
-                            </div>
-                            <div>
+
+                                <div>
                                 @Html.DropDownListFor(m => m.EmployeeID, Model.GetEmployees, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.EmployeeID, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Remarks)
                                 <div>
-                                    @Html.TextAreaFor(m => m.Remarks, new { @class = "form-control", rows = 5 })
+                                    @Html.TextAreaFor(m => m.Remarks, new { @class = "form-control", rows = 3 })
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label for="From">@Html.LabelFor(m => m.AssignDate)</label>
+                                <div class='input-group date datePicker'>
+                                    @Html.TextBoxFor(m => m.AssignDate, DateTime.Now.ToString("MM/dd/yyyy"), new { @id = "CreatedDate", @class = "form-control" })
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.AssignDate, "", new { @class = "text-danger" })
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,3 +84,5 @@
 </div>
 <!-- /.modal -->
 @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/Libraries/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/AMS/AMSCalender.js"></script>

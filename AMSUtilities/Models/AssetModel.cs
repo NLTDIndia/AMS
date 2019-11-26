@@ -29,6 +29,9 @@ namespace AMSUtilities.Models
         public string AssetStatus { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
+        [Display(Name = "Assigned Date")]
+        [Required(ErrorMessage = "Assigned Date Required")]
+        public DateTime AssignDate { get; set; }
 
         [Display(Name = "Assign To")]
         [Required(ErrorMessage = "Employee Required")]
@@ -39,6 +42,8 @@ namespace AMSUtilities.Models
 
         public string Remarks { get; set; }
 
+        public int CategoryID { get; set; }
         public SelectList GetEmployees { get; set; }
+        public SelectList AssetCategories { get; set; }
     }
 }

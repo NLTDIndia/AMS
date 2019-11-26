@@ -82,7 +82,7 @@
           <Property Name="AssetStatusID" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="Remarks" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="AssetTypes">
           <Key>
@@ -100,10 +100,13 @@
           <Property Name="ComponentID" Type="int" Nullable="false" />
           <Property Name="AssignedAssetID" Type="int" />
           <Property Name="ActualAssetID" Type="int" />
-          <Property Name="AssignedDate" Type="datetime" Nullable="false" />
-          <Property Name="AssignedBy" Type="int" Nullable="false" />
+          <Property Name="AssignedDate" Type="datetime" />
+          <Property Name="AssignedBy" Type="int" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="ComponentStatusId" Type="int" Nullable="false" />
+          <Property Name="Mandatory" Type="bit" />
+          <Property Name="ComponentTypeID" Type="int" />
         </EntityType>
         <EntityType Name="Components">
           <Key>
@@ -116,6 +119,25 @@
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
         </EntityType>
+        <EntityType Name="ComponentStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComponentTracker">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ComponentID" Type="int" Nullable="false" />
+          <Property Name="AssetID" Type="int" Nullable="false" />
+          <Property Name="ComponentStatusID" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="ComponentType">
           <Key>
             <PropertyRef Name="ID" />
@@ -127,6 +149,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="AssetCategoryId" Type="int" Nullable="false" />
+          <Property Name="Mandatory" Type="bit" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -220,7 +243,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VendorID" Type="int" Nullable="false" />
           <Property Name="AssetRequestID" Type="int" Nullable="false" />
-          <Property Name="QuotationFilePath" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="QuotationFilePath" Type="nvarchar" MaxLength="1" />
           <Property Name="QuotationStatusID" Type="int" Nullable="false" />
           <Property Name="QuotationReceivedDate" Type="datetime" />
         </EntityType>
@@ -265,7 +288,7 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__AssetRequ__Appro__4316F928">
+        <Association Name="FK__AssetRequ__Appro__01142BA1">
           <End Role="AssetRequestStatus" Type="Self.AssetRequestStatus" Multiplicity="1" />
           <End Role="AssetRequestApprovalHistory" Type="Self.AssetRequestApprovalHistory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -277,7 +300,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AssetRequ__Asset__4222D4EF">
+        <Association Name="FK__AssetRequ__Asset__00200768">
           <End Role="AssetRequestStatus" Type="Self.AssetRequestStatus" Multiplicity="1" />
           <End Role="AssetRequest" Type="Self.AssetRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -289,7 +312,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AssetRequ__Asset__440B1D61">
+        <Association Name="FK__AssetRequ__Asset__02084FDA">
           <End Role="AssetRequest" Type="Self.AssetRequest" Multiplicity="1" />
           <End Role="AssetRequestApprovalHistory" Type="Self.AssetRequestApprovalHistory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -325,7 +348,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__Employ__5070F446">
+        <Association Name="FK__Employee__Employ__0F624AF8">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -337,7 +360,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__SeatID__5165187F">
+        <Association Name="FK__Employee__SeatID__10566F31">
           <End Role="Seats" Type="Self.Seats" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -361,7 +384,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Seats__LocationI__59FA5E80">
+        <Association Name="FK__Seats__LocationI__18EBB532">
           <End Role="Location" Type="Self.Location" Multiplicity="1" />
           <End Role="Seats" Type="Self.Seats" Multiplicity="*" />
           <ReferentialConstraint>
@@ -493,6 +516,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ComponentAssetMapping_ComponentStatus">
+          <End Role="ComponentStatus" Type="Self.ComponentStatus" Multiplicity="1" />
+          <End Role="ComponentAssetMapping" Type="Self.ComponentAssetMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComponentStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ComponentAssetMapping">
+              <PropertyRef Name="ComponentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComponentAssetMapping_ComponentTypeID">
+          <End Role="ComponentType" Type="Self.ComponentType" Multiplicity="0..1" />
+          <End Role="ComponentAssetMapping" Type="Self.ComponentAssetMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComponentType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ComponentAssetMapping">
+              <PropertyRef Name="ComponentTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Components_ComponentType">
           <End Role="ComponentType" Type="Self.ComponentType" Multiplicity="1" />
           <End Role="Components" Type="Self.Components" Multiplicity="*" />
@@ -514,18 +561,6 @@
             </Principal>
             <Dependent Role="ComponentType">
               <PropertyRef Name="AssetCategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ComponentType_AssetTypes">
-          <End Role="AssetTypes" Type="Self.AssetTypes" Multiplicity="1" />
-          <End Role="ComponentType" Type="Self.ComponentType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssetTypes">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ComponentType">
-              <PropertyRef Name="AssetTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -649,6 +684,8 @@
           <EntitySet Name="AssetTypes" EntityType="Self.AssetTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComponentAssetMapping" EntityType="Self.ComponentAssetMapping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Components" EntityType="Self.Components" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComponentStatus" EntityType="Self.ComponentStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComponentTracker" EntityType="Self.ComponentTracker" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComponentType" EntityType="Self.ComponentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeAssetMapping" EntityType="Self.EmployeeAssetMapping" Schema="dbo" store:Type="Tables" />
@@ -663,15 +700,15 @@
           <EntitySet Name="Seats" EntityType="Self.Seats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SoftwareAssets" EntityType="Self.SoftwareAssets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__AssetRequ__Appro__4316F928" Association="Self.FK__AssetRequ__Appro__4316F928">
+          <AssociationSet Name="FK__AssetRequ__Appro__01142BA1" Association="Self.FK__AssetRequ__Appro__01142BA1">
             <End Role="AssetRequestStatus" EntitySet="AssetRequestStatus" />
             <End Role="AssetRequestApprovalHistory" EntitySet="AssetRequestApprovalHistory" />
           </AssociationSet>
-          <AssociationSet Name="FK__AssetRequ__Asset__4222D4EF" Association="Self.FK__AssetRequ__Asset__4222D4EF">
+          <AssociationSet Name="FK__AssetRequ__Asset__00200768" Association="Self.FK__AssetRequ__Asset__00200768">
             <End Role="AssetRequestStatus" EntitySet="AssetRequestStatus" />
             <End Role="AssetRequest" EntitySet="AssetRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK__AssetRequ__Asset__440B1D61" Association="Self.FK__AssetRequ__Asset__440B1D61">
+          <AssociationSet Name="FK__AssetRequ__Asset__02084FDA" Association="Self.FK__AssetRequ__Asset__02084FDA">
             <End Role="AssetRequest" EntitySet="AssetRequest" />
             <End Role="AssetRequestApprovalHistory" EntitySet="AssetRequestApprovalHistory" />
           </AssociationSet>
@@ -683,11 +720,11 @@
             <End Role="Assets" EntitySet="Assets" />
             <End Role="ComponentAssetMapping" EntitySet="ComponentAssetMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__Employ__5070F446" Association="Self.FK__Employee__Employ__5070F446">
+          <AssociationSet Name="FK__Employee__Employ__0F624AF8" Association="Self.FK__Employee__Employ__0F624AF8">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__SeatID__5165187F" Association="Self.FK__Employee__SeatID__5165187F">
+          <AssociationSet Name="FK__Employee__SeatID__10566F31" Association="Self.FK__Employee__SeatID__10566F31">
             <End Role="Seats" EntitySet="Seats" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
@@ -695,7 +732,7 @@
             <End Role="Assets" EntitySet="Assets" />
             <End Role="EmployeeAssetMapping" EntitySet="EmployeeAssetMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__Seats__LocationI__59FA5E80" Association="Self.FK__Seats__LocationI__59FA5E80">
+          <AssociationSet Name="FK__Seats__LocationI__18EBB532" Association="Self.FK__Seats__LocationI__18EBB532">
             <End Role="Location" EntitySet="Location" />
             <End Role="Seats" EntitySet="Seats" />
           </AssociationSet>
@@ -739,16 +776,20 @@
             <End Role="Components" EntitySet="Components" />
             <End Role="ComponentAssetMapping" EntitySet="ComponentAssetMapping" />
           </AssociationSet>
+          <AssociationSet Name="FK_ComponentAssetMapping_ComponentStatus" Association="Self.FK_ComponentAssetMapping_ComponentStatus">
+            <End Role="ComponentStatus" EntitySet="ComponentStatus" />
+            <End Role="ComponentAssetMapping" EntitySet="ComponentAssetMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComponentAssetMapping_ComponentTypeID" Association="Self.FK_ComponentAssetMapping_ComponentTypeID">
+            <End Role="ComponentType" EntitySet="ComponentType" />
+            <End Role="ComponentAssetMapping" EntitySet="ComponentAssetMapping" />
+          </AssociationSet>
           <AssociationSet Name="FK_Components_ComponentType" Association="Self.FK_Components_ComponentType">
             <End Role="ComponentType" EntitySet="ComponentType" />
             <End Role="Components" EntitySet="Components" />
           </AssociationSet>
           <AssociationSet Name="FK_ComponentType_AssetCategory" Association="Self.FK_ComponentType_AssetCategory">
             <End Role="AssetCategory" EntitySet="AssetCategory" />
-            <End Role="ComponentType" EntitySet="ComponentType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ComponentType_AssetTypes" Association="Self.FK_ComponentType_AssetTypes">
-            <End Role="AssetTypes" EntitySet="AssetTypes" />
             <End Role="ComponentType" EntitySet="ComponentType" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeAssetMapping_Employee" Association="Self.FK_EmployeeAssetMapping_Employee">
@@ -892,7 +933,7 @@
           <Property Name="AssetStatusID" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Assets" Relationship="Self.FK_AssetTracker_Assets" FromRole="AssetTracker" ToRole="Assets" />
           <NavigationProperty Name="AssetStatus" Relationship="Self.FK_AssetTracker_AssetStatus" FromRole="AssetTracker" ToRole="AssetStatus" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_AssetTracker_Employee" FromRole="AssetTracker" ToRole="Employee" />
@@ -916,13 +957,18 @@
           <Property Name="ComponentID" Type="Int32" Nullable="false" />
           <Property Name="AssignedAssetID" Type="Int32" />
           <Property Name="ActualAssetID" Type="Int32" />
-          <Property Name="AssignedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="AssignedBy" Type="Int32" Nullable="false" />
+          <Property Name="AssignedDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Assets" Relationship="Self.FK__Component__Actua__44CA3770" FromRole="ComponentAssetMapping" ToRole="Assets" />
           <NavigationProperty Name="Assets1" Relationship="Self.FK__Component__Assig__43D61337" FromRole="ComponentAssetMapping" ToRole="Assets" />
           <NavigationProperty Name="Components" Relationship="Self.FK_ComponentAssetMapping_Components" FromRole="ComponentAssetMapping" ToRole="Components" />
+          <Property Name="ComponentStatusId" Type="Int32" Nullable="false" />
+          <Property Name="Mandatory" Type="Boolean" />
+          <Property Name="ComponentTypeID" Type="Int32" />
+          <NavigationProperty Name="ComponentStatus" Relationship="AMSModel.FK_ComponentAssetMapping_ComponentStatus" FromRole="ComponentAssetMapping" ToRole="ComponentStatus" />
+          <NavigationProperty Name="ComponentType" Relationship="AMSModel.FK_ComponentAssetMapping_ComponentTypeID" FromRole="ComponentAssetMapping" ToRole="ComponentType" />
         </EntityType>
         <EntityType Name="Components">
           <Key>
@@ -951,6 +997,8 @@
           <NavigationProperty Name="Components" Relationship="Self.FK_Components_ComponentType" FromRole="ComponentType" ToRole="Components" />
           <Property Name="AssetCategoryId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssetCategory" Relationship="AMSModel.FK_ComponentType_AssetCategory" FromRole="ComponentType" ToRole="AssetCategory" />
+          <Property Name="Mandatory" Type="Boolean" />
+          <NavigationProperty Name="ComponentAssetMapping" Relationship="AMSModel.FK_ComponentAssetMapping_ComponentTypeID" FromRole="ComponentType" ToRole="ComponentAssetMapping" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -1059,7 +1107,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VendorID" Type="Int32" Nullable="false" />
           <Property Name="AssetRequestID" Type="Int32" Nullable="false" />
-          <Property Name="QuotationFilePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QuotationFilePath" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
           <Property Name="QuotationStatusID" Type="Int32" Nullable="false" />
           <Property Name="QuotationReceivedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AssetRequest" Relationship="Self.FK_Quotation_AssetRequest" FromRole="Quotation" ToRole="AssetRequest" />
@@ -1624,6 +1672,16 @@
             <End Role="AssetCategory" EntitySet="AssetCategory" />
             <End Role="ComponentType" EntitySet="ComponentType" />
           </AssociationSet>
+          <EntitySet Name="ComponentStatus" EntityType="AMSModel.ComponentStatus" />
+          <EntitySet Name="ComponentTracker" EntityType="AMSModel.ComponentTracker" />
+          <AssociationSet Name="FK_ComponentAssetMapping_ComponentStatus" Association="AMSModel.FK_ComponentAssetMapping_ComponentStatus">
+            <End Role="ComponentStatus" EntitySet="ComponentStatus" />
+            <End Role="ComponentAssetMapping" EntitySet="ComponentAssetMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComponentAssetMapping_ComponentTypeID" Association="AMSModel.FK_ComponentAssetMapping_ComponentTypeID">
+            <End Role="ComponentType" EntitySet="ComponentType" />
+            <End Role="ComponentAssetMapping" EntitySet="ComponentAssetMapping" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_ComponentType_AssetCategory">
           <End Type="AMSModel.AssetCategory" Role="AssetCategory" Multiplicity="1" />
@@ -1634,6 +1692,50 @@
             </Principal>
             <Dependent Role="ComponentType">
               <PropertyRef Name="AssetCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ComponentStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ComponentAssetMapping" Relationship="AMSModel.FK_ComponentAssetMapping_ComponentStatus" FromRole="ComponentStatus" ToRole="ComponentAssetMapping" />
+        </EntityType>
+        <EntityType Name="ComponentTracker">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComponentID" Type="Int32" Nullable="false" />
+          <Property Name="AssetID" Type="Int32" Nullable="false" />
+          <Property Name="ComponentStatusID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_ComponentAssetMapping_ComponentStatus">
+          <End Type="AMSModel.ComponentStatus" Role="ComponentStatus" Multiplicity="1" />
+          <End Type="AMSModel.ComponentAssetMapping" Role="ComponentAssetMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComponentStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ComponentAssetMapping">
+              <PropertyRef Name="ComponentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComponentAssetMapping_ComponentTypeID">
+          <End Type="AMSModel.ComponentType" Role="ComponentType" Multiplicity="0..1" />
+          <End Type="AMSModel.ComponentAssetMapping" Role="ComponentAssetMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComponentType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ComponentAssetMapping">
+              <PropertyRef Name="ComponentTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1742,6 +1844,9 @@
           <EntitySetMapping Name="ComponentAssetMapping">
             <EntityTypeMapping TypeName="AMSModel.ComponentAssetMapping">
               <MappingFragment StoreEntitySet="ComponentAssetMapping">
+                <ScalarProperty Name="ComponentTypeID" ColumnName="ComponentTypeID" />
+                <ScalarProperty Name="Mandatory" ColumnName="Mandatory" />
+                <ScalarProperty Name="ComponentStatusId" ColumnName="ComponentStatusId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
                 <ScalarProperty Name="AssignedAssetID" ColumnName="AssignedAssetID" />
@@ -1768,6 +1873,7 @@
           <EntitySetMapping Name="ComponentType">
             <EntityTypeMapping TypeName="AMSModel.ComponentType">
               <MappingFragment StoreEntitySet="ComponentType">
+                <ScalarProperty Name="Mandatory" ColumnName="Mandatory" />
                 <ScalarProperty Name="AssetCategoryId" ColumnName="AssetCategoryId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1925,6 +2031,27 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComponentStatus">
+            <EntityTypeMapping TypeName="AMSModel.ComponentStatus">
+              <MappingFragment StoreEntitySet="ComponentStatus">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComponentTracker">
+            <EntityTypeMapping TypeName="AMSModel.ComponentTracker">
+              <MappingFragment StoreEntitySet="ComponentTracker">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ComponentStatusID" ColumnName="ComponentStatusID" />
+                <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+                <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

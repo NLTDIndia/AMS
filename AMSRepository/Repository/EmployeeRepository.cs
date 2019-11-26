@@ -27,5 +27,10 @@ namespace AMSRepository.Repository
         {
             return GetByID(employeeID);
         }
+        public Employee GetEmployeeByCorpID(string cortpId)
+        {
+            var corpEmployee = context.Employee.Where(fet => fet.CorpId.ToLower().Equals(cortpId)).FirstOrDefault();
+            return corpEmployee;
+        }
     }
 }

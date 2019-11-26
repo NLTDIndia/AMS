@@ -42,6 +42,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.DirectoryServices.Protocols" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -74,10 +75,14 @@
     <Compile Include="Models\AssetModel.cs" />
     <Compile Include="Models\AssetTrackerModel.cs" />
     <Compile Include="Models\AssetTypeModel.cs" />
+    <Compile Include="Models\ComponentAssetMappingModel.cs" />
+    <Compile Include="Models\ComponentsModel.cs" />
+    <Compile Include="Models\ComponentTrackerModel.cs" />
     <Compile Include="Models\ComponentTypeModel.cs" />
     <Compile Include="Models\EmployeeAssetMappingModel.cs" />
     <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\HardwareAssetModel.cs" />
+    <Compile Include="Models\QuotationModel.cs" />
     <Compile Include="Models\SoftwareAssetModel.cs" />
     <Compile Include="Models\VendorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

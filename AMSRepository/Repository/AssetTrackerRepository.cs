@@ -13,12 +13,10 @@ namespace AMSRepository.Repository
         {
             return Insert(assetTracker);
         }
-
         public AssetTracker UpdateAssetTracker(AssetTracker assetTracker)
         {
             return Update(assetTracker);
         }
-
         public List<AssetTracker> GetAssetTrackers()
         {
             return GetAll();

@@ -14,10 +14,12 @@ namespace NLTDAMS.Controllers
     {
         private readonly IComponentTypeService _ComponentTypeService;
         private readonly ILog _logger;
-        public ComponentTypeController(IComponentTypeService ComponentTypeService, ILog logger)
+        private readonly IAssetTypeService _assetTypeService;
+        public ComponentTypeController(IComponentTypeService ComponentTypeService, ILog logger, IAssetTypeService assetTypeService)
         {
             _ComponentTypeService = ComponentTypeService;
             _logger = logger;
+            _assetTypeService = assetTypeService;
         }
         // GET: ComponentType
         public ActionResult List()
@@ -28,7 +30,9 @@ namespace NLTDAMS.Controllers
         // GET: ComponentType/Create
         public ActionResult Create()
         {
-            return View(_ComponentTypeService.GetComponentTypeModel(null));
+            var componentTypeModel= _ComponentTypeService.GetComponentTypeModel(null, assetCategoryId: (int)AssetCategories.Hardware);
+            componentTypeModel.AssetCategoryId = (int)AssetCategories.Hardware;
+            return View(componentTypeModel);
         }
 
         // POST: ComponentType/Create
@@ -47,7 +51,20 @@ namespace NLTDAMS.Controllers
                 }
                 else
                 {
-                    return View(_ComponentTypeService.GetComponentTypeModel(null, assetCategoryId:assetCategoryId));
+                    if (assetCategoryId != 0)
+                    {
+                        var componentType = _ComponentTypeService.GetComponentTypeModel(null, assetCategoryId: assetCategoryId);
+                        componentType.AssetCategoryId = assetCategoryId.Value;
+                        return View(componentType);
+                        
+                    }
+                    else
+                    {
+                        var componentType = _ComponentTypeService.GetComponentTypeModel(null, assetCategoryId: (int)AssetCategories.Hardware);
+                        componentType.AssetCategoryId = (int)AssetCategories.Hardware;
+                        return View(componentType);
+                    }
+                    
                 }
             }
             catch (Exception e)
@@ -56,6 +73,27 @@ namespace NLTDAMS.Controllers
                 TempData["Message"] = "Internal server error. Component type not created. Please contact administrator.";
                 TempData["MessageType"] = (int)AlertMessageTypes.Danger;
                 return View(componentTypeModel);
+            }
+        }
+        public JsonResult SetAssetTypes(int? assetCategoryId)
+        {
+
+            try
+            {
+                var assetTypes = _assetTypeService.GetDropdownAssetTypes(assetCategoryId);
+                if (assetTypes != null)
+                {
+                    return Json(assetTypes, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("Error", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                return Json("Error", JsonRequestBehavior.AllowGet);
             }
         }
 

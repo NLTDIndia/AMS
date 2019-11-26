@@ -54,6 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="IRepository\IComponentsRepository.cs" />
+    <Compile Include="IRepository\IComponentTrackerRepository.cs" />
+    <Compile Include="IRepository\IHardwareAssetRepository.cs" />
+    <Compile Include="IRepository\ISoftwareAssetRepository.cs" />
     <Compile Include="Models\AMSEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -100,6 +104,12 @@
       <DependentUpon>AMSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Components.cs">
+      <DependentUpon>AMSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ComponentStatus.cs">
+      <DependentUpon>AMSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ComponentTracker.cs">
       <DependentUpon>AMSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ComponentType.cs">
@@ -154,6 +164,8 @@
     <Compile Include="IRepository\IVendorRepository.cs" />
     <Compile Include="Repository\ComponentAssetMappingRepository.cs" />
     <Compile Include="Repository\ComponentRepository.cs" />
+    <Compile Include="Repository\ComponentsRepository.cs" />
+    <Compile Include="Repository\ComponentTrackerRepository.cs" />
     <Compile Include="Repository\ComponentTypeRepository.cs" />
     <Compile Include="IRepository\IComponentTypeRepository.cs" />
     <Compile Include="Repository\EmployeeAssetMappingRepository.cs" />
@@ -173,6 +185,7 @@
     <Compile Include="IRepository\IComponentRepository.cs" />
     <Compile Include="IRepository\IAssetRepository.cs" />
     <Compile Include="IRepository\IAssetTrackerRepository.cs" />
+    <Compile Include="Repository\HardwareAssetRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
     <Compile Include="Repository\AssetPurchaseOrderMappingRepository.cs" />
     <Compile Include="Repository\PurchaseOrderRepository.cs" />
@@ -180,6 +193,7 @@
     <Compile Include="Repository\QuotationRepository.cs" />
     <Compile Include="Repository\QuotationStatusRepository.cs" />
     <Compile Include="Repository\SeatsRepository.cs" />
+    <Compile Include="Repository\SoftwareAssetRepository.cs" />
     <Compile Include="Repository\VendorRepository.cs" />
   </ItemGroup>
   <ItemGroup>

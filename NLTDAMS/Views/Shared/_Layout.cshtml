@@ -24,6 +24,8 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="~/Content/AMS/daterangepicker.css">
 
+    <link href="~/Content/AMS/bootstrap-datetimepicker.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/Content/Site.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -82,7 +84,8 @@
                         </a>
                         <ul class="treeview-menu">
                             <li class="active"><a href="@Url.Action("ManageAssets","Asset")">Manage Assets</a></li>
-                            <li><a href="@Url.Action("CreateAsset","Asset")">Create Asset</a></li>
+                            <li><a href="@Url.Action("HardwareAsset","Asset")">Create Hardware Asset</a></li>
+                            <li><a href="@Url.Action("SoftwareAsset","Asset")">Create Software Asset</a></li>
                         </ul>
                     </li>
                     <!-- Components -->
@@ -94,8 +97,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#">Manage Components</a></li>
-                            <li><a href="@Url.Action("CreateAsset","Asset")">Create Component</a></li>
+                            <li><a href="@Url.Action("List","ComponentAssetMapping")">Manage Components</a></li>
+                            @*<li><a href="@Url.Action("NewComponents","Components")">Create Component</a></li>*@
                         </ul>
                     </li>
                     <!-- Employees -->
@@ -139,12 +142,13 @@
                             <li><a href="@Url.Action("List","AssetCategory")"><i></i>Asset Categories</a></li>
                             <li><a href="@Url.Action("List","AssetType")"><i></i>Asset Types</a></li>
                             <li><a href="@Url.Action("List","ComponentType")"><i></i>Component Types</a></li>
+                            <li><a href="@Url.Action("Index","Components")"><i></i>Components</a></li>
                         </ul>
                     </li>
                 </ul>
-    </section>
-    <!-- /.sidebar -->
-</aside>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
 
         <!-- ./wrapper -->
         <!-- jQuery 3 -->
@@ -164,9 +168,10 @@
         <script src="~/Scripts/Libraries/jquery-jvectormap-world-mill-en.js"></script>
         <!-- daterangepicker -->
         <script src="~/Scripts/Libraries/moment.min.js"></script>
-        <script src="~/Scripts/Libraries/daterangepicker.js"></script>
+        <!--<script src="~/Scripts/Libraries/daterangepicker.js"></script>-->
         <!-- datepicker -->
-        <script src="~/Scripts/Libraries/bootstrap-datepicker.min.js"></script>
+        <script src="~/Scripts/Libraries/bootstrap-datetimepicker.js"></script>
+        @*<script src="~/Scripts/Libraries/bootstrap-datepicker.min.js"></script>*@
         <!-- Slimscroll -->
         <script src="~/Scripts/Libraries/jquery.slimscroll.min.js"></script>
         <!-- FastClick -->

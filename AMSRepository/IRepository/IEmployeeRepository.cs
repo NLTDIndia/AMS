@@ -9,5 +9,6 @@ namespace AMSRepository.Repository
         Employee GetEmployeeByID(int employeeID);
         List<Employee> GetEmployees();
         Employee UpdateEmployee(Employee employee);
+        Employee GetEmployeeByCorpID(string cortpId);
     }
 }

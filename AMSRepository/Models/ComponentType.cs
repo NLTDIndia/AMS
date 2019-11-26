@@ -18,6 +18,7 @@ namespace AMSRepository.Models
         public ComponentType()
         {
             this.Components = new HashSet<Components>();
+            this.ComponentAssetMapping = new HashSet<ComponentAssetMapping>();
         }
     
         public int ID { get; set; }
@@ -27,10 +28,13 @@ namespace AMSRepository.Models
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
         public int AssetCategoryId { get; set; }
+        public Nullable<bool> Mandatory { get; set; }
     
         public virtual AssetTypes AssetTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Components> Components { get; set; }
         public virtual AssetCategory AssetCategory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ComponentAssetMapping> ComponentAssetMapping { get; set; }
     }
 }

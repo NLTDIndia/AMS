@@ -1,6 +1,5 @@
 ﻿using AMSRepository.Repository;
 using AMSRepository.Models;
-using AMSService.IService;
 using AMSUtilities.Common;
 using AMSUtilities.Models;
 using System;
@@ -9,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace AMSService.Service
 {
@@ -112,6 +112,21 @@ namespace AMSService.Service
             {
                 return new List<VendorModel> { };
             }
+        }
+
+        public SelectList GetDropdownVendors(int selectedId = -1)
+        {
+            List<SelectListItem> VerdorsItems = new List<SelectListItem> { new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Vendor", Value = "" } };
+            var Verdors = _vendorRepository.GetVendors();
+            if (Verdors != null && Verdors.Count > 0)
+            {
+                Verdors.ForEach(at =>
+                {
+                    VerdorsItems.Add(new SelectListItem { Selected = selectedId == at.ID ? true : false, Text = at.Name, Value = at.ID.ToString() });
+                });
+            }
+
+            return new SelectList(VerdorsItems, "Value", "Text");
         }
     }
 }

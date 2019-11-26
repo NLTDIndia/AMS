@@ -50,5 +50,7 @@ namespace AMSRepository.Models
         public virtual DbSet<Seats> Seats { get; set; }
         public virtual DbSet<SoftwareAssets> SoftwareAssets { get; set; }
         public virtual DbSet<Vendor> Vendor { get; set; }
+        public virtual DbSet<ComponentStatus> ComponentStatus { get; set; }
+        public virtual DbSet<ComponentTracker> ComponentTracker { get; set; }
     }
 }

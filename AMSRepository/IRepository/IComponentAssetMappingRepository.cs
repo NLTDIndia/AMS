@@ -8,6 +8,7 @@ namespace AMSRepository.Repository
         ComponentAssetMapping CreateComponentAssetMapping(ComponentAssetMapping componentAssetMapping);
         ComponentAssetMapping GetComponentAssetMappingByID(int componentAssetMappingID);
         List<ComponentAssetMapping> GetComponentAssetMappings();
+        List<ComponentAssetMapping> GetComponentAssetMappingsByAssetID(int assetID);
         ComponentAssetMapping UpdateComponentAssetMapping(ComponentAssetMapping componentAssetMapping);
     }
 }

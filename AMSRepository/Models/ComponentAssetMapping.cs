@@ -18,13 +18,18 @@ namespace AMSRepository.Models
         public int ComponentID { get; set; }
         public Nullable<int> AssignedAssetID { get; set; }
         public Nullable<int> ActualAssetID { get; set; }
-        public System.DateTime AssignedDate { get; set; }
-        public int AssignedBy { get; set; }
+        public Nullable<System.DateTime> AssignedDate { get; set; }
+        public Nullable<int> AssignedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
+        public int ComponentStatusId { get; set; }
+        public Nullable<bool> Mandatory { get; set; }
+        public Nullable<int> ComponentTypeID { get; set; }
     
         public virtual Assets Assets { get; set; }
         public virtual Assets Assets1 { get; set; }
         public virtual Components Components { get; set; }
+        public virtual ComponentStatus ComponentStatus { get; set; }
+        public virtual ComponentType ComponentType { get; set; }
     }
 }

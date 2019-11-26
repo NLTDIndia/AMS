@@ -7,7 +7,6 @@ using AMSUtilities.Common;
 using System.Reflection;
 using System.Resources;
 using System.Globalization;
-using AMSService.IService;
 using Unity;
 using AMSService.Service;
 using log4net;

@@ -17,9 +17,9 @@ namespace AMSService.Service
         private readonly IAssetCategoryService _assetCategoryService;
         private readonly IAssetTypeService _assetTypeService;
         private readonly IEmployeeService _employeeService;
-        public ComponentTypeService(IComponentTypeRepository componentTypeRepository, 
-            IAssetCategoryService assetCategoryService, 
-            IAssetTypeService assetTypeService, 
+        public ComponentTypeService(IComponentTypeRepository componentTypeRepository,
+            IAssetCategoryService assetCategoryService,
+            IAssetTypeService assetTypeService,
             IEmployeeService employeeService)
         {
             _componentTypeRepository = componentTypeRepository;
@@ -29,7 +29,7 @@ namespace AMSService.Service
         }
 
         public ComponentTypeModel GetComponentTypeModel(int? Id = null, int assetTypeId = -1, int? assetCategoryId = -1)
-        {           
+        {
             if (Id.HasValue)
             {
                 ComponentType componentType = _componentTypeRepository.GetComponentTypeByID(Id.Value);
@@ -40,9 +40,10 @@ namespace AMSService.Service
                         ID = componentType.ID,
                         Name = componentType.Name,
                         IsActive = componentType.IsActive,
+                        Mandatory = componentType.Mandatory,
                         AssetTypeID = componentType.AssetTypeID,
-                        AssetTypes = _assetTypeService.GetDropdownAssetTypes(null, componentType.AssetTypeID),
-                        AssetCategoryID = componentType.AssetCategoryId,
+                        AssetTypes = _assetTypeService.GetDropdownAssetTypes(componentType.AssetCategoryId, componentType.AssetTypeID),
+                        AssetCategoryId = componentType.AssetCategoryId,
                         AssetCategories = _assetCategoryService.GetDropdownAssetCategories(componentType.AssetCategoryId)
                     };
                 }
@@ -52,11 +53,12 @@ namespace AMSService.Service
                 }
             }
             else
-            {                
-                return new ComponentTypeModel { 
-                    AssetTypes = _assetTypeService.GetDropdownAssetTypes(assetCategoryId, assetTypeId) ,
+            {
+                return new ComponentTypeModel
+                {
+                    AssetTypes = _assetTypeService.GetDropdownAssetTypes(assetCategoryId, assetTypeId),
                     AssetCategories = _assetCategoryService.GetDropdownAssetCategories(assetCategoryId.Value)
-                
+
                 };
             }
         }
@@ -68,8 +70,9 @@ namespace AMSService.Service
                 {
                     Name = componentTypeModel.Name,
                     IsActive = componentTypeModel.IsActive,
+                    Mandatory = componentTypeModel.Mandatory,
                     AssetTypeID = componentTypeModel.AssetTypeID,
-                    AssetCategoryId = componentTypeModel.AssetCategoryID,
+                    AssetCategoryId = componentTypeModel.AssetCategoryId,
                     CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
                     CreatedDate = DateTime.Now
                 };
@@ -90,8 +93,9 @@ namespace AMSService.Service
             {
                 componentType.Name = componentTypeModel.Name;
                 componentType.AssetTypeID = componentTypeModel.AssetTypeID;
-                componentType.AssetCategoryId = componentTypeModel.AssetCategoryID;
+                componentType.AssetCategoryId = componentTypeModel.AssetCategoryId;
                 componentType.IsActive = componentTypeModel.IsActive;
+                componentType.Mandatory = componentTypeModel.Mandatory;
 
             }
             _componentTypeRepository.UpdateComponentType(componentType);
@@ -100,12 +104,12 @@ namespace AMSService.Service
 
         public bool ComponentTypeStatus(int id, bool status)
         {
-                ComponentType componentType = _componentTypeRepository.GetComponentTypeByID(id);
-            if (componentType!=null)
+            ComponentType componentType = _componentTypeRepository.GetComponentTypeByID(id);
+            if (componentType != null)
             {
                 componentType.IsActive = status;
                 _componentTypeRepository.UpdateComponentType(componentType);
-                return true; 
+                return true;
             }
             else
             {
@@ -131,18 +135,17 @@ namespace AMSService.Service
 
         public SelectList GetDropdownComponentTypes(int selectedId = -1)
         {
-            List<SelectListItem> componentTypeItems = new List<SelectListItem> { new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Component Type", Value = "" } };
-            var componentTypes = _componentTypeRepository.GetComponentTypes();
-            if (componentTypes != null && componentTypes.Count > 0)
+            List<SelectListItem> componenttypes = new List<SelectListItem> { new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Component Type", Value = "" } };
+            var components = _componentTypeRepository.GetComponentTypes();
+            if (components != null && components.Count > 0)
             {
-                componentTypes.ForEach(at =>
+                components.ForEach(ct =>
                 {
-                    componentTypeItems.Add(new SelectListItem { Selected = selectedId == at.ID ? true : false, Text = at.Name, Value = at.ID.ToString() });
+                    componenttypes.Add(new SelectListItem { Selected = selectedId == ct.ID ? true : false, Text = ct.Name, Value = ct.ID.ToString() });
                 });
             }
 
-            return new SelectList(componentTypeItems, "Value", "Text");
-
+            return new SelectList(componenttypes, "Value", "Text");
         }
 
         private static List<ComponentTypeModel> GetComponentTypesModel(List<ComponentType> componentTypes)
@@ -154,9 +157,10 @@ namespace AMSService.Service
                     ID = ct.ID,
                     Name = ct.Name,
                     IsActive = ct.IsActive,
+                    Mandatory = ct.Mandatory,
                     AssetTypeID = ct.AssetTypeID,
                     AssetTypeName = ct.AssetTypes.Description,
-                    AssetCategoryID = ct.AssetCategoryId,
+                    AssetCategoryId = ct.AssetCategoryId,
                     AssetCategoryName = ct.AssetCategory.Description
                 }).ToList();
             }
