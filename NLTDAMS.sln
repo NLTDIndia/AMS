@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMSService", "AMSService\AM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMSUtilities", "AMSUtilities\AMSUtilities.csproj", "{1AA313F2-10E9-4E3E-9DE5-AA1C68DE5E6F}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AMS", "AMS\AMS.sqlproj", "{34F33DC1-6169-4F0B-9841-B3953CE1A2D6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +33,6 @@ Global
 		{1AA313F2-10E9-4E3E-9DE5-AA1C68DE5E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AA313F2-10E9-4E3E-9DE5-AA1C68DE5E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AA313F2-10E9-4E3E-9DE5-AA1C68DE5E6F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34F33DC1-6169-4F0B-9841-B3953CE1A2D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34F33DC1-6169-4F0B-9841-B3953CE1A2D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34F33DC1-6169-4F0B-9841-B3953CE1A2D6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{34F33DC1-6169-4F0B-9841-B3953CE1A2D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34F33DC1-6169-4F0B-9841-B3953CE1A2D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34F33DC1-6169-4F0B-9841-B3953CE1A2D6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
