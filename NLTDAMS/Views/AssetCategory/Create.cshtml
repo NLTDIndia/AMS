@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "AssetCategory", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-sm-5">
                             <div class="form-group">
-                                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", rows= 5 })
+                                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", rows = 5 })
                                 @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                     <div class="row">
                         <div class="col-sm-7" align="right">
                             <input type="submit" value="Create" class="btn btn-primary" />
-                            <input type="button" value="Cancel" class="btn btn-primary" onclick='window.location.href = "@Url.Action("List", "AssetCategory", routeValues: null)"'/>
+                            <input type="button" value="Cancel" class="btn btn-primary" onclick='window.location.href = "@Url.Action("List", "AssetCategory", routeValues: null)"' />
                         </div>
                     </div>
 
@@ -61,3 +61,5 @@
         </div>
     </div>
 }
+
+@Scripts.Render("~/bundles/jqueryval")

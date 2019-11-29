@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit","ComponentType",FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -19,6 +19,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model=>model.ID)
                             </div>
                         </div>
                     </div>
@@ -83,7 +84,7 @@
                         </div>
                         <div class="col-sm-5">
                             <div class="form-group">
-                                @Html.CheckBoxFor(model => model.Mandatory.Value)
+                                @Html.CheckBoxFor(model => model.Mandatory)
                                 @Html.ValidationMessageFor(model => model.Mandatory, "", new { @class = "text-danger" })
                             </div>
                         </div>

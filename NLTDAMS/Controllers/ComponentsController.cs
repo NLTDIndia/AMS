@@ -80,7 +80,7 @@ namespace NLTDAMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateComponents(int id,ComponentsModel componentModel)
+        public ActionResult UpdateComponents(ComponentsModel componentModel)
         {
             try
             {

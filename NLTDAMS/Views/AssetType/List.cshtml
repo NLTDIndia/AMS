@@ -53,6 +53,38 @@
 <script>
     $(document).ready(function () {
         DisplayMessage("@TempData["MessageType"]","@TempData["Message"]");
-        $('#assetTypes').DataTable();
+        //$('#assetTypes').DataTable();
+
+         // Setup - add a text input to each footer cell
+    $('#assetTypes thead tr').clone(true).appendTo('#assetTypes thead');
+    var Length = 0;
+    $('#assetTypes thead tr:eq(1) th').each(function (i) {
+        Length = Length + 1;
+    });
+    Length = Length - 1;
+    $('#assetTypes thead tr:eq(1) th').each(function (i) {
+        if (i < Length) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" class="form-control" style="width:150px;" placeholder="'+title+'" />' );
+
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+        }
+        else {
+            $(this).empty("");
+        }
+    });
+
+    var table = $('#assetTypes').DataTable({
+        orderCellsTop: true,
+        fixedHeader: true,
+         retrieve: true,
+    });
     })
 </script>

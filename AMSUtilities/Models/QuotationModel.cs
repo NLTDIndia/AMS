@@ -14,6 +14,9 @@ namespace AMSUtilities.Models
         public int ID { get; set; }
         [Required(ErrorMessage ="Vendor is Required")]
         public int VendorID { get; set; }
+
+        [Required(ErrorMessage = "Asset Request is Required")]
+        [Display(Name ="Asset Request")]
         public int AssetRequestID { get; set; }
 
         [Display(Name = "Quotation")]
@@ -37,5 +40,6 @@ namespace AMSUtilities.Models
         [Required(ErrorMessage = "Quotation is Required")]
        // [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.pdf)$", ErrorMessage = "Only PDF files allowed.")]
         public HttpPostedFileBase QuotationFile { get; set; }
+        public SelectList AssetRequestddl { get; set; }
     }
 }

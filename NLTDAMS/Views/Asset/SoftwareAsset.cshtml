@@ -133,7 +133,7 @@
              DisplayMessage('@TempData["MessageType"]', '@TempData["Message"]')
          }
     $("#btnCancel").on("click", function () {
-        var url = '@Url.Action("CreateAsset", "Asset")';
+        var url = '@Url.Action("ManageAssets", "Asset")';
         document.getElementById("formCreateAsset").action = url;
         document.getElementById("formCreateAsset").submit();
     });

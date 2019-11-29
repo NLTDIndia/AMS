@@ -86,7 +86,7 @@
                                 @{
                                     Model.Mandatory = false;
                                 }
-                                @Html.CheckBoxFor(model => model.Mandatory.Value)
+                                @Html.CheckBoxFor(model => model.Mandatory)
                                 @Html.ValidationMessageFor(model => model.Mandatory, "", new { @class = "text-danger" })
                             </div>
                         </div>

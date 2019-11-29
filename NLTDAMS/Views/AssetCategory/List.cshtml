@@ -54,7 +54,39 @@
 <script>
     $(document).ready(function () {
         DisplayMessage("@TempData["MessageType"]","@TempData["Message"]");
-        $('#assetCategories').DataTable();       
+        //$('#assetCategories').DataTable();  
+
+             // Setup - add a text input to each footer cell
+    $('#assetCategories thead tr').clone(true).appendTo('#assetCategories thead');
+    var Length = 0;
+    $('#assetCategories thead tr:eq(1) th').each(function (i) {
+        Length = Length + 1;
+    });
+    Length = Length - 1;
+    $('#assetCategories thead tr:eq(1) th').each(function (i) {
+        if (i < Length) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" class="form-control" style="width:150px;" placeholder="'+title+'" />' );
+
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+        }
+        else {
+            $(this).empty("");
+        }
+    });
+
+    var table = $('#assetCategories').DataTable({
+        orderCellsTop: true,
+        fixedHeader: true,
+         retrieve: true,
+    });
     })
 </script>
 

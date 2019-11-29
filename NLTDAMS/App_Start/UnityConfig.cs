@@ -62,6 +62,7 @@ namespace NLTDAMS
             container.RegisterType<IComponentsService, ComponentsService>();
             container.RegisterType<IComponentTrackerService, ComponentTrackerService>();
             container.RegisterType<IQuotationService, QuotationService>();
+            container.RegisterType<IAssetRequestService, AssetRequestService>();
             //Register Repository 
             container.RegisterType<IAssetRepository, AssetRepository>();
             container.RegisterType<IAssetTrackerRepository, AssetTrackerRepository>();
@@ -84,6 +85,7 @@ namespace NLTDAMS
             container.RegisterType<IQuotationStatusRepository, QuotationStatusRepository>();
             container.RegisterType<IVendorRepository, VendorRepository>();
             container.RegisterType<IComponentTrackerRepository, ComponentTrackerRepository>();
+            container.RegisterType<IAssetRequestRepository, AssetRequestRepository>();
         }
     }
 }

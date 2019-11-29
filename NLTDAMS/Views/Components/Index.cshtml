@@ -24,6 +24,8 @@
                     <th>Component Name</th>
                     <th>Component Type</th>
                     <th>Description</th>
+                    <th>Assigned Count</th>
+                    <th>Unassigned Count</th>
                     <th>Action</th>
 
                 </tr>
@@ -33,12 +35,14 @@
                 {
                   
                 <tr>
-                    
+
                     <td>@item.ComponentName</td>
                     <td>@item.ComponentTypeName</td>
                     <td>@item.Description</td>
+                    <td>@item.AssignedCount</td>
+                    <td>@item.UnAssignedCount</td>
                     <td>
-                    <a class="fa fa-edit" data-toggle="tooltip" title="Edit" href="@Url.Action("UpdateComponents", "Components", new { id = item.ID })"></a>
+                        <a class="fa fa-edit" data-toggle="tooltip" title="Edit" href="@Url.Action("UpdateComponents", "Components", new { id = item.ID })"></a>
                     </td>
 
                 </tr>

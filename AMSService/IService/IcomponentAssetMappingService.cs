@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using AMSRepository.Models;
 using AMSUtilities.Models;
 
@@ -16,8 +17,8 @@ namespace AMSService.Service
         List<ComponentAssetMappingModel> GetComponentAssetMappings();
         List<ComponentAssetMappingModel> GetComponentAssetMappingsByAssetID(int assetID);
         ComponentAssetMappingModel GetComponentByID(int id);
-        ComponentAssetMappingModel GetComponentModel(ComponentAssetMapping componentmapping, System.Web.Mvc.SelectList ddlassets);
-        System.Web.Mvc.SelectList GetDropdownAssets(int selectedId = -1);
+        ComponentAssetMappingModel GetComponentModel(ComponentAssetMapping componentmapping);
+        SelectList GetDropdownAssets(int selectedId = -1);
         ComponentAssetMappingModel UnassignComponents(ComponentAssetMappingModel componentAssetMappingModel);
         int UpdateComponentAssetMapping(ComponentAssetMappingModel componentAssetMapping);
     }

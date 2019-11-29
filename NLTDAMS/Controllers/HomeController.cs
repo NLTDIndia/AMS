@@ -17,10 +17,15 @@ namespace NLTDAMS.Controllers
     {
         ILog _logger;
         IAssetService _assetService;
-        public HomeController(IAssetService assetService,ILog logger)
+        IEmployeeAssetMappingService _employeeAssetMappingService;
+
+        public HomeController(IAssetService assetService, ILog logger, IEmployeeAssetMappingService employeeAssetMappingService)
         {
             _logger = logger;
             _assetService = assetService;
+            _employeeAssetMappingService = employeeAssetMappingService;
+
+
         }
         //readonly IAssetService assetServices = UnityConfig.Container.Resolve<IAssetService>();
         ResourceManager rm = new ResourceManager("NLTDAMS.Properties.Resources", Assembly.GetExecutingAssembly());
@@ -41,6 +46,11 @@ namespace NLTDAMS.Controllers
 
             return View();
         }
-       
+
+        public ActionResult EmployeeAssetDetails()
+        {
+            var employeeAssetMappingComponents = _employeeAssetMappingService.GetEmployeeAssetMappingsDetails();
+            return View(employeeAssetMappingComponents);
+        }
     }
 }

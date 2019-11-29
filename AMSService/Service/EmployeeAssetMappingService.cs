@@ -6,15 +6,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace AMSService.Service
 {
     public class EmployeeAssetMappingService : IEmployeeAssetMappingService
     {
         private readonly IEmployeeAssetMappingRepository _employeeAssetMappingRepository;
-        public EmployeeAssetMappingService(IEmployeeAssetMappingRepository employeeAssetMappingRepository)
+        private readonly IEmployeeService _employeeService;
+        public EmployeeAssetMappingService(IEmployeeAssetMappingRepository employeeAssetMappingRepository, IEmployeeService employeeService)
         {
             _employeeAssetMappingRepository = employeeAssetMappingRepository;
+            _employeeService = employeeService;
         }
 
         public List<EmployeeAssetMappingModel> GetEmployeeAssetMappingsModel()
@@ -39,22 +42,30 @@ namespace AMSService.Service
                 return new List<EmployeeAssetMappingModel> { };
             }
         }
-        //public int CreateEmployeeAssetMapping(EmployeeAssetMappingModel employeeAssetMappingModel)
-        //{
-        //    EmployeeAssetMapping EmployeeAssetMapping = null;
-        //    EmployeeAssetMapping = this._employeeAssetMappingRepository.CreateEmployeeAssetMapping(new EmployeeAssetMapping()
-        //    {
-        //        EmployeeID = employeeAssetMappingModel.EmployeeID,
-        //        AssetID = employeeAssetMappingModel.AssetID,
-        //        CreatedDate = DateTime.Now,
-        //        CreatedBy = employeeAssetMappingModel.CreatedBy
-        //    });
-        //    return EmployeeAssetMapping.ID;
-        //}
 
-        //public void DeleteEmployeeAssetMapping(int Id)
-        //{
-        //    this._employeeAssetMappingRepository.DeleteEmployeeAssetMappingByID(Id);
-        //}
+        public List<EmployeeAssetMappingModel> GetEmployeeAssetMappingsDetails()
+        {
+            int EmployeeID = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID;
+            var employeeAssetMappings = _employeeAssetMappingRepository.GetEmployeeAssetMappings().Where(eam => eam.EmployeeID == EmployeeID).ToList();
+            if (employeeAssetMappings != null && employeeAssetMappings.Count > 0)
+            {
+                return employeeAssetMappings.Select(eam => new EmployeeAssetMappingModel
+                {
+                    ID = eam.ID,
+                    EmployeeID = eam.EmployeeID,
+                    EmployeeName = eam.Employee.EmployeeName,
+                    AssetID = eam.AssetID,
+                    AssetName = eam.Assets.AssetName,
+                    CreatedDate = eam.CreatedDate,
+                    CreatedBy = eam.CreatedBy
+
+                }).ToList();
+            }
+            else
+            {
+                return new List<EmployeeAssetMappingModel> { };
+            }
+        }
+
     }
 }

@@ -38,6 +38,7 @@ namespace NLTDAMS.Controllers
                 return View(assetModel);
             }
         }
+        [Authorize(Roles ="Admin")]
         public ActionResult HardwareAsset()
         {
 
@@ -116,6 +117,7 @@ namespace NLTDAMS.Controllers
                 return RedirectToAction("HardwareAsset");
             }
         }
+        [Authorize(Roles = "Admin")]
         public ActionResult SoftwareAsset()
         {
             SoftwareAssetModel softwareAssetModel = new SoftwareAssetModel();
@@ -413,5 +415,6 @@ namespace NLTDAMS.Controllers
                                     }).Distinct().ToList();
             return Json(ManufacturerAuto);
         }
+
     }
 }

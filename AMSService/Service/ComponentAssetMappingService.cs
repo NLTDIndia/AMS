@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using AMSRepository.Models;
 using AMSRepository.Repository;
+using AMSUtilities.Enums;
 using AMSUtilities.Models;
 
 namespace AMSService.Service
@@ -105,9 +106,16 @@ namespace AMSService.Service
                 componentsViewModel.ComponentTypeName = componentmapping.ComponentType.Name;
                 componentsViewModel.AssignedAssetID = componentmapping.AssignedAssetID;
                 componentsViewModel.ComponentStatusId = componentmapping.ComponentStatusId;               
-                if (componentsViewModel.AssignedAssetID != null && componentsViewModel.ComponentStatusId == 1)
+                if (componentsViewModel.AssignedAssetID != null && componentsViewModel.ComponentStatusId == (int)ComponentTrackingStatus.Assign)
                 {
-                    componentsViewModel.AssetName = componentmapping.Assets1.AssetName;
+                    if(componentmapping.Assets1 != null)
+                    {
+                        componentsViewModel.AssetName = componentmapping.Assets1.AssetName;
+                    }
+                    else if(componentmapping.Assets != null)
+                    {
+                        componentsViewModel.AssetName = componentmapping.Assets.AssetName;
+                    }
                 }
                 getAllComponents.Add(componentsViewModel);
             });
@@ -118,9 +126,8 @@ namespace AMSService.Service
             var componentmapping = _componentAssetMappingRepository.GetComponentAssetMappingByID(id);
             if (componentmapping != null)
             {
-
-                 var ddlassets = GetDropdownAssets();
-                 return GetComponentModel(componentmapping, ddlassets);;
+              
+                return GetComponentModel(componentmapping);;
             }
             else
             {
@@ -137,7 +144,7 @@ namespace AMSService.Service
                 assignComponents.AssignedAssetID = componentAssetMappingModel.AssignedAssetID;
                 assignComponents.AssignedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID;
                 assignComponents.AssignedDate = DateTime.Now;
-                assignComponents.ComponentStatusId = Convert.ToInt32(AMSUtilities.Enums.ComponentStatus.Assign);
+                assignComponents.ComponentStatusId = Convert.ToInt32(AMSUtilities.Enums.ComponentTrackingStatus.Assign);
              }
             _componentAssetMappingRepository.UpdateComponentAssetMapping(assignComponents);
             return componentAssetMappingModel;
@@ -147,25 +154,38 @@ namespace AMSService.Service
             ComponentAssetMapping unassignComponents = _componentAssetMappingRepository.GetComponentAssetMappingByID(componentAssetMappingModel.ID);
             if (unassignComponents != null)
             {
-                unassignComponents.ComponentStatusId = Convert.ToInt32(AMSUtilities.Enums.ComponentStatus.Unassign);
+                unassignComponents.ComponentStatusId = Convert.ToInt32(AMSUtilities.Enums.ComponentTrackingStatus.Unassign);
+                unassignComponents.AssignedAssetID = null;
             }
             _componentAssetMappingRepository.UpdateComponentAssetMapping(unassignComponents);
              return componentAssetMappingModel;
         }
-        public ComponentAssetMappingModel GetComponentModel(ComponentAssetMapping componentmapping, SelectList ddlassets)
+        public ComponentAssetMappingModel GetComponentModel(ComponentAssetMapping componentmapping)
         {
+
+            var componentStatusID = componentmapping.ComponentStatusId;
+
             ComponentAssetMappingModel componetModel = new ComponentAssetMappingModel
             {
                 ID = componentmapping.ID,
                 ComponentName = componentmapping.Components.ComponentName,
                 ComponentID = componentmapping.ComponentID,
                 ComponentTypeID = componentmapping.Components.ComponentTypeID,
-                ComponentTypeName = componentmapping.Components.ComponentType.Name,                
-                Assets = ddlassets,
-                AssignedAssetID = componentmapping.AssignedAssetID,
-                AssetName = componentmapping.Assets1.AssetName,
+                ComponentTypeName = componentmapping.Components.ComponentType.Name,
 
             };
+            if (componentStatusID == (int)AMSUtilities.Enums.ComponentTrackingStatus.Assign)
+            {
+                if (componentmapping.Assets != null)
+                {
+                    componetModel.AssetName = componentmapping.Assets.AssetName;
+                }
+                else if (componentmapping.Assets1 != null)
+                {
+                    componetModel.AssetName = componentmapping.Assets1.AssetName;
+                }
+
+            }
 
             return componetModel;
         }

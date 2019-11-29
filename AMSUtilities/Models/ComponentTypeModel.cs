@@ -24,7 +24,7 @@ namespace AMSUtilities.Models
         [Required]
         [Display(Name="Active")]
         public bool IsActive { get; set; }
-        public bool? Mandatory { get; set; }
+        public bool Mandatory { get; set; }
         public SelectList AssetType { get; set; }
 
 

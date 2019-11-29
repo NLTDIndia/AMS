@@ -65,7 +65,7 @@ namespace AMSService.Service
                     var componentAssetMapping = _componentAssetMappingService.CreateComponentMapping(new ComponentAssetMappingModel
                     {
                         ComponentID = components.ID,
-                        ComponentStatusId = (int)AMSUtilities.Enums.ComponentStatus.Unassign,
+                        ComponentStatusId = (int)AMSUtilities.Enums.ComponentTrackingStatus.Unassign,
                         CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
                         CreatedDate = DateTime.Now,
                         ComponentTypeID = components.ComponentTypeID
@@ -77,7 +77,7 @@ namespace AMSService.Service
                 var componentAssetMapping = _componentAssetMappingService.CreateComponentMapping(new ComponentAssetMappingModel
                 {
                     ComponentID = componentName.ID,
-                    ComponentStatusId = (int)AMSUtilities.Enums.ComponentStatus.Unassign,
+                    ComponentStatusId = (int)AMSUtilities.Enums.ComponentTrackingStatus.Unassign,
                     CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
                     CreatedDate = DateTime.Now,
                     ComponentTypeID = componentName.ComponentTypeID
@@ -134,7 +134,9 @@ namespace AMSService.Service
                 componentsViewModel.ComponentName = components.ComponentName;
                 componentsViewModel.ComponentTypeID = components.ComponentTypeID;
                 componentsViewModel.ComponentTypeName = components.ComponentType.Name;
-                componentsViewModel.Description = components.Description;               
+                componentsViewModel.Description = components.Description;
+                componentsViewModel.AssignedCount = components.ComponentAssetMapping.Where(cap => cap.ComponentStatusId == (int)AMSUtilities.Enums.ComponentStatus.Assign).Count();
+                componentsViewModel.UnAssignedCount = components.ComponentAssetMapping.Where(cap => cap.ComponentStatusId == (int)AMSUtilities.Enums.ComponentStatus.Unassign).Count();
                 getAllComponents.Add(componentsViewModel);
             });
             return getAllComponents;

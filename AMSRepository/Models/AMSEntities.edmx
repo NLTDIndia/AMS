@@ -149,7 +149,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="AssetCategoryId" Type="int" Nullable="false" />
-          <Property Name="Mandatory" Type="bit" />
+          <Property Name="Mandatory" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -166,6 +166,8 @@
           <Property Name="ISActive" Type="bit" Nullable="false" />
           <Property Name="ManagerID" Type="int" />
           <Property Name="CorpId" Type="varchar" MaxLength="50" />
+          <Property Name="RelievingDate" Type="date" />
+          <Property Name="JoiningDate" Type="date" />
         </EntityType>
         <EntityType Name="EmployeeAssetMapping">
           <Key>
@@ -997,7 +999,7 @@
           <NavigationProperty Name="Components" Relationship="Self.FK_Components_ComponentType" FromRole="ComponentType" ToRole="Components" />
           <Property Name="AssetCategoryId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssetCategory" Relationship="AMSModel.FK_ComponentType_AssetCategory" FromRole="ComponentType" ToRole="AssetCategory" />
-          <Property Name="Mandatory" Type="Boolean" />
+          <Property Name="Mandatory" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ComponentAssetMapping" Relationship="AMSModel.FK_ComponentAssetMapping_ComponentTypeID" FromRole="ComponentType" ToRole="ComponentAssetMapping" />
         </EntityType>
         <EntityType Name="Employee">
@@ -1021,6 +1023,8 @@
           <NavigationProperty Name="Seats" Relationship="Self.FK__Employee__SeatID__5165187F" FromRole="Employee" ToRole="Seats" />
           <NavigationProperty Name="EmployeeAssetMapping" Relationship="Self.FK_EmployeeAssetMapping_Employee" FromRole="Employee" ToRole="EmployeeAssetMapping" />
           <NavigationProperty Name="Vendor" Relationship="Self.FK_Vendor_Employee" FromRole="Employee" ToRole="Vendor" />
+          <Property Name="RelievingDate" Type="DateTime" Precision="0" />
+          <Property Name="JoiningDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="EmployeeAssetMapping">
           <Key>
@@ -1887,6 +1891,8 @@
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="AMSModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+                <ScalarProperty Name="RelievingDate" ColumnName="RelievingDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="EmployeeRoleID" ColumnName="EmployeeRoleID" />

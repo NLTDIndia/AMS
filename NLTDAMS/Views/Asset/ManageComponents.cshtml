@@ -23,6 +23,20 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                     <div class="box-body">
+                        @{
+                            int count = 1;
+                            if (Model.ComponentAssetMapping != null)
+                            {
+                                if (Model.ComponentAssetMapping.ToList().Count == 0)
+                                {
+                                    Model.ComponentAssetMapping = new List<AMSUtilities.Models.ComponentAssetMappingModel>() { };
+                                }
+                            }
+                            else if(Model.ComponentAssetMapping == null)
+                            {
+                                Model.ComponentAssetMapping = new List<AMSUtilities.Models.ComponentAssetMappingModel>() { };
+                            }
+                        }
                         @if (Model.ComponentTypeModels != null)
                         {
                             if (Model.ComponentTypeModels.ToList().Count > 0)
@@ -65,51 +79,39 @@
                                             @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeName", @item.Name)
                                             @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeID", @item.ID)
                                             @Html.Hidden("ComponentAssetMapping[" + i + "].AssetCategoryId", @item.AssetCategoryId)
-
-                                            @if (Model.ComponentAssetMapping != null)
+                                
+                                            @if (Model.ComponentAssetMapping.ToList().Count > 0)
                                             {
-                                                if (Model.ComponentAssetMapping.ToList().Count > 0)
+                                                var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
+                                                if (component != null || item.Mandatory == true)
                                                 {
-                                                    var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
-                                                    if (component != null)
-                                                    {
-                                                        <div class="col-sm-2">
-                                                            @Html.CheckBox("ComponentAssetMapping[" + i + "].Mandatory", (bool)component.Mandatory, new { @id = mandateId, @class = "minimalCheck minimal" })
-                                                        </div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="col-sm-2">
-                                                            @Html.CheckBox("ComponentAssetMapping[" + i + "].Mandatory", (bool)false, new { @id = mandateId, @class = "minimalCheck minimal" })
-                                                        </div>
-                                                    }
+                                                    <div class="col-sm-2">
+                                                        @Html.CheckBox("ComponentAssetMapping[" + i + "].Mandatory", (bool)item.Mandatory, new { @id = mandateId, @class = "minimalCheck minimal",@disabled = "true" })
+                                                    </div>
                                                 }
-                                            }
+                                                else
+                                                {
+                                                    <div class="col-sm-2">
+                                                        @Html.CheckBox("ComponentAssetMapping[" + i + "].Mandatory", (bool)false, new { @id = mandateId, @class = "minimalCheck minimal",@disabled = "true" })
+                                                    </div>
+                                                }
+                                            }                          
                                             else
                                             {
-                                                <div class="col-sm-2">
-                                                    @Html.CheckBox("ComponentAssetMapping[" + i + "].Mandatory", (bool)item.Mandatory, new { @id = mandateId, @class = "minimalCheck minimal" })
-                                                </div>
+                                               <div class="col-sm-2">
+                                                   @Html.CheckBox("ComponentAssetMapping[" + i + "].Mandatory", (bool)item.Mandatory, new { @id = mandateId, @class = "minimalCheck minimal",@disabled = "true" })
+                                               </div>
                                             }
-                                            @if (Model.ComponentAssetMapping != null)
+
+                                            @if (item.Mandatory == true)
                                             {
                                                 if (Model.ComponentAssetMapping.ToList().Count > 0)
                                                 {
-                                                    var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
-                                                    if (component != null)
+                                                    if (Model.ComponentAssetMapping.ToList().Count >= count)
                                                     {
-                                                        if (component.Mandatory == true)
-                                                        {
-                                                            <div class="col-sm-7">
-                                                                @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })
-                                                            </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="col-sm-7">
-                                                                @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
-                                                            </div>
-                                                        }
+                                                        <div class="col-sm-7">
+                                                            @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })
+                                                        </div>
                                                     }
                                                     else
                                                     {
@@ -118,22 +120,20 @@
                                                         </div>
                                                     }
                                                 }
-                                            }
-                                            else
-                                            {
-                                                if (item.Mandatory == true)
+                                                else
                                                 {
                                                     <div class="col-sm-7">
                                                         @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })
                                                     </div>
                                                 }
-                                                else
-                                                {
-                                                    <div class="col-sm-7">
-                                                        @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
-                                                    </div>
-                                                }
+                                                count++;
                                             }
+                                            else
+                                            {
+                                                <div class="col-sm-7">
+                                                    @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
+                                                </div>
+                                            }                                       
                                             <div class="col-sm-1 text-left">
                                                 <a data-toggle="modal" data-target="#@modalId" data-select="assigned_user_select" data-backdrop="static" class="btn btn-sm btn-default">New</a>
                                             </div>

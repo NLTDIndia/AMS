@@ -68,7 +68,7 @@ namespace NLTDAMS.Controllers
 
         // POST: AssetType/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, AssetTypeModel assetTypeModel)
+        public ActionResult Edit(AssetTypeModel assetTypeModel)
         {
             try
             {

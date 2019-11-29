@@ -4,10 +4,10 @@
     ViewBag.Title = "Create";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "AssetType", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="row">
         <div class="col-sm-12">
             <div class="box box-primary">
@@ -62,4 +62,6 @@
     </div>
 }
 
+
+@Scripts.Render("~/bundles/jqueryval")
 

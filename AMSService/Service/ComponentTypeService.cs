@@ -136,7 +136,7 @@ namespace AMSService.Service
         public SelectList GetDropdownComponentTypes(int selectedId = -1)
         {
             List<SelectListItem> componenttypes = new List<SelectListItem> { new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Component Type", Value = "" } };
-            var components = _componentTypeRepository.GetComponentTypes();
+            var components = _componentTypeRepository.GetComponentTypes().Where(ct=>ct.IsActive== true).ToList();
             if (components != null && components.Count > 0)
             {
                 components.ForEach(ct =>

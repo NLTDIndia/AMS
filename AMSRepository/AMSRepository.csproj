@@ -156,6 +156,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AssetRepository.cs" />
+    <Compile Include="Repository\AssetRequestRepository.cs" />
     <Compile Include="Repository\AssetTrackerRepository.cs" />
     <Compile Include="Repository\AssetTypeRepository.cs" />
     <Compile Include="Repository\AssetCategoryRepository.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="IRepository\IAssetRepository.cs" />
     <Compile Include="IRepository\IAssetTrackerRepository.cs" />
     <Compile Include="Repository\HardwareAssetRepository.cs" />
+    <Compile Include="IRepository\IAssetRequestRepository.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
     <Compile Include="Repository\AssetPurchaseOrderMappingRepository.cs" />
     <Compile Include="Repository\PurchaseOrderRepository.cs" />

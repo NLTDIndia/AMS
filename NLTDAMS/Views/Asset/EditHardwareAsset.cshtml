@@ -245,7 +245,7 @@
         $("#modelNumber").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: '/Asset/AutoCompleteForModel/',
+                    url: '@Url.Content("~/Asset/AutoCompleteForModel/")',
                     data: "{ 'prefix': '" + request.term + "'}",
                     dataType: "json",
                     type: "POST",
@@ -276,7 +276,7 @@
         $("#manufacturer").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: '/Asset/AutoCompleteForManufacturer/',
+                    url: '@Url.Content("~/Asset/AutoCompleteForManufacturer/")',
                     data: "{ 'prefix': '" + request.term + "'}",
                     dataType: "json",
                     type: "POST",

@@ -9,5 +9,6 @@ namespace AMSService.Service
         EmployeeModel GetEmployeeByCorpId(string corpId);
         SelectList GetDropdownEmployees(int selectedId = -1);
         int GetEmployeeId(string corpId = null);
+        EmployeeModel ValidateUser();
     }
 }

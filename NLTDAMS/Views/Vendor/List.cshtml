@@ -55,6 +55,35 @@
 <script>
     $(document).ready(function () {
         DisplayMessage("@TempData["MessageType"]","@TempData["Message"]");
-        $('#vendors').DataTable();
+        // Setup - add a text input to each footer cell
+    $('#vendors thead tr').clone(true).appendTo('#vendors thead');
+    var Length = 0;
+    $('#vendors thead tr:eq(1) th').each(function (i) {
+        Length = Length + 1;
+    });
+    Length = Length - 1;
+    $('#vendors thead tr:eq(1) th').each(function (i) {
+        if (i < Length) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" class="form-control" style="width:150px;" placeholder="'+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+        }
+        else {
+            $(this).empty("");
+        }
+    });
+ 
+    var table = $('#vendors').DataTable({
+        orderCellsTop: true,
+        fixedHeader: true
+    });
     })
 </script>

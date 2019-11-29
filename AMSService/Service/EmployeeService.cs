@@ -136,5 +136,10 @@ namespace AMSService.Service
             var employee = _employeeRepository.GetEmployeeByCorpID(corpId);
             return employee.ID;
         }
+
+        public EmployeeModel ValidateUser()
+        {
+            return GetEmployeeByCorpId(GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).CorpId);
+        }
     }
 }

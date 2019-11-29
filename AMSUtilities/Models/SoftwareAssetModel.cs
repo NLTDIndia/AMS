@@ -27,13 +27,13 @@ namespace AMSUtilities.Models
         [Display(Name = "Product Name")]
         public string ProductName { get; set; }
         [Required(ErrorMessage = "Please enter Licence Number")]
-        [Display(Name = "Licence Number")]
+        [Display(Name = "License Number")]
         public string LicenceNumber { get; set; }
         [Required(ErrorMessage = "Please enter Licence Purchase Date")]
-        [Display(Name = "Licence Purchase Date")]
+        [Display(Name = "License Purchase Date")]
         public DateTime LicencePurchaseDate { get; set; }
         [Required(ErrorMessage = "Please enter Licence Expiry Date")]
-        [Display(Name = "Licence Expiry Date")]
+        [Display(Name = "License Expiry Date")]
         public DateTime LicenceExpiryDate { get; set; }
         public string Comment { get; set; }
         public int InvoiceId { get; set; }

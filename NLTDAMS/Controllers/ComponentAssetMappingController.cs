@@ -22,14 +22,18 @@ namespace NLTDAMS.Controllers
         // GET: ComponentAssetMapping
         public ActionResult List()
         {
-
             var Components = _componentAssetMappingService.GetComponentAssetMappings();
             return View(Components);
         }
 
         public ActionResult AssignComponents(int ID)
         {
+            ComponentAssetMappingModel componentAssetMappingModel = new ComponentAssetMappingModel()
+            {
+                Assets = _componentAssetMappingService.GetDropdownAssets()
+            };
             var components = _componentAssetMappingService.GetComponentByID(ID);
+            components.Assets = componentAssetMappingModel.Assets;
             return PartialView("../Shared/_AssignComponents", components);
 
         }

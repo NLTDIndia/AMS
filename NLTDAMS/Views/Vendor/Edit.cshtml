@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Vendor", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -101,3 +101,4 @@
     </div>
 }
 
+@Scripts.Render("~/bundles/jqueryval")

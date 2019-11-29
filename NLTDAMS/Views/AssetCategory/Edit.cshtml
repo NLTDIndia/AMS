@@ -4,7 +4,7 @@
     ViewBag.Title = "Update";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "AssetCategory", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -19,6 +19,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model=>model.ID)
                             </div>
                         </div>
                     </div>
@@ -61,3 +62,5 @@
         </div>
     </div>
 }
+
+@Scripts.Render("~/bundles/jqueryval")

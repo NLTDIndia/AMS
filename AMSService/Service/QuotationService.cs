@@ -13,10 +13,12 @@ namespace AMSService.Service
     {
         private readonly IQuotationRepository _quotationRepository;
         private readonly IVendorService _vendorService;
-        public QuotationService(IQuotationRepository quotationRepository,IVendorService vendorService)
+        private readonly IAssetRequestService _assetRequestService;
+        public QuotationService(IQuotationRepository quotationRepository,IVendorService vendorService, IAssetRequestService assetRequestService)
         {
             _quotationRepository = quotationRepository;
             _vendorService = vendorService;
+            _assetRequestService = assetRequestService;
         }
 
         public QuotationModel GetQuotationModel(int? Id = null)
@@ -34,7 +36,8 @@ namespace AMSService.Service
                         QuotationFilePath = quotation.QuotationFilePath,
                         QuotationStatusID = quotation.QuotationStatusID,
                         QuotationReceivedDate = quotation.QuotationReceivedDate,
-                        Vendorddl = _vendorService.GetDropdownVendors()
+                        Vendorddl = _vendorService.GetDropdownVendors(),
+                        AssetRequestddl = _assetRequestService.GetDropdownAssetRequest()
                     };
                 }
                 else
@@ -46,7 +49,8 @@ namespace AMSService.Service
             {
                 return new QuotationModel {
 
-                    Vendorddl = _vendorService.GetDropdownVendors()
+                    Vendorddl = _vendorService.GetDropdownVendors(),
+                    AssetRequestddl = _assetRequestService.GetDropdownAssetRequest()
                 };
             }
         }

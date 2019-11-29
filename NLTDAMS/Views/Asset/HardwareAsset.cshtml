@@ -305,7 +305,7 @@
              DisplayMessage('@TempData["MessageType"]', '@TempData["Message"]')
          }
     $("#btnCancel").on("click", function () {
-        var url = '@Url.Action("CreateAsset", "Asset")';
+        var url = '@Url.Action("ManageAssets", "Asset")';
         document.getElementById("formCreateAsset").action = url;
         document.getElementById("formCreateAsset").submit();
     });
@@ -442,7 +442,7 @@
             $("#modelNumber").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: '/Asset/AutoCompleteForModel/',
+                        url: '@Url.Content("~/Asset/AutoCompleteForModel/")',
                         data: "{ 'prefix': '" + request.term + "'}",
                         dataType: "json",
                         type: "POST",
@@ -473,7 +473,7 @@
         $("#manufacturer").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: '/Asset/AutoCompleteForManufacturer/',
+                    url: '@Url.Content("~/Asset/AutoCompleteForManufacturer/")',
                     data: "{ 'prefix': '" + request.term + "'}",
                     dataType: "json",
                     type: "POST",

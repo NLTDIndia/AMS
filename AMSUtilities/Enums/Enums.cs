@@ -61,8 +61,8 @@ namespace AMSUtilities.Enums
 
     public enum ComponentStatus
     {
-        Assign = 1,
-        Unassign = 2
+        Assign = 2,
+        Unassign = 3
     }
 
     public enum QuotationStatus

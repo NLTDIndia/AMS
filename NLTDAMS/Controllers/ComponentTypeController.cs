@@ -105,7 +105,7 @@ namespace NLTDAMS.Controllers
 
         // POST: ComponentType/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, ComponentTypeModel componentTypeModel, int? assetCategoryId)
+        public ActionResult Edit(ComponentTypeModel componentTypeModel)
         {
             try
             {

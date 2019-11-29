@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("UpdateComponents","Components",FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -19,6 +19,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model=>model.ID)
                             </div>
                         </div>
                     </div>
