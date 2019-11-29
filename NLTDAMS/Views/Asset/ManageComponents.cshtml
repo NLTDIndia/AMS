@@ -24,7 +24,7 @@
                 <div class="tab-pane active" id="tab_1">
                     <div class="box-body">
                         @{
-                            int count = 1;
+                            int count = Model.ComponentTypeModels.Where(ct=>ct.Mandatory == true).Count();
                             if (Model.ComponentAssetMapping != null)
                             {
                                 if (Model.ComponentAssetMapping.ToList().Count == 0)
@@ -38,41 +38,42 @@
                             }
                         }
                         @if (Model.ComponentTypeModels != null)
-                        {
-                            if (Model.ComponentTypeModels.ToList().Count > 0)
-                            {
-                                foreach (var item in Model.ComponentTypeModels)
-                                {
-                                    var selectList = new SelectList(Model.ComponentsModels.Where(fet => fet.ComponentTypeID == item.ID).ToList(), "ID", "ComponentName");
-                                    if (Model.ComponentAssetMapping != null)
                                     {
-                                        if (Model.ComponentAssetMapping.ToList().Count > 0)
+                                        if (Model.ComponentTypeModels.ToList().Count > 0)
                                         {
-                                            var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
-                                            if (component != null)
+                                            Model.ComponentTypeModels = Model.ComponentTypeModels.OrderByDescending(ct => ct.Mandatory).ToList();
+                                            foreach (var item in Model.ComponentTypeModels)
                                             {
-                                                selectList = new SelectList(Model.ComponentsModels.Where(fet => fet.ComponentTypeID == item.ID).ToList(), "ID", "ComponentName", component.ComponentID);
-                                                @Html.Hidden("ComponentAssetMapping[" + i + "].ID", component.ID);
-                                            }
-                                        }
-                                    }
-                                    var style = "";
-                                    if (item.AssetCategoryId == (int)AssetCategories.Hardware)
-                                    {
-                                        style = "color: #00a65a !important";
-                                    }
-                                    else if (item.AssetCategoryId == (int)AssetCategories.Software)
-                                    {
-                                        style = "color: #f39c12 !important";
-                                    }
-                                    var modalId = "modal-" + item.ID;
-                                    int assetCategoryId = (int)AMSUtilities.Enums.AssetCategories.Hardware;
-                                    var dropdownId = "drp" + item.ID;
-                                    var mandateId = "checkMandate" + item.ID;
-                                    var componentNameId = "txtComponent" + item.ID;
-                                    var descriptionId = "txtDescription" + item.ID;
-                                    var compValidationId = "compValidation" + item.ID;
-                                    var descValidationId = "descValidation" + item.ID;
+                                                var selectList = new SelectList(Model.ComponentsModels.Where(fet => fet.ComponentTypeID == item.ID).ToList(), "ID", "ComponentName");
+                                                if (Model.ComponentAssetMapping != null)
+                                                {
+                                                    if (Model.ComponentAssetMapping.ToList().Count > 0)
+                                                    {
+                                                        var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
+                                                        if (component != null)
+                                                        {
+                                                            selectList = new SelectList(Model.ComponentsModels.Where(fet => fet.ComponentTypeID == item.ID).ToList(), "ID", "ComponentName", component.ComponentID);
+                                                            @Html.Hidden("ComponentAssetMapping[" + i + "].ID", component.ID);
+                                                        }
+                                                    }
+                                                }
+                                                var style = "";
+                                                if (item.AssetCategoryId == (int)AssetCategories.Hardware)
+                                                {
+                                                    style = "color: #00a65a !important";
+                                                }
+                                                else if (item.AssetCategoryId == (int)AssetCategories.Software)
+                                                {
+                                                    style = "color: #f39c12 !important";
+                                                }
+                                                var modalId = "modal-" + item.ID;
+                                                int assetCategoryId = (int)AMSUtilities.Enums.AssetCategories.Hardware;
+                                                var dropdownId = "drp" + item.ID;
+                                                var mandateId = "checkMandate" + item.ID;
+                                                var componentNameId = "txtComponent" + item.ID;
+                                                var descriptionId = "txtDescription" + item.ID;
+                                                var compValidationId = "compValidation" + item.ID;
+                                                var descValidationId = "descValidation" + item.ID;
                                     <div class="col-md-10">
                                         <div class="form-group row-space">
                                             <label for="inputEmail3" class="col-sm-2 control-label" style="@style">@item.Name</label>
@@ -81,10 +82,10 @@
                                             @Html.Hidden("ComponentAssetMapping[" + i + "].AssetCategoryId", @item.AssetCategoryId)
                                 
                                             @if (Model.ComponentAssetMapping.ToList().Count > 0)
-                                            {
-                                                var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
-                                                if (component != null || item.Mandatory == true)
-                                                {
+                                {
+                                    var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
+                                    if (component != null || item.Mandatory == true)
+                                    {
                                                     <div class="col-sm-2">
                                                         @Html.CheckBox("ComponentAssetMapping[" + i + "].Mandatory", (bool)item.Mandatory, new { @id = mandateId, @class = "minimalCheck minimal",@disabled = "true" })
                                                     </div>
@@ -105,28 +106,28 @@
 
                                             @if (item.Mandatory == true)
                                             {
-                                                if (Model.ComponentAssetMapping.ToList().Count > 0)
-                                                {
-                                                    if (Model.ComponentAssetMapping.ToList().Count >= count)
+                                                    if (Model.ComponentAssetMapping.ToList().Count > 0)
                                                     {
+                                                         if (Model.ComponentAssetMapping.ToList().Count <= count)
+                                                         {
                                                         <div class="col-sm-7">
                                                             @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })
                                                         </div>
-                                                    }
-                                                    else
-                                                    {
+                                                         }
+                                                         else
+                                                         {
                                                         <div class="col-sm-7">
                                                             @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
                                                         </div>
+                                                        }
                                                     }
-                                                }
-                                                else
-                                                {
+                                                    else
+                                                    {
                                                     <div class="col-sm-7">
                                                         @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })
                                                     </div>
-                                                }
-                                                count++;
+                                                    }
+                                                    count++;
                                             }
                                             else
                                             {

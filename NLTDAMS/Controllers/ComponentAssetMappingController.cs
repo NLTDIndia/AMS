@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace NLTDAMS.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,HR")]
     public class ComponentAssetMappingController : Controller
     {
         private readonly IComponentAssetMappingService _componentAssetMappingService;

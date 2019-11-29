@@ -12,6 +12,7 @@ using AMSUtilities.Enums;
 
 namespace NLTDAMS.Controllers
 {
+    [Authorize(Roles ="Admin,Manager,HR")]
     public class AssetController : Controller
     {
         private readonly IAssetService _assetService;
@@ -38,7 +39,7 @@ namespace NLTDAMS.Controllers
                 return View(assetModel);
             }
         }
-        [Authorize(Roles ="Admin")]
+
         public ActionResult HardwareAsset()
         {
 
@@ -117,7 +118,7 @@ namespace NLTDAMS.Controllers
                 return RedirectToAction("HardwareAsset");
             }
         }
-        [Authorize(Roles = "Admin")]
+
         public ActionResult SoftwareAsset()
         {
             SoftwareAssetModel softwareAssetModel = new SoftwareAssetModel();
@@ -399,7 +400,7 @@ namespace NLTDAMS.Controllers
                              {
                                  label = M.Model,
                                  val = M.Model
-                             }).ToList();
+                             }).Distinct().ToList();
             return Json(ModelAuto);
         }
 

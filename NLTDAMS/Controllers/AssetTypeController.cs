@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace NLTDAMS.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,HR")]
     public class AssetTypeController : Controller
     {
         private readonly IAssetTypeService _assetTypeService;

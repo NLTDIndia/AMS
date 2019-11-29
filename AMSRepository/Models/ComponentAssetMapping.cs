@@ -23,7 +23,6 @@ namespace AMSRepository.Models
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
         public int ComponentStatusId { get; set; }
-        public Nullable<bool> Mandatory { get; set; }
         public Nullable<int> ComponentTypeID { get; set; }
     
         public virtual Assets Assets { get; set; }

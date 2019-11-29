@@ -91,9 +91,9 @@ namespace AMSService.Service
 
             if (hardwareAssetModel.ComponentAssetMapping != null)
             {
-                if (hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.Mandatory == true || fet.ComponentID != 0).ToList().Count > 0)
+                if (hardwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList().Count > 0)
                 {
-                    foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.Mandatory == true || fet.ComponentID != 0).ToList())
+                    foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList())
                     {
                         item.AssignedAssetID = createdAsset.ID;
                         item.ActualAssetID = createdAsset.ID;
@@ -143,9 +143,9 @@ namespace AMSService.Service
             _assetTrackerService.CreateAssetTracker(assetTrackerModel);
             if (softwareAssetModel.ComponentAssetMapping != null)
             {
-                if (softwareAssetModel.ComponentAssetMapping.Where(fet => fet.Mandatory == true || fet.ComponentID != 0).ToList().Count > 0)
+                if (softwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList().Count > 0)
                 {
-                    foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet => fet.Mandatory == true || fet.ComponentID != 0).ToList())
+                    foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList())
                     {
                         item.AssignedAssetID = createdAsset.ID;
                         item.ActualAssetID = createdAsset.ID;
@@ -336,9 +336,9 @@ namespace AMSService.Service
 
             if (hardwareAssetModel.ComponentAssetMapping != null)
             {
-                if (hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.Mandatory == true|| fet.ComponentID != 0).ToList().Count > 0)
+                if (hardwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList().Count > 0)
                 {
-                    foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.Mandatory == true|| fet.ComponentID != 0).ToList())
+                    foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList())
                     {
                         item.AssignedAssetID = selectedAsset.ID;
                         item.ActualAssetID = selectedAsset.ID;
@@ -377,9 +377,9 @@ namespace AMSService.Service
 
             if (softwareAssetModel.ComponentAssetMapping != null)
             {
-                if (softwareAssetModel.ComponentAssetMapping.Where(fet => fet.Mandatory ==true || fet.ComponentID != 0).ToList().Count > 0)
+                if (softwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList().Count > 0)
                 {
-                    foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet => fet.Mandatory == true || fet.ComponentID != 0).ToList())
+                    foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList())
                     {
                         item.AssignedAssetID = selectedAsset.ID;
                         item.ActualAssetID = selectedAsset.ID;

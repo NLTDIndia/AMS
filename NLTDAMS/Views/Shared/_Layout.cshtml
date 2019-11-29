@@ -76,17 +76,17 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                 <ul class="sidebar-menu" data-widget="tree">
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("HR") || User.IsInRole("Employee"))
+                    {
+                    <li>
+                        <a href="@Url.Action("EmployeeAssetDetails", "Home")">
+                            <i class="fa fa-hdd-o"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    }
                     @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("HR"))
                     {
-                        if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("HR") || User.IsInRole("Employee"))
-                        {
-
-                            <li>
-                                <a href="@Url.Action("EmployeeAssetDetails", "Home")"><i class="fa fa-hdd-o"></i>
-                                <span>Profile</span>                                    
-                                </a>
-                            </li>
-                        }
                         <!-- Assets -->
                         <li class="active treeview">
                             <a href="#">
@@ -154,7 +154,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="@Url.Action("List", "AssetCategory")"><i></i>Asset Categories</a></li>
                                 <li><a href="@Url.Action("List", "AssetType")"><i></i>Asset Types</a></li>
-                                <li><a href="@Url.Action("List", "ComponentType")"><i></i>Component Types</a></li>                             
+                                <li><a href="@Url.Action("List", "ComponentType")"><i></i>Component Types</a></li>
                                 <li><a href="@Url.Action("ManageQuotation", "Quotation")"><i></i>Quotation</a></li>
                             </ul>
                         </li>

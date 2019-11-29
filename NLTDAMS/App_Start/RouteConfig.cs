@@ -16,7 +16,7 @@ namespace NLTDAMS
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
-                defaults: new { controller = "Asset", action = "ManageAssets" }
+                defaults: new { controller = "Home", action = "EmployeeAssetDetails" }
             );
         }
     }

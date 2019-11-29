@@ -11,6 +11,7 @@ using AMSUtilities.Enums;
 
 namespace NLTDAMS.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,HR")]
     public class ComponentsController : Controller
     {
         IComponentsService _componentsService;

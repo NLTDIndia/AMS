@@ -105,7 +105,6 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ComponentStatusId" Type="int" Nullable="false" />
-          <Property Name="Mandatory" Type="bit" />
           <Property Name="ComponentTypeID" Type="int" />
         </EntityType>
         <EntityType Name="Components">
@@ -967,7 +966,6 @@
           <NavigationProperty Name="Assets1" Relationship="Self.FK__Component__Assig__43D61337" FromRole="ComponentAssetMapping" ToRole="Assets" />
           <NavigationProperty Name="Components" Relationship="Self.FK_ComponentAssetMapping_Components" FromRole="ComponentAssetMapping" ToRole="Components" />
           <Property Name="ComponentStatusId" Type="Int32" Nullable="false" />
-          <Property Name="Mandatory" Type="Boolean" />
           <Property Name="ComponentTypeID" Type="Int32" />
           <NavigationProperty Name="ComponentStatus" Relationship="AMSModel.FK_ComponentAssetMapping_ComponentStatus" FromRole="ComponentAssetMapping" ToRole="ComponentStatus" />
           <NavigationProperty Name="ComponentType" Relationship="AMSModel.FK_ComponentAssetMapping_ComponentTypeID" FromRole="ComponentAssetMapping" ToRole="ComponentType" />
@@ -1849,7 +1847,6 @@
             <EntityTypeMapping TypeName="AMSModel.ComponentAssetMapping">
               <MappingFragment StoreEntitySet="ComponentAssetMapping">
                 <ScalarProperty Name="ComponentTypeID" ColumnName="ComponentTypeID" />
-                <ScalarProperty Name="Mandatory" ColumnName="Mandatory" />
                 <ScalarProperty Name="ComponentStatusId" ColumnName="ComponentStatusId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />

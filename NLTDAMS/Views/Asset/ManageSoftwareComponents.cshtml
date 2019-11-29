@@ -24,7 +24,7 @@
                 <div class="tab-pane active" id="tab_1">
                     <div class="box-body">
                         @{
-                            int count = 1;
+                            int count = Model.ComponentTypeModels.Where(ct=>ct.Mandatory == true).Count();;
                             if (Model.ComponentAssetMapping != null)
                             {
                                 if (Model.ComponentAssetMapping.ToList().Count == 0)
@@ -41,6 +41,7 @@
                         {
                             if (Model.ComponentTypeModels.ToList().Count > 0)
                             {
+                                Model.ComponentTypeModels = Model.ComponentTypeModels.OrderByDescending(ct => ct.Mandatory).ToList();
                                 foreach (var item in Model.ComponentTypeModels)
                                 {
                                     var selectList = new SelectList(Model.ComponentsModels.Where(fet => fet.ComponentTypeID == item.ID).ToList(), "ID", "ComponentName");
@@ -108,7 +109,7 @@
                                             {
                                                 if (Model.ComponentAssetMapping.ToList().Count > 0)
                                                 {
-                                                    if (Model.ComponentAssetMapping.ToList().Count >= count)
+                                                    if (Model.ComponentAssetMapping.ToList().Count <= count)
                                                     {
                                                         <div class="col-sm-7">
                                                             @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })

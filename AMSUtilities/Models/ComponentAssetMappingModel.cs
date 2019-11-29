@@ -22,7 +22,6 @@ namespace AMSUtilities.Models
         public int CreatedBy { get; set; }
         public int ComponentStatusId { get; set; }
         public int AssetCategoryId { get; set; }
-        public bool? Mandatory { get; set; }
         public SelectList Assets { get; set; }
         public SelectList Components { get; set; }
         public SelectList ComponentStatus { get; set; }

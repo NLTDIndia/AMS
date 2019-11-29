@@ -35,7 +35,6 @@ namespace AMSService.Service
               CreatedDate= componentAssetMapping.CreatedDate,
               AssignedBy= componentAssetMapping.AssignedBy,
               AssignedDate=componentAssetMapping.AssignedDate,
-              Mandatory = componentAssetMapping.Mandatory,
               ComponentTypeID = componentAssetMapping.ComponentTypeID
             };
             var objcomponentMapping = this._componentAssetMappingRepository.CreateComponentAssetMapping(componentMapping);
@@ -49,7 +48,6 @@ namespace AMSService.Service
             {
                 componentAssetMapping.CreatedDate = DateTime.Now;
                 componentAssetMapping.CreatedBy = (int)componentAssetMapping.AssignedBy;
-                componentAssetMapping.Mandatory = componentAssetMapping.Mandatory;
                 componentAssetMapping.ComponentTypeID = componentAssetMapping.ComponentTypeID;
                 componentAssetMapping.ID=CreateComponentAssetMapping(componentAssetMapping);
             }
@@ -61,7 +59,6 @@ namespace AMSService.Service
                 componentAsset.ComponentStatusId = componentAssetMapping.ComponentStatusId;
                 componentAsset.AssignedBy = componentAssetMapping.AssignedBy;
                 componentAsset.AssignedDate = componentAssetMapping.AssignedDate;
-                componentAsset.Mandatory = componentAssetMapping.Mandatory;
                 componentAsset.ComponentTypeID = componentAssetMapping.ComponentTypeID;
                 _componentAssetMappingRepository.UpdateComponentAssetMapping(componentAsset);
             }
@@ -84,7 +81,6 @@ namespace AMSService.Service
                    AssignedDate = cam.AssignedDate,
                    ComponentTypeID=cam.Components.ComponentTypeID,
                    AssetCategoryId = cam.Components.ComponentType.AssetCategoryId,
-                   Mandatory = cam.Mandatory
                 }).ToList();
             }
             else

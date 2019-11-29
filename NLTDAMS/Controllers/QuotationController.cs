@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace NLTDAMS.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,HR")]
     public class QuotationController : Controller
     {
         private readonly IQuotationService _quotationService;
