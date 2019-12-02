@@ -76,15 +76,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                 <ul class="sidebar-menu" data-widget="tree">
-                    @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("HR") || User.IsInRole("Employee"))
-                    {
-                    <li>
-                        <a href="@Url.Action("EmployeeAssetDetails", "Home")">
-                            <i class="fa fa-hdd-o"></i>
-                            <span>Profile</span>
-                        </a>
-                    </li>
-                    }
+                  
                     @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("HR"))
                     {
                         <!-- Assets -->

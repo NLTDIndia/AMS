@@ -71,6 +71,8 @@ namespace AMSService.Service
                         ComponentTypeID = components.ComponentTypeID
                     });
                 }
+
+
             }
             else
             {

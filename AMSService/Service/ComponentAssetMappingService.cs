@@ -17,11 +17,13 @@ namespace AMSService.Service
         private readonly IComponentAssetMappingRepository _componentAssetMappingRepository;
         private readonly IAssetRepository _assetRepository;
         private readonly IEmployeeService _employeeService;
+       
         public ComponentAssetMappingService(IComponentAssetMappingRepository componentAssetMappingRepository, IAssetRepository assetRepository, IEmployeeService employeeService)
         {
             _componentAssetMappingRepository = componentAssetMappingRepository;
             _assetRepository = assetRepository;
             _employeeService = employeeService;
+            
         }
         public int CreateComponentAssetMapping(ComponentAssetMappingModel componentAssetMapping)
         {
@@ -115,6 +117,7 @@ namespace AMSService.Service
                 }
                 getAllComponents.Add(componentsViewModel);
             });
+            
             return getAllComponents;
         }
         public ComponentAssetMappingModel GetComponentByID(int id)
