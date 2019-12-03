@@ -16,13 +16,13 @@ namespace AMSService.Service
        private readonly IComponentsRepository _componentRepository;
        private readonly IEmployeeService _employeeService;
        private readonly IComponentTypeService _componentTypeService;
-       private readonly IComponentAssetMappingService _componentAssetMappingService;
-       public ComponentsService(IComponentsRepository componentsRepository, IEmployeeService employeeService, IComponentTypeService componentTypeService,IComponentAssetMappingService componentAssetMappingService)
+      
+       public ComponentsService(IComponentsRepository componentsRepository, IEmployeeService employeeService, IComponentTypeService componentTypeService)
         {
             _componentRepository = componentsRepository;
             _employeeService = employeeService;
             _componentTypeService = componentTypeService;
-            _componentAssetMappingService = componentAssetMappingService;
+           
         }
         public List<ComponentsModel> GetActiveComponents()
         {
@@ -59,7 +59,7 @@ namespace AMSService.Service
 
             return componentsModel.ID;
         }
-        public string UpdateComponents(ComponentsModel componentsModel)
+        public int UpdateComponents(ComponentsModel componentsModel)
         {
 
             Components UpdateComponents = _componentRepository.GetComponentsByID(componentsModel.ID);
@@ -71,8 +71,9 @@ namespace AMSService.Service
                 UpdateComponents.ComponentTypeID = componentsModel.ComponentTypeID;
                 UpdateComponents.Description = componentsModel.Description;
             }
-            _componentRepository.UpdateComponent(UpdateComponents);
-            return componentsModel.ToString();
+            UpdateComponents = _componentRepository.UpdateComponent(UpdateComponents);
+            componentsModel.ID = UpdateComponents.ID;
+            return componentsModel.ID;
         }
         public int GetLoginEmployeeId()
         {

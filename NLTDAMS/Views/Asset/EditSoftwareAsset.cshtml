@@ -18,24 +18,21 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.AssetCategoryId, (int)AssetCategories.Software)
                     <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="InvoiceNumber">Invoice</label>
-                                <select id="invoiceId" name="InvoiceId" class="form-control">
-                                    <option disabled selected value="">Please select value</option>
-                                    <option value="1">00123</option>
-                                    <option value="2">00124</option>
-                                    <option value="3">00125</option>
-                                </select>
-                                @*<div class="col-sm-1 text-left">
-                                        <a data-toggle="modal" data-target="#createModal" data-select="assigned_user_select" class="btn btn-sm btn-default">New</a>
-                                    </div>*@
-                            </div>
-                        </div>
                         @*<div class="col-sm-3">
-                            <label for="Asset_Category">Asset Category</label>
-                            @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
-                        </div>*@
+            <div class="form-group">
+                <label for="InvoiceNumber">Invoice</label>
+                <select id="invoiceId" name="InvoiceId" class="form-control">
+                    <option disabled selected value="">Please select value</option>
+                    <option value="1">00123</option>
+                    <option value="2">00124</option>
+                    <option value="3">00125</option>
+                </select>
+            </div>
+        </div>*@
+                        @*<div class="col-sm-3">
+            <label for="Asset_Category">Asset Category</label>
+            @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
+        </div>*@
                         <div class="col-sm-3">
                             <label for="Asset_Type">Asset Type</label>
                             @Html.DropDownListFor(model => model.AssetTypeID, Model.AssetTypes, new { @id = "assetType", @class = "form-control" })
@@ -48,8 +45,6 @@
                                 @Html.ValidationMessageFor(model => model.AssetName, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="From">Serial Number</label>
@@ -64,16 +59,18 @@
                                 @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label for="From">Licence Number</label>
+                                <label for="From">License Number</label>
                                 @Html.TextBoxFor(model => model.LicenceNumber, Model.LicenceNumber as string, new { @id = "licenceNumber", @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.LicenceNumber, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label for="From">Licence Purchase Date</label>
+                                <label for="From">License Purchase Date</label>
                                 <div class='input-group date startDate'>
                                     @Html.TextBox("LicencePurchaseDate", Model.LicencePurchaseDate.ToString("MM/dd/yyyy"), new { @id = "licencePurchaseDate", @class = "form-control" })
                                     <span class="input-group-addon">
@@ -83,11 +80,9 @@
                                 @Html.ValidationMessageFor(model => model.LicencePurchaseDate, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label for="To">Licence Expiry Date</label>
+                                <label for="To">License Expiry Date</label>
                                 <div class='input-group date endDate'>
                                     @Html.TextBox("LicenceExpiryDate", Model.LicenceExpiryDate.ToString("MM/dd/yyyy"), new { @id = "licenceExpiryDate", @class = "form-control" })
                                     <span class="input-group-addon">
@@ -97,7 +92,8 @@
                                 @Html.ValidationMessageFor(model => model.LicenceExpiryDate, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
+                    </div>
+                    <div class="row">
                         <div class="col-sm-9">
                             <div class="form-group">
                                 <label class="required" for="Reason">Software Description</label>

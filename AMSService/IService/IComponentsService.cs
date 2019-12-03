@@ -13,7 +13,7 @@ namespace AMSService.Service
     {
         List<ComponentsModel> GetActiveComponents();
         int createComponents(ComponentsModel componentsModel);
-        string UpdateComponents(ComponentsModel componentsModel);
+        int UpdateComponents(ComponentsModel componentsModel);
         List<ComponentsModel> AllActiveComponents();
         List<ComponentsModel> GetAllComponents();
         ComponentsModel GetComponentsById(int id);

@@ -14,6 +14,8 @@ namespace AMSUtilities.Models
         public string ComponentTypeName { get; set; }
         public int ComponentID { get; set; }
         public int ComponentTypeID { get; set; }
+
+        [Required(ErrorMessage = "Asset is required")]
         public int? AssignedAssetID { get; set; }
         public int? ActualAssetID { get; set; }
         public DateTime? AssignedDate { get; set; }

@@ -10,10 +10,12 @@ $(function () {
         format: 'MM/DD/YYYY',
         useCurrent: false
     });
+    var dateToday = new Date(); 
     $('.endDate').datetimepicker({
         ignoreReadonly: true,
         format: 'MM/DD/YYYY',
-        useCurrent: false
+        useCurrent: false,
+        minDate: dateToday
     });
     $(".startDate").on("dp.change", function (e) {
         $('.endDate').data("DateTimePicker").minDate(e.date);
