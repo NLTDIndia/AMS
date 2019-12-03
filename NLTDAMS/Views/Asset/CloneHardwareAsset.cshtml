@@ -1,4 +1,5 @@
 ﻿@model AMSUtilities.Models.HardwareAssetModel
+@using AMSUtilities.Enums
 @{
     ViewBag.Title = "CloneHardwareAsset";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -24,20 +25,20 @@
                     @Html.HiddenFor(model => model.AssetCategoryId, (int)AssetCategories.Hardware)
                     <div class="row">
                         @*<div class="col-sm-3">
-            <div class="form-group">
-                <label for="InvoiceNumber">Invoice</label>
-                <select id="invoiceId" name="InvoiceId" class="form-control">
-                    <option disabled selected value="">Please select value</option>
-                    <option value="1">00123</option>
-                    <option value="2">00124</option>
-                    <option value="3">00125</option>
-                </select>
-            </div>
-        </div>*@
+                                <div class="form-group">
+                                    <label for="InvoiceNumber">Invoice</label>
+                                    <select id="invoiceId" name="InvoiceId" class="form-control">
+                                        <option disabled selected value="">Please select value</option>
+                                        <option value="1">00123</option>
+                                        <option value="2">00124</option>
+                                        <option value="3">00125</option>
+                                    </select>
+                                </div>
+                            </div>*@
                         @*<div class="col-sm-3">
-            <label for="Asset_Category">Asset Category</label>
-            @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
-        </div>*@
+                                <label for="Asset_Category">Asset Category</label>
+                                @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
+                            </div>*@
                         <div class="col-sm-3">
                             <label for="Asset_Type">Asset Type</label>
                             @Html.DropDownListFor(model => model.AssetTypeID, Model.AssetTypes, new { @id = "assetType", @class = "form-control" })
@@ -302,22 +303,6 @@
                 $("#manufacturer").val(i.item.val);
             },
             minLength: 1
-        });
-    });
-
-    $(document).ready(function () {
-
-        var dates = $("#WarrantyStartDate, #WarrantyEndDate").datepicker({
-            defaultDate: "+1w",
-            changeMonth: true,
-            numberOfMonths: 3,
-            minDate: dateToday,
-            onSelect: function (selectedDate) {
-                var option = this.id == "WarrantyStartDate" ? "minDate" : "maxDate",
-                    instance = $(this).data("datepicker"),
-                    date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-                dates.not(this).datepicker("option", option, date);
-            }
         });
     });
 </script>
