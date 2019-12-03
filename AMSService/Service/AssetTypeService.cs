@@ -93,7 +93,7 @@ namespace AMSService.Service
         public SelectList GetDropdownAssetTypes(int? assetCategoryId,int selectedId = -1)
         {
             List<SelectListItem> assetTypeItems = new List<SelectListItem> { new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Asset Type", Value = "" } };
-            var assetTypes = assetCategoryId.HasValue && assetCategoryId.Value > 0 ? _assetAssetTypeRepository.GetAssetTypes().Where(at=> at.AssetCategoryID == assetCategoryId.Value).ToList(): _assetAssetTypeRepository.GetAssetTypes();
+            var assetTypes = assetCategoryId.HasValue && assetCategoryId.Value > 0 && assetCategoryId.Value !=(int)AMSUtilities.Enums.AssetCategories.Hardware ? _assetAssetTypeRepository.GetAssetTypes().Where(at=> at.AssetCategoryID == assetCategoryId.Value).ToList(): _assetAssetTypeRepository.GetAssetTypes();
             if (assetTypes != null && assetTypes.Count > 0)
             {
                 assetTypes.ForEach(at => {

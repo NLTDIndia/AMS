@@ -19,7 +19,9 @@ namespace AMSUtilities.Models
         [Required]
         public int AssetCategoryId { get; set; }
         public SelectList AssetCategories { get; set; }
+        [Display(Name = "Asset Category")]
         public string AssetCategoryName { get; set; }
+        [Display(Name = "Asset Type")]
         public string AssetTypeName { get; set; }
         [Required]
         [Display(Name="Active")]
