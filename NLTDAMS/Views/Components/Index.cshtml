@@ -17,15 +17,13 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-       
+
         <table id="Components" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>Component Name</th>
                     <th>Component Type</th>
-                    <th>Description</th>
                     <th>Assigned Count</th>
-                    <th>Unassigned Count</th>
                     <th>Action</th>
 
                 </tr>
@@ -33,18 +31,19 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                  
-                <tr>
 
-                    <td>@item.ComponentName</td>
-                    <td>@item.ComponentTypeName</td>
-                    <td>@item.Description</td>
-                    <td>@item.AssignedCount</td>                    
-                    <td>
-                        <a class="fa fa-edit" data-toggle="tooltip" title="Edit" href="@Url.Action("UpdateComponents", "Components", new { id = item.ID })"></a>
-                    </td>
+                    <tr>
 
-                </tr>
+                        <td>@item.ComponentName</td>
+                        <td>@item.ComponentTypeName</td>
+                        <td>@item.AssignedCount</td>
+                        <td>
+
+                            <a class="fa fa-thumbs-up" data-toggle="tooltip" title="Assign" onclick="GetAssignAsset(@item.ID);" data-backdrop="static"></a>
+                            <a class="fa fa-edit" data-toggle="tooltip" title="Edit" href="@Url.Action("UpdateComponents", "Components", new { id = item.ID })"></a>
+                        </td>
+
+                    </tr>
                 }
             </tbody>
             <tfoot>
@@ -54,7 +53,10 @@
         </table>
     </div>
     <!-- /.box-body -->
-    
+    <div id="LoadPopup">
+
+    </div>
+
 </div>
 <script src="~/Scripts/AMS/jquery.dataTables.min.js"></script>
 <script src="~/Scripts/AMS/dataTables.bootstrap.min.js"></script>
@@ -93,5 +95,17 @@
         fixedHeader: true,
          retrieve: true,
     });
-    });  
+     });  
+     function GetAssignAsset(ID) {
+        var url = '@Url.Action("AssignComponents", "Components")?Id=' + ID;
+        if (url != "" && url != null) {
+            $("#LoadPopup").load(url, function () {
+                $('#LoadPopup').show();
+                $('#modal-Assign').modal({
+                    show: 'true',
+                    backdrop : false
+                });
+            })
+        }
+    }
 </script>

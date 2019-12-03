@@ -31,7 +31,7 @@ namespace NLTDAMS.Controllers
         {
             ComponentAssetMappingModel componentAssetMappingModel = new ComponentAssetMappingModel()
             {
-                Assets = _componentAssetMappingService.GetDropdownAssets()
+                Assets = _componentAssetMappingService.GetDropdownAssets(ID)
             };
             var components = _componentAssetMappingService.GetComponentByID(ID);
             components.Assets = componentAssetMappingModel.Assets;

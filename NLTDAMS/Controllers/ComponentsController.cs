@@ -49,6 +49,7 @@ namespace NLTDAMS.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                // var componentexist =   _componentsService.GetAllComponents().Where(fetch => fetch.ComponentName.ToLower() == componentsModel.ComponentName.ToLower()).ToList().FirstOrDefault();
                     _componentsService.createComponents(components);
                     TempData["Message"] = "Component type created successfully.";
                     TempData["MessageType"] = (int)AlertMessageTypes.Success;
@@ -106,7 +107,37 @@ namespace NLTDAMS.Controllers
                 return View(componentModel);
             }
 
-        }       
+        }
+        public ActionResult AssignComponents(int ID)
+        {
+            ComponentAssetMappingModel componentAssetMappingModel = new ComponentAssetMappingModel()
+            {
+                Assets = _componentAssetMappingService.GetDropdownAssets(ID)
+            };
+            var components = _componentAssetMappingService.GetComponentByID(ID);
+            components.Assets = componentAssetMappingModel.Assets;
+            return PartialView("../Shared/_AssignComponents", components);
+
+        }
+        [HttpPost]
+        public ActionResult AssignComponents(ComponentAssetMappingModel componentAssetMappingModel)
+        {
+            var componentAssetMapping = _componentAssetMappingService.AssignComponents(componentAssetMappingModel);
+
+            if (componentAssetMapping.ID != 0)
+            {
+                TempData["Message"] = "Component assigned successfully.";
+                TempData["MessageType"] = (int)AlertMessageTypes.Success;
+                return RedirectToAction("Index");
+            }
+            else
+            {
+
+                TempData["Message"] = "Component not assigned.";
+                TempData["MessageType"] = (int)AlertMessageTypes.Danger;
+                return View(componentAssetMappingModel);
+            }
+        }
 
     }
 }

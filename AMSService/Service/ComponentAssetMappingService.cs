@@ -143,9 +143,11 @@ namespace AMSService.Service
                 assignComponents.AssignedAssetID = componentAssetMappingModel.AssignedAssetID;
                 assignComponents.AssignedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID;
                 assignComponents.AssignedDate = DateTime.Now;
+                assignComponents.CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID;
+                assignComponents.CreatedDate = DateTime.Now;
                 assignComponents.ComponentStatusId = Convert.ToInt32(AMSUtilities.Enums.ComponentTrackingStatus.Assign);
              }
-            _componentAssetMappingRepository.UpdateComponentAssetMapping(assignComponents);
+            _componentAssetMappingRepository.CreateComponentAssetMapping(assignComponents);
             return componentAssetMappingModel;
         }
         public ComponentAssetMappingModel UnassignComponents(ComponentAssetMappingModel componentAssetMappingModel)
@@ -188,14 +190,20 @@ namespace AMSService.Service
 
             return componetModel;
         }
-        public SelectList GetDropdownAssets(int selectedId = -1)
+        public SelectList GetDropdownAssets(int ID,int selectedId = -1)
         {
+            var AssignedAssetIDlist = _componentAssetMappingRepository.GetComponentAssetMappings().Where(cp => cp.ComponentID == ID && cp.ComponentStatusId == (int)ComponentTrackingStatus.Assign).Select(cps=> cps.AssignedAssetID).ToList();
+                      
+              var   Assets = _assetRepository.GetAssets().Where(ast => !AssignedAssetIDlist.Contains(ast.ID)).ToList();
+            
             List<SelectListItem> AssetsItems = new List<SelectListItem> { new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Asset", Value = "" } };
-            var Assets = _assetRepository.GetAssets();
+            
+              
             if (Assets != null && Assets.Count > 0)
             {
+                
                 Assets.ForEach(at =>
-                {
+                {                    
                     AssetsItems.Add(new SelectListItem { Selected = selectedId == at.ID ? true : false, Text = at.AssetName, Value = at.ID.ToString() });
                 });
             }

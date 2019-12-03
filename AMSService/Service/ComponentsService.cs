@@ -46,11 +46,7 @@ namespace AMSService.Service
         public int createComponents(ComponentsModel componentsModel)
         {
 
-            var componentName = _componentRepository.GetComponents().Where(fetch => fetch.ComponentName.ToLower() == componentsModel.ComponentName.ToLower()).ToList().FirstOrDefault();
-
-            if (componentName == null)
-            {
-                var components = _componentRepository.CreateComponent(new Components
+             var components = _componentRepository.CreateComponent(new Components
                 {
                     ComponentName = componentsModel.ComponentName,
                     ComponentTypeID = componentsModel.ComponentTypeID,
@@ -59,34 +55,8 @@ namespace AMSService.Service
                     CreatedDate = DateTime.Now,
 
                 });
-                componentsModel.ID = components.ID;
-                if (components != null && components.ID != 0)
-                {
-                    var componentAssetMapping = _componentAssetMappingService.CreateComponentMapping(new ComponentAssetMappingModel
-                    {
-                        ComponentID = components.ID,
-                        ComponentStatusId = (int)AMSUtilities.Enums.ComponentTrackingStatus.Unassign,
-                        CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
-                        CreatedDate = DateTime.Now,
-                        ComponentTypeID = components.ComponentTypeID
-                    });
-                }
-
-
-            }
-            else
-            {
-                var componentAssetMapping = _componentAssetMappingService.CreateComponentMapping(new ComponentAssetMappingModel
-                {
-                    ComponentID = componentName.ID,
-                    ComponentStatusId = (int)AMSUtilities.Enums.ComponentTrackingStatus.Unassign,
-                    CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
-                    CreatedDate = DateTime.Now,
-                    ComponentTypeID = componentName.ComponentTypeID
-
-                });
-                componentsModel.ID = componentName.ID;
-            }
+                
+           
             return componentsModel.ID;
         }
         public string UpdateComponents(ComponentsModel componentsModel)

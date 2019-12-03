@@ -75,83 +75,83 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 @if (User.Identity.IsAuthenticated)
                 {
-                <ul class="sidebar-menu" data-widget="tree">
-                  
-                    @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("HR"))
-                    {
-                        <!-- Assets -->
-                        <li class="active treeview">
-                            <a href="#">
-                                <i class="fa fa-laptop"></i> <span>Assets</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li class="active"><a href="@Url.Action("ManageAssets", "Asset")">Manage Assets</a></li>
-                                <li><a href="@Url.Action("HardwareAsset", "Asset")">Create Hardware Asset</a></li>
-                                <li><a href="@Url.Action("SoftwareAsset", "Asset")">Create Software Asset</a></li>
-                            </ul>
-                        </li>
-                        <!-- Components -->
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-hdd-o"></i> <span>Components</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="@Url.Action("List", "ComponentAssetMapping")">Manage Components</a></li>
-                                <li><a href="@Url.Action("Index", "Components")"><i></i>Create Components</a></li>
-                            </ul>
-                        </li>
-                        <!-- Employees -->
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-users"></i>
-                                <span>Employees</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Manage Employees</a></li>
-                                <li><a href="#">Create Employee</a></li>
-                            </ul>
-                        </li>
-                        <!-- Vendors -->
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-user"></i>
-                                <span>Vendors</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="@Url.Action("List", "Vendor")">Manage Vendors</a></li>
-                                <li><a href="@Url.Action("Create", "Vendor")">Create Vendor</a></li>
-                            </ul>
-                        </li>
-                        <!-- Settings -->
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-cogs"></i>
-                                <span>Settings</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="@Url.Action("List", "AssetCategory")"><i></i>Asset Categories</a></li>
-                                <li><a href="@Url.Action("List", "AssetType")"><i></i>Asset Types</a></li>
-                                <li><a href="@Url.Action("List", "ComponentType")"><i></i>Component Types</a></li>
-                                <li><a href="@Url.Action("ManageQuotation", "Quotation")"><i></i>Quotation</a></li>
-                            </ul>
-                        </li>
-                    }
-                </ul>
+                    <ul class="sidebar-menu" data-widget="tree">
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("HR"))
+                        {
+                            <!-- Assets -->
+                            <li class="active treeview">
+                                <a href="#">
+                                    <i class="fa fa-laptop"></i> <span>Assets</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="active"><a href="@Url.Action("ManageAssets", "Asset")">Manage Assets</a></li>
+                                    <li><a href="@Url.Action("HardwareAsset", "Asset")">Create Hardware Asset</a></li>
+                                    <li><a href="@Url.Action("SoftwareAsset", "Asset")">Create Software Asset</a></li>
+                                </ul>
+                            </li>
+                            <!-- Components -->
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-hdd-o"></i> <span>Components</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="@Url.Action("Index", "Components")">Manage Components</a></li>
+                                    <li><a href="@Url.Action("NewComponents", "Components")"><i></i>Create Components</a></li>
+                                </ul>
+                            </li>
+                            <!-- Employees -->
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-users"></i>
+                                    <span>Employees</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="#">Manage Employees</a></li>
+                                    <li><a href="#">Create Employee</a></li>
+                                </ul>
+                            </li>
+                            <!-- Vendors -->
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-user"></i>
+                                    <span>Vendors</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="@Url.Action("List", "Vendor")">Manage Vendors</a></li>
+                                    <li><a href="@Url.Action("Create", "Vendor")">Create Vendor</a></li>
+                                </ul>
+                            </li>
+                            <!-- Settings -->
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-cogs"></i>
+                                    <span>Settings</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="@Url.Action("List", "AssetCategory")"><i></i>Asset Categories</a></li>
+                                    <li><a href="@Url.Action("List", "AssetType")"><i></i>Asset Types</a></li>
+                                    <li><a href="@Url.Action("List", "ComponentType")"><i></i>Component Types</a></li>
+                                    <li><a href="@Url.Action("ManageQuotation", "Quotation")"><i></i>Quotation</a></li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
                 }
             </section>
             <!-- /.sidebar -->

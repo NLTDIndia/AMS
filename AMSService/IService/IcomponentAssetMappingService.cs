@@ -18,7 +18,7 @@ namespace AMSService.Service
         List<ComponentAssetMappingModel> GetComponentAssetMappingsByAssetID(int assetID);
         ComponentAssetMappingModel GetComponentByID(int id);
         ComponentAssetMappingModel GetComponentModel(ComponentAssetMapping componentmapping);
-        SelectList GetDropdownAssets(int selectedId = -1);
+        SelectList GetDropdownAssets(int ID,int selectedId = -1);
         ComponentAssetMappingModel UnassignComponents(ComponentAssetMappingModel componentAssetMappingModel);
         int UpdateComponentAssetMapping(ComponentAssetMappingModel componentAssetMapping);
     }
