@@ -55,8 +55,8 @@ namespace AMSService.Service
                     CreatedDate = DateTime.Now,
 
                 });
-                
-           
+            componentsModel.ID = components.ID;
+
             return componentsModel.ID;
         }
         public string UpdateComponents(ComponentsModel componentsModel)

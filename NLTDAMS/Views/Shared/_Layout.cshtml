@@ -80,7 +80,7 @@
                         @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("HR"))
                         {
                             <!-- Assets -->
-                            <li class="active treeview">
+                            <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-laptop"></i> <span>Assets</span>
                                     <span class="pull-right-container">
@@ -88,7 +88,7 @@
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li class="active"><a href="@Url.Action("ManageAssets", "Asset")">Manage Assets</a></li>
+                                    <li><a href="@Url.Action("ManageAssets", "Asset")">Manage Assets</a></li>
                                     <li><a href="@Url.Action("HardwareAsset", "Asset")">Create Hardware Asset</a></li>
                                     <li><a href="@Url.Action("SoftwareAsset", "Asset")">Create Software Asset</a></li>
                                 </ul>
