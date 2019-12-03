@@ -19,24 +19,24 @@
                     @Html.HiddenFor(model => model.AssetCategoryId, (int)AssetCategories.Hardware)
                     <div class="row">
                         @*<div class="col-sm-3">*@
-                            @*<div class="form-group">
-                                <label for="InvoiceNumber">Invoice</label>
-                                <select id="invoiceId" name="InvoiceId" class="form-control">
-                                    <option disabled selected value="">Please select value</option>
-                                    <option value="1">00123</option>
-                                    <option value="2">00124</option>
-                                    <option value="3">00125</option>
-                                </select>*@
-                                @*@Html.ValidationMessageFor(model => model.InvoiceId, "", new { @class = "text-danger" })*@
-                                @*<div class="col-sm-1 text-left">
-                                        <a data-toggle="modal" data-target="#createModal" data-select="assigned_user_select" class="btn btn-sm btn-default">New</a>
-                                    </div>*@
-                            @*</div>*@
+                        @*<div class="form-group">
+        <label for="InvoiceNumber">Invoice</label>
+        <select id="invoiceId" name="InvoiceId" class="form-control">
+            <option disabled selected value="">Please select value</option>
+            <option value="1">00123</option>
+            <option value="2">00124</option>
+            <option value="3">00125</option>
+        </select>*@
+                        @*@Html.ValidationMessageFor(model => model.InvoiceId, "", new { @class = "text-danger" })*@
+                        @*<div class="col-sm-1 text-left">
+            <a data-toggle="modal" data-target="#createModal" data-select="assigned_user_select" class="btn btn-sm btn-default">New</a>
+        </div>*@
+                        @*</div>*@
                         @*</div>*@
                         @*<div class="col-sm-3">
-                                <label for="Asset_Category">Asset Category</label>
-                                @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
-                            </div>*@
+            <label for="Asset_Category">Asset Category</label>
+            @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
+        </div>*@
                         <div class="col-sm-3">
                             <label for="Asset_Type">Asset Type</label>
                             @Html.DropDownListFor(model => model.AssetTypeID, Model.AssetTypes, new { @id = "assetType", @class = "form-control" })
@@ -56,8 +56,6 @@
                                 @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="From">Model</label>
@@ -65,12 +63,19 @@
                                 @Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="From">Service Tag</label>
                                 @Html.TextBoxFor(model => model.ServiceTag, "" as string, new { @id = "serviceTag", @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.ServiceTag, "", new { @class = "text-danger" })
                             </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="Manufacturer">Manufacturer</label>
+                            @Html.TextBoxFor(model => model.Manufacturer, "" as string, new { @id = "manufacturer", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Manufacturer, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
@@ -88,7 +93,7 @@
                             <div class="form-group">
                                 <label for="To">Warranty End Date</label>
                                 <div class='input-group date endDate'>
-                                    @Html.TextBox("WarrantyEndDate","", new { @id = "warrantyEndDate", @class = "form-control" })
+                                    @Html.TextBox("WarrantyEndDate", "", new { @id = "warrantyEndDate", @class = "form-control" })
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -97,16 +102,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label for="Manufacturer">Manufacturer</label>
-                            @Html.TextBoxFor(model => model.Manufacturer, "" as string, new { @id = "manufacturer", @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Manufacturer, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="row">                       
                         <div class="col-sm-9">
                             <div class="form-group">
                                 <label for="Reason">Hardware Description</label>
-                                @Html.TextAreaFor(model => model.Comment, new { @cols = "20", @rows = "1", @id = "hardwareDescription", @class = "form-control" })
+                                @Html.TextAreaFor(model => model.Comment, new { @cols = "20", @rows = "2", @id = "hardwareDescription", @class = "form-control" })
                             </div>
                         </div>
                     </div>
@@ -497,4 +497,6 @@
             minLength: 1
         });
     });
+
+
 </script>

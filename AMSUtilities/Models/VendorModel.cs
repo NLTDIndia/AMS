@@ -26,7 +26,8 @@ namespace AMSUtilities.Models
 
         [Required(ErrorMessage = "Contact Number required")]
         [Display(Name = "Contact Number")]
-        [StringLength(100)]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Contact Number.")]
+        [StringLength(10)]
         public string ContactNumber { get; set; }
 
         [Required(ErrorMessage = "Contact Person required")]

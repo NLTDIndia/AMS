@@ -32,5 +32,10 @@ namespace AMSRepository.Repository
         {
             return context.ComponentAssetMapping.Where(fet => fet.AssignedAssetID == assetID).ToList();
         }
+
+        public List<ComponentAssetMapping> GetComponentAssetMappingsByComponentID(int componentId)
+        {
+            return context.ComponentAssetMapping.Where(fet => fet.ComponentID == componentId).ToList();
+        }
     }
 }

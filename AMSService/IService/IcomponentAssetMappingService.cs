@@ -21,5 +21,7 @@ namespace AMSService.Service
         SelectList GetDropdownAssets(int ID,int selectedId = -1);
         ComponentAssetMappingModel UnassignComponents(ComponentAssetMappingModel componentAssetMappingModel);
         int UpdateComponentAssetMapping(ComponentAssetMappingModel componentAssetMapping);
+
+        ComponentAssetMappingModel GetComponentAssetMappingByComponentID(int id);
     }
 }

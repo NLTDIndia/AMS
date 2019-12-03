@@ -156,7 +156,6 @@
     <Compile Include="Controllers\AssetCategoryController.cs" />
     <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\AssetTypeController.cs" />
-    <Compile Include="Controllers\ComponentAssetMappingController.cs" />
     <Compile Include="Controllers\ComponentsController.cs" />
     <Compile Include="Controllers\ComponentTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -430,7 +429,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Asset\CreateAsset.cshtml" />
     <Content Include="Views\Asset\HardwareAsset.cshtml" />
     <Content Include="Views\Asset\SoftwareAsset.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -455,7 +453,6 @@
     <Content Include="Views\Asset\EditSoftwareAsset.cshtml" />
     <Content Include="Views\Asset\ManageComponents.cshtml" />
     <Content Include="Views\Asset\ManageSoftwareComponents.cshtml" />
-    <Content Include="Views\ComponentAssetMapping\List.cshtml" />
     <Content Include="Views\Components\Index.cshtml" />
     <Content Include="Views\Components\NewComponents.cshtml" />
     <Content Include="Views\Components\UpdateComponents.cshtml" />

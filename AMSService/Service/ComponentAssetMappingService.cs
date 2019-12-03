@@ -17,13 +17,16 @@ namespace AMSService.Service
         private readonly IComponentAssetMappingRepository _componentAssetMappingRepository;
         private readonly IAssetRepository _assetRepository;
         private readonly IEmployeeService _employeeService;
-       
-        public ComponentAssetMappingService(IComponentAssetMappingRepository componentAssetMappingRepository, IAssetRepository assetRepository, IEmployeeService employeeService)
+        private readonly IComponentsService _componentsService;
+
+        public ComponentAssetMappingService(IComponentAssetMappingRepository componentAssetMappingRepository, IAssetRepository assetRepository, IEmployeeService employeeService, IComponentsService componentsService)
         {
             _componentAssetMappingRepository = componentAssetMappingRepository;
             _assetRepository = assetRepository;
             _employeeService = employeeService;
-            
+            _componentsService = componentsService;
+
+
         }
         public int CreateComponentAssetMapping(ComponentAssetMappingModel componentAssetMapping)
         {
@@ -133,23 +136,7 @@ namespace AMSService.Service
                 return new ComponentAssetMappingModel { };
             }
         }
-        public ComponentAssetMappingModel AssignComponents(ComponentAssetMappingModel componentAssetMappingModel)
-        {
-            ComponentAssetMapping assignComponents = _componentAssetMappingRepository.GetComponentAssetMappingByID(componentAssetMappingModel.ID);
-            if (assignComponents != null)
-            {
-
-                assignComponents.ID = componentAssetMappingModel.ID;
-                assignComponents.AssignedAssetID = componentAssetMappingModel.AssignedAssetID;
-                assignComponents.AssignedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID;
-                assignComponents.AssignedDate = DateTime.Now;
-                assignComponents.CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID;
-                assignComponents.CreatedDate = DateTime.Now;
-                assignComponents.ComponentStatusId = Convert.ToInt32(AMSUtilities.Enums.ComponentTrackingStatus.Assign);
-             }
-            _componentAssetMappingRepository.CreateComponentAssetMapping(assignComponents);
-            return componentAssetMappingModel;
-        }
+      
         public ComponentAssetMappingModel UnassignComponents(ComponentAssetMappingModel componentAssetMappingModel)
         {
             ComponentAssetMapping unassignComponents = _componentAssetMappingRepository.GetComponentAssetMappingByID(componentAssetMappingModel.ID);
@@ -223,6 +210,56 @@ namespace AMSService.Service
             var createComponentMapping = this._componentAssetMappingRepository.CreateComponentAssetMapping(componentMapping);
 
             return createComponentMapping.ID;
+        }
+
+        public ComponentAssetMappingModel GetComponentAssetMappingByComponentID(int id)
+        {
+            if(id != 0)
+            {
+                var componentmapping = _componentAssetMappingRepository.GetComponentAssetMappingsByComponentID(id).FirstOrDefault();
+                if (componentmapping != null)
+                {
+
+                    return GetComponentModel(componentmapping); 
+                }
+                else
+                {
+
+                    var comp = _componentsService.GetComponentsById(id);
+                    ComponentAssetMappingModel newmodel = new ComponentAssetMappingModel()
+                    {
+                        ComponentID = comp.ID,
+                        ComponentTypeID = comp.ComponentTypeID,
+                        ComponentName = comp.ComponentName,
+                        ComponentTypeName = comp.ComponentTypeName
+                    };
+
+
+                    return newmodel;
+                }
+            }
+            else
+            {
+                return new ComponentAssetMappingModel { };
+            }
+            
+        }
+        public ComponentAssetMappingModel AssignComponents(ComponentAssetMappingModel componentAssetMappingModel)
+        {
+            ComponentAssetMapping assigncomponents = new ComponentAssetMapping
+            {
+                ComponentID = componentAssetMappingModel.ComponentID,
+                AssignedAssetID = componentAssetMappingModel.AssignedAssetID,
+                AssignedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
+                AssignedDate = DateTime.Now,
+                CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
+                CreatedDate = DateTime.Now,
+                ComponentTypeID = componentAssetMappingModel.ComponentTypeID,
+                ComponentStatusId = Convert.ToInt32(AMSUtilities.Enums.ComponentTrackingStatus.Assign),
+            };
+
+            _componentAssetMappingRepository.CreateComponentAssetMapping(assigncomponents);
+            return componentAssetMappingModel;
         }
     }
 }

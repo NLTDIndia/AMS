@@ -23,23 +23,7 @@ namespace NLTDAMS.Controllers
             _assetService = assetService;
         }
         ResourceManager rm = new ResourceManager("NLTDAMS.Properties.Resources", Assembly.GetExecutingAssembly());
-        // GET: Asset
-        public ActionResult CreateAsset()
-        {
-            AssetModel assetModel = new AssetModel();
-            try
-            {
-                var assetCategories = _assetService.GetAssetCategories();
-                assetModel.AssetCategories = new SelectList(assetCategories, "ID", "Description");
-                return View(assetModel);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                return View(assetModel);
-            }
-        }
-
+        
         public ActionResult HardwareAsset()
         {
 
