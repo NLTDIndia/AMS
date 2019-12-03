@@ -147,8 +147,8 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="AssetCategoryId" Type="int" Nullable="false" />
           <Property Name="Mandatory" Type="bit" Nullable="false" />
+          <Property Name="ComponentCategory" Type="int" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -289,7 +289,7 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__AssetRequ__Appro__01142BA1">
+        <Association Name="FK__AssetRequ__Appro__48CFD27E">
           <End Role="AssetRequestStatus" Type="Self.AssetRequestStatus" Multiplicity="1" />
           <End Role="AssetRequestApprovalHistory" Type="Self.AssetRequestApprovalHistory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -301,7 +301,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AssetRequ__Asset__00200768">
+        <Association Name="FK__AssetRequ__Asset__47DBAE45">
           <End Role="AssetRequestStatus" Type="Self.AssetRequestStatus" Multiplicity="1" />
           <End Role="AssetRequest" Type="Self.AssetRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -313,7 +313,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AssetRequ__Asset__02084FDA">
+        <Association Name="FK__AssetRequ__Asset__49C3F6B7">
           <End Role="AssetRequest" Type="Self.AssetRequest" Multiplicity="1" />
           <End Role="AssetRequestApprovalHistory" Type="Self.AssetRequestApprovalHistory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -349,7 +349,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__Employ__0F624AF8">
+        <Association Name="FK__Employee__Employ__5812160E">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -361,7 +361,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__SeatID__10566F31">
+        <Association Name="FK__Employee__SeatID__59063A47">
           <End Role="Seats" Type="Self.Seats" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -385,7 +385,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Seats__LocationI__18EBB532">
+        <Association Name="FK__Seats__LocationI__619B8048">
           <End Role="Location" Type="Self.Location" Multiplicity="1" />
           <End Role="Seats" Type="Self.Seats" Multiplicity="*" />
           <ReferentialConstraint>
@@ -553,18 +553,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ComponentType_AssetCategory">
-          <End Role="AssetCategory" Type="Self.AssetCategory" Multiplicity="1" />
-          <End Role="ComponentType" Type="Self.ComponentType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssetCategory">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ComponentType">
-              <PropertyRef Name="AssetCategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EmployeeAssetMapping_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="EmployeeAssetMapping" Type="Self.EmployeeAssetMapping" Multiplicity="*" />
@@ -701,15 +689,15 @@
           <EntitySet Name="Seats" EntityType="Self.Seats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SoftwareAssets" EntityType="Self.SoftwareAssets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__AssetRequ__Appro__01142BA1" Association="Self.FK__AssetRequ__Appro__01142BA1">
+          <AssociationSet Name="FK__AssetRequ__Appro__48CFD27E" Association="Self.FK__AssetRequ__Appro__48CFD27E">
             <End Role="AssetRequestStatus" EntitySet="AssetRequestStatus" />
             <End Role="AssetRequestApprovalHistory" EntitySet="AssetRequestApprovalHistory" />
           </AssociationSet>
-          <AssociationSet Name="FK__AssetRequ__Asset__00200768" Association="Self.FK__AssetRequ__Asset__00200768">
+          <AssociationSet Name="FK__AssetRequ__Asset__47DBAE45" Association="Self.FK__AssetRequ__Asset__47DBAE45">
             <End Role="AssetRequestStatus" EntitySet="AssetRequestStatus" />
             <End Role="AssetRequest" EntitySet="AssetRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK__AssetRequ__Asset__02084FDA" Association="Self.FK__AssetRequ__Asset__02084FDA">
+          <AssociationSet Name="FK__AssetRequ__Asset__49C3F6B7" Association="Self.FK__AssetRequ__Asset__49C3F6B7">
             <End Role="AssetRequest" EntitySet="AssetRequest" />
             <End Role="AssetRequestApprovalHistory" EntitySet="AssetRequestApprovalHistory" />
           </AssociationSet>
@@ -721,11 +709,11 @@
             <End Role="Assets" EntitySet="Assets" />
             <End Role="ComponentAssetMapping" EntitySet="ComponentAssetMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__Employ__0F624AF8" Association="Self.FK__Employee__Employ__0F624AF8">
+          <AssociationSet Name="FK__Employee__Employ__5812160E" Association="Self.FK__Employee__Employ__5812160E">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__SeatID__10566F31" Association="Self.FK__Employee__SeatID__10566F31">
+          <AssociationSet Name="FK__Employee__SeatID__59063A47" Association="Self.FK__Employee__SeatID__59063A47">
             <End Role="Seats" EntitySet="Seats" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
@@ -733,7 +721,7 @@
             <End Role="Assets" EntitySet="Assets" />
             <End Role="EmployeeAssetMapping" EntitySet="EmployeeAssetMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__Seats__LocationI__18EBB532" Association="Self.FK__Seats__LocationI__18EBB532">
+          <AssociationSet Name="FK__Seats__LocationI__619B8048" Association="Self.FK__Seats__LocationI__619B8048">
             <End Role="Location" EntitySet="Location" />
             <End Role="Seats" EntitySet="Seats" />
           </AssociationSet>
@@ -789,10 +777,6 @@
             <End Role="ComponentType" EntitySet="ComponentType" />
             <End Role="Components" EntitySet="Components" />
           </AssociationSet>
-          <AssociationSet Name="FK_ComponentType_AssetCategory" Association="Self.FK_ComponentType_AssetCategory">
-            <End Role="AssetCategory" EntitySet="AssetCategory" />
-            <End Role="ComponentType" EntitySet="ComponentType" />
-          </AssociationSet>
           <AssociationSet Name="FK_EmployeeAssetMapping_Employee" Association="Self.FK_EmployeeAssetMapping_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="EmployeeAssetMapping" EntitySet="EmployeeAssetMapping" />
@@ -842,7 +826,6 @@
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="AssetTypes" Relationship="Self.FK_AssetTypes_AssetCategory" FromRole="AssetCategory" ToRole="AssetTypes" />
-          <NavigationProperty Name="ComponentType" Relationship="AMSModel.FK_ComponentType_AssetCategory" FromRole="AssetCategory" ToRole="ComponentType" />
         </EntityType>
         <EntityType Name="AssetPurchaseOrderMapping">
           <Key>
@@ -995,10 +978,9 @@
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssetTypes" Relationship="Self.FK_ComponentType_AssetTypes" FromRole="ComponentType" ToRole="AssetTypes" />
           <NavigationProperty Name="Components" Relationship="Self.FK_Components_ComponentType" FromRole="ComponentType" ToRole="Components" />
-          <Property Name="AssetCategoryId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AssetCategory" Relationship="AMSModel.FK_ComponentType_AssetCategory" FromRole="ComponentType" ToRole="AssetCategory" />
           <Property Name="Mandatory" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ComponentAssetMapping" Relationship="AMSModel.FK_ComponentAssetMapping_ComponentTypeID" FromRole="ComponentType" ToRole="ComponentAssetMapping" />
+          <Property Name="ComponentCategory" Type="Int32" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -1670,10 +1652,6 @@
             <End Role="Vendor" EntitySet="Vendor" />
             <End Role="Quotation" EntitySet="Quotation" />
           </AssociationSet>
-          <AssociationSet Name="FK_ComponentType_AssetCategory" Association="AMSModel.FK_ComponentType_AssetCategory">
-            <End Role="AssetCategory" EntitySet="AssetCategory" />
-            <End Role="ComponentType" EntitySet="ComponentType" />
-          </AssociationSet>
           <EntitySet Name="ComponentStatus" EntityType="AMSModel.ComponentStatus" />
           <EntitySet Name="ComponentTracker" EntityType="AMSModel.ComponentTracker" />
           <AssociationSet Name="FK_ComponentAssetMapping_ComponentStatus" Association="AMSModel.FK_ComponentAssetMapping_ComponentStatus">
@@ -1685,18 +1663,6 @@
             <End Role="ComponentAssetMapping" EntitySet="ComponentAssetMapping" />
           </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_ComponentType_AssetCategory">
-          <End Type="AMSModel.AssetCategory" Role="AssetCategory" Multiplicity="1" />
-          <End Type="AMSModel.ComponentType" Role="ComponentType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssetCategory">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ComponentType">
-              <PropertyRef Name="AssetCategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ComponentStatus">
           <Key>
             <PropertyRef Name="ID" />
@@ -1874,8 +1840,8 @@
           <EntitySetMapping Name="ComponentType">
             <EntityTypeMapping TypeName="AMSModel.ComponentType">
               <MappingFragment StoreEntitySet="ComponentType">
+                <ScalarProperty Name="ComponentCategory" ColumnName="ComponentCategory" />
                 <ScalarProperty Name="Mandatory" ColumnName="Mandatory" />
-                <ScalarProperty Name="AssetCategoryId" ColumnName="AssetCategoryId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="AssetTypeID" ColumnName="AssetTypeID" />

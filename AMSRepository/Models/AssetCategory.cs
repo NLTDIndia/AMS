@@ -18,7 +18,6 @@ namespace AMSRepository.Models
         public AssetCategory()
         {
             this.AssetTypes = new HashSet<AssetTypes>();
-            this.ComponentType = new HashSet<ComponentType>();
         }
     
         public int ID { get; set; }
@@ -27,7 +26,5 @@ namespace AMSRepository.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssetTypes> AssetTypes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComponentType> ComponentType { get; set; }
     }
 }

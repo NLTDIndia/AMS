@@ -19,7 +19,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.HiddenFor(model=>model.ID)
+                                @Html.HiddenFor(model => model.ID)
                             </div>
                         </div>
                     </div>
@@ -40,19 +40,6 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group">
-                                @Html.LabelFor(model => model.AssetCategoryName, htmlAttributes: new { @class = "control-label col-md-12" })
-                            </div>
-                        </div>
-                        <div class="col-sm-5">
-                            <div class="form-group">
-                                @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @onchange = "setAssetTypes(this.value)", @id = "assetCategory", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.AssetCategoryId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
                                 @Html.LabelFor(model => model.AssetTypeName, htmlAttributes: new { @class = "control-label col-md-12" })
                             </div>
                         </div>
@@ -60,6 +47,19 @@
                             <div class="form-group">
                                 @Html.DropDownListFor(model => model.AssetTypeID, Model.AssetTypes, new { @id = "assetType", @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.AssetTypeID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ComponentCategoryName, htmlAttributes: new { @class = "control-label col-md-12" })
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.ComponentCategory, Model.ComponentCategories, new { @onchange = "setAssetTypes(this.value)", @id = "assetCategory", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ComponentCategory, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>

@@ -85,7 +85,7 @@ namespace AMSService.Service
                    AssignedBy = cam.AssignedBy,
                    AssignedDate = cam.AssignedDate,
                    ComponentTypeID=cam.Components.ComponentTypeID,
-                   AssetCategoryId = cam.Components.ComponentType.AssetCategoryId,
+                   AssetCategoryId = cam.Assets.AssetTypes.AssetCategoryID,
                 }).ToList();
             }
             else

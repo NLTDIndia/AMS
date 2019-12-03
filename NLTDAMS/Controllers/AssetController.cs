@@ -277,7 +277,7 @@ namespace NLTDAMS.Controllers
             {
                 hardwareAssetModel.ComponentAssetMapping = _assetService.GetComponentAssetMappings(assetId.Value);
             }
-            hardwareAssetModel.ComponentTypeModels = _assetService.GetComponentTypes().Where(fet => fet.AssetTypeID == assetType).ToList();
+            hardwareAssetModel.ComponentTypeModels = _assetService.GetComponentTypes().Where(fet => fet.AssetTypeID == assetType).OrderBy(ct=>ct.ComponentCategory).ToList();
             if (hardwareAssetModel.ComponentTypeModels.Count > 0)
             {
                 hardwareAssetModel.componentStyle = "display:block";

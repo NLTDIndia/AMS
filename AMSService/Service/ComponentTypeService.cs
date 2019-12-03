@@ -1,5 +1,6 @@
 ﻿using AMSRepository.Models;
 using AMSRepository.Repository;
+using AMSUtilities.Enums;
 using AMSUtilities.Models;
 using System;
 using System.Collections.Generic;
@@ -42,9 +43,9 @@ namespace AMSService.Service
                         IsActive = componentType.IsActive,
                         Mandatory = componentType.Mandatory,
                         AssetTypeID = componentType.AssetTypeID,
-                        AssetTypes = _assetTypeService.GetDropdownAssetTypes(componentType.AssetCategoryId, componentType.AssetTypeID),
-                        AssetCategoryId = componentType.AssetCategoryId,
-                        AssetCategories = _assetCategoryService.GetDropdownAssetCategories(componentType.AssetCategoryId)
+                        AssetTypes = _assetTypeService.GetDropdownAssetTypes(componentType.AssetTypes.AssetCategoryID, componentType.AssetTypeID),
+                        ComponentCategory = componentType.ComponentCategory.Value,
+                        ComponentCategories = GetComponentCategories(componentType.ComponentCategory.Value)
                     };
                 }
                 else
@@ -57,11 +58,21 @@ namespace AMSService.Service
                 return new ComponentTypeModel
                 {
                     AssetTypes = _assetTypeService.GetDropdownAssetTypes(assetCategoryId, assetTypeId),
-                    AssetCategories = _assetCategoryService.GetDropdownAssetCategories(assetCategoryId.Value)
+                    ComponentCategories = GetComponentCategories()
 
                 };
             }
         }
+
+        private static SelectList GetComponentCategories(int selectedId = -1)
+        {
+            return new SelectList(new List<SelectListItem> { 
+                new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Component Category", Value = "" }, 
+                new SelectListItem { Selected = selectedId == (int)ComponentCategory.Hardware ? true : false, Text = ComponentCategory.Hardware.ToString(), Value = Convert.ToString( (int)ComponentCategory.Hardware) }, 
+                new SelectListItem { Selected = selectedId == (int)ComponentCategory.Software ? true : false, Text = ComponentCategory.Software.ToString(), Value = Convert.ToString( (int)ComponentCategory.Software) }
+            }, "Value", "Text");
+        }
+
         public ComponentTypeModel CreateComponentType(ComponentTypeModel componentTypeModel)
         {
             try
@@ -72,7 +83,7 @@ namespace AMSService.Service
                     IsActive = componentTypeModel.IsActive,
                     Mandatory = componentTypeModel.Mandatory,
                     AssetTypeID = componentTypeModel.AssetTypeID,
-                    AssetCategoryId = componentTypeModel.AssetCategoryId,
+                    ComponentCategory = componentTypeModel.ComponentCategory,
                     CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
                     CreatedDate = DateTime.Now
                 };
@@ -93,7 +104,7 @@ namespace AMSService.Service
             {
                 componentType.Name = componentTypeModel.Name;
                 componentType.AssetTypeID = componentTypeModel.AssetTypeID;
-                componentType.AssetCategoryId = componentTypeModel.AssetCategoryId;
+                componentType.ComponentCategory = componentTypeModel.ComponentCategory;
                 componentType.IsActive = componentTypeModel.IsActive;
                 componentType.Mandatory = componentTypeModel.Mandatory;
 
@@ -160,8 +171,8 @@ namespace AMSService.Service
                     Mandatory = ct.Mandatory,
                     AssetTypeID = ct.AssetTypeID,
                     AssetTypeName = ct.AssetTypes.Description,
-                    AssetCategoryId = ct.AssetCategoryId,
-                    AssetCategoryName = ct.AssetCategory.Description
+                    ComponentCategory = ct.ComponentCategory.Value,
+                    ComponentCategoryName = ct.ComponentCategory.Value == (int)ComponentCategory.Hardware ? ComponentCategory.Hardware.ToString() : ComponentCategory.Software.ToString()
                 }).ToList();
             }
             else

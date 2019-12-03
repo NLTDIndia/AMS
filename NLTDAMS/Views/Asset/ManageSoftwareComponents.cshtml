@@ -58,11 +58,11 @@
                                         }
                                     }
                                     var style = "";
-                                    if (item.AssetCategoryId == (int)AssetCategories.Hardware)
+                                    if (item.ComponentCategory == (int)ComponentCategory.Hardware)
                                     {
                                         style = "color: #00a65a !important";
                                     }
-                                    else if (item.AssetCategoryId == (int)AssetCategories.Software)
+                                    else if (item.ComponentCategory == (int)ComponentCategory.Software)
                                     {
                                         style = "color: #f39c12 !important";
                                     }
@@ -80,7 +80,6 @@
                                             <label for="inputEmail3" class="col-sm-2 control-label" style="@style">@item.Name</label>
                                             @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeName", @item.Name)
                                             @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeID", @item.ID)
-                                            @Html.Hidden("ComponentAssetMapping[" + i + "].AssetCategoryId", @item.AssetCategoryId)
 
                                             @if (Model.ComponentAssetMapping.ToList().Count > 0)
                                             {

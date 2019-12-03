@@ -77,4 +77,10 @@ namespace AMSUtilities.Enums
         Closed =7
 
     }
+
+    public enum ComponentCategory
+    {
+        Hardware = 1,
+        Software = 2
+    }
 }

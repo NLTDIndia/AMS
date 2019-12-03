@@ -17,10 +17,10 @@ namespace AMSUtilities.Models
         public int AssetTypeID { get; set; }
         public SelectList AssetTypes { get; set; }
         [Required]
-        public int AssetCategoryId { get; set; }
-        public SelectList AssetCategories { get; set; }
-        [Display(Name = "Asset Category")]
-        public string AssetCategoryName { get; set; }
+        public int ComponentCategory { get; set; }
+        public SelectList ComponentCategories { get; set; }
+        [Display(Name = "Component Category")]
+        public string ComponentCategoryName { get; set; }
         [Display(Name = "Asset Type")]
         public string AssetTypeName { get; set; }
         [Required]

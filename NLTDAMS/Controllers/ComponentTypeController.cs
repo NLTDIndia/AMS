@@ -31,9 +31,7 @@ namespace NLTDAMS.Controllers
         // GET: ComponentType/Create
         public ActionResult Create()
         {
-            var componentTypeModel= _ComponentTypeService.GetComponentTypeModel(null, assetCategoryId: (int)AssetCategories.Hardware);
-            componentTypeModel.AssetCategoryId = (int)AssetCategories.Hardware;
-            return View(componentTypeModel);
+            return View(_ComponentTypeService.GetComponentTypeModel(null));
         }
 
         // POST: ComponentType/Create
@@ -52,20 +50,8 @@ namespace NLTDAMS.Controllers
                 }
                 else
                 {
-                    if (assetCategoryId != 0)
-                    {
-                        var componentType = _ComponentTypeService.GetComponentTypeModel(null, assetCategoryId: assetCategoryId);
-                        componentType.AssetCategoryId = assetCategoryId.Value;
-                        return View(componentType);
-                        
-                    }
-                    else
-                    {
-                        var componentType = _ComponentTypeService.GetComponentTypeModel(null, assetCategoryId: (int)AssetCategories.Hardware);
-                        componentType.AssetCategoryId = (int)AssetCategories.Hardware;
-                        return View(componentType);
-                    }
-                    
+                    return View(_ComponentTypeService.GetComponentTypeModel(null, assetCategoryId: assetCategoryId));
+
                 }
             }
             catch (Exception e)
