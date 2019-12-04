@@ -73,20 +73,44 @@ namespace AMSService.Service
         public List<ComponentAssetMappingModel> GetComponentAssetMappingsByAssetID(int assetID)
         {
             var componentAssets = _componentAssetMappingRepository.GetComponentAssetMappingsByAssetID(assetID);
+            List<ComponentAssetMappingModel> getAllComponents = new List<ComponentAssetMappingModel>();
             if (componentAssets != null && componentAssets.Count > 0)
             {
-                return componentAssets.Select(cam => new ComponentAssetMappingModel
+                //return componentAssets.Select(cam => new ComponentAssetMappingModel
+                //{
+                //   ID=cam.ID,
+                //   ComponentID = cam.ComponentID,
+                //   AssignedAssetID = cam.AssignedAssetID,
+                //   ActualAssetID = cam.ActualAssetID,
+                //   ComponentStatusId = cam.ComponentStatusId,
+                //   AssignedBy = cam.AssignedBy,
+                //   AssignedDate = cam.AssignedDate,
+                //   ComponentTypeID=cam.Components.ComponentTypeID,
+                //   AssetCategoryId = cam.Assets.AssetTypes.AssetCategoryID,
+                //}).ToList();
+                componentAssets.ForEach(cam =>
                 {
-                   ID=cam.ID,
-                   ComponentID = cam.ComponentID,
-                   AssignedAssetID = cam.AssignedAssetID,
-                   ActualAssetID = cam.ActualAssetID,
-                   ComponentStatusId = cam.ComponentStatusId,
-                   AssignedBy = cam.AssignedBy,
-                   AssignedDate = cam.AssignedDate,
-                   ComponentTypeID=cam.Components.ComponentTypeID,
-                   AssetCategoryId = cam.Assets.AssetTypes.AssetCategoryID,
-                }).ToList();
+                    ComponentAssetMappingModel componentsViewModel = new ComponentAssetMappingModel();
+                    componentsViewModel.ID = cam.ID;
+                    componentsViewModel.ComponentID = cam.ComponentID;
+                    componentsViewModel.AssignedAssetID = cam.AssignedAssetID;
+                    componentsViewModel.ActualAssetID = cam.ActualAssetID;
+                    componentsViewModel.ComponentStatusId = cam.ComponentStatusId;
+                    componentsViewModel.AssignedBy = cam.AssignedBy;
+                    componentsViewModel.AssignedDate = cam.AssignedDate;
+                    componentsViewModel.ComponentTypeID = cam.Components.ComponentTypeID;
+                   // componentsViewModel.AssetCategoryId = cam.Assets.AssetTypes.AssetCategoryID;
+                   if (cam.Assets1 != null)
+                   {
+                       componentsViewModel.AssetCategoryId = cam.Assets1.AssetTypes.AssetCategoryID;
+                   }
+                   else if (cam.Assets != null)
+                   {
+                       componentsViewModel.AssetCategoryId = cam.Assets.AssetTypes.AssetCategoryID;
+                   }
+                   getAllComponents.Add(componentsViewModel);
+                });
+                return getAllComponents;
             }
             else
             {
