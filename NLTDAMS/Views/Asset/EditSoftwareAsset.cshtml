@@ -72,7 +72,7 @@
                             <div class="form-group">
                                 <label for="From">License Purchase Date</label>
                                 <div class='input-group date startDate'>
-                                    @Html.TextBox("LicencePurchaseDate", Model.LicencePurchaseDate.ToString("MM/dd/yyyy"), new { @id = "licencePurchaseDate", @class = "form-control" })
+                                    @Html.TextBox("LicencePurchaseDate", Model.LicencePurchaseDate.ToString("MM/dd/yyyy"), new { @id = "licencePurchaseDate", @class = "form-control", autocomplete="off" })
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <label for="To">License Expiry Date</label>
                                 <div class='input-group date endDate'>
-                                    @Html.TextBox("LicenceExpiryDate", Model.LicenceExpiryDate.ToString("MM/dd/yyyy"), new { @id = "licenceExpiryDate", @class = "form-control" })
+                                    @Html.TextBox("LicenceExpiryDate", Model.LicenceExpiryDate.ToString("MM/dd/yyyy"), new { @id = "licenceExpiryDate", @class = "form-control", autocomplete="off" })
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>

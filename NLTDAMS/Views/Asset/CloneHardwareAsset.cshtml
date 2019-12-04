@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <label for="From">Warranty Start Date</label>
                                 <div class='input-group date startDate'>
-                                    @Html.TextBox("WarrantyStartDate", warrantyStartDate, new { @id = "warrantyStartDate", @class = "form-control" })
+                                    @Html.TextBox("WarrantyStartDate", warrantyStartDate, new { @id = "warrantyStartDate", @class = "form-control", autocomplete="off" })
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -96,7 +96,7 @@
                             <div class="form-group">
                                 <label for="To">Warranty End Date</label>
                                 <div class='input-group date endDate'>
-                                    @Html.TextBox("WarrantyEndDate", Model.WarrantyEndDate.ToString("MM/dd/yyyy"), new { @id = "warrantyEndDate", @class = "form-control" })
+                                    @Html.TextBox("WarrantyEndDate", Model.WarrantyEndDate.ToString("MM/dd/yyyy"), new { @id = "warrantyEndDate", @class = "form-control", autocomplete="off" })
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
