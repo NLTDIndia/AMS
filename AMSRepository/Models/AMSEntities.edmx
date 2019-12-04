@@ -28,10 +28,10 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RequestedBy" Type="int" Nullable="false" />
           <Property Name="RequestedTo" Type="int" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="AssetRequestStatusID" Type="int" Nullable="false" />
           <Property Name="Priority" Type="int" Nullable="false" />
           <Property Name="RequestedAsset" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="AssetRequestApprovalHistory">
           <Key>
@@ -43,8 +43,8 @@
           <Property Name="ApproverID" Type="int" Nullable="false" />
           <Property Name="Comments" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="ApprovalStatus" Type="int" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="RequestedAsset" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="AssetRequestStatus">
           <Key>
@@ -102,10 +102,10 @@
           <Property Name="ActualAssetID" Type="int" />
           <Property Name="AssignedDate" Type="datetime" />
           <Property Name="AssignedBy" Type="int" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ComponentStatusId" Type="int" Nullable="false" />
           <Property Name="ComponentTypeID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Components">
           <Key>
@@ -114,9 +114,9 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ComponentTypeID" Type="int" Nullable="false" />
           <Property Name="ComponentName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
         </EntityType>
         <EntityType Name="ComponentStatus">
           <Key>
@@ -145,10 +145,10 @@
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="AssetTypeID" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="Mandatory" Type="bit" Nullable="false" />
           <Property Name="ComponentCategory" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -158,15 +158,15 @@
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="EmployeeRoleID" Type="int" Nullable="false" />
           <Property Name="EmployeeName" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="SeatID" Type="int" Nullable="false" />
+          <Property Name="SeatID" Type="int" />
           <Property Name="MailID" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ISActive" Type="bit" Nullable="false" />
           <Property Name="ManagerID" Type="int" />
           <Property Name="CorpId" Type="varchar" MaxLength="50" />
           <Property Name="RelievingDate" Type="date" />
           <Property Name="JoiningDate" Type="date" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeAssetMapping">
           <Key>
@@ -289,7 +289,7 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__AssetRequ__Appro__48CFD27E">
+        <Association Name="FK__AssetRequ__Appro__6FE99F9F">
           <End Role="AssetRequestStatus" Type="Self.AssetRequestStatus" Multiplicity="1" />
           <End Role="AssetRequestApprovalHistory" Type="Self.AssetRequestApprovalHistory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -301,7 +301,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AssetRequ__Asset__47DBAE45">
+        <Association Name="FK__AssetRequ__Asset__6EF57B66">
           <End Role="AssetRequestStatus" Type="Self.AssetRequestStatus" Multiplicity="1" />
           <End Role="AssetRequest" Type="Self.AssetRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -313,7 +313,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AssetRequ__Asset__49C3F6B7">
+        <Association Name="FK__AssetRequ__Asset__70DDC3D8">
           <End Role="AssetRequest" Type="Self.AssetRequest" Multiplicity="1" />
           <End Role="AssetRequestApprovalHistory" Type="Self.AssetRequestApprovalHistory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -349,7 +349,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__Employ__5812160E">
+        <Association Name="FK__Employee__Employ__7E37BEF6">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -358,18 +358,6 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="EmployeeRoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Employee__SeatID__59063A47">
-          <End Role="Seats" Type="Self.Seats" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Seats">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="SeatID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -385,7 +373,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Seats__LocationI__619B8048">
+        <Association Name="FK__Seats__LocationI__06CD04F7">
           <End Role="Location" Type="Self.Location" Multiplicity="1" />
           <End Role="Seats" Type="Self.Seats" Multiplicity="*" />
           <ReferentialConstraint>
@@ -689,15 +677,15 @@
           <EntitySet Name="Seats" EntityType="Self.Seats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SoftwareAssets" EntityType="Self.SoftwareAssets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__AssetRequ__Appro__48CFD27E" Association="Self.FK__AssetRequ__Appro__48CFD27E">
+          <AssociationSet Name="FK__AssetRequ__Appro__6FE99F9F" Association="Self.FK__AssetRequ__Appro__6FE99F9F">
             <End Role="AssetRequestStatus" EntitySet="AssetRequestStatus" />
             <End Role="AssetRequestApprovalHistory" EntitySet="AssetRequestApprovalHistory" />
           </AssociationSet>
-          <AssociationSet Name="FK__AssetRequ__Asset__47DBAE45" Association="Self.FK__AssetRequ__Asset__47DBAE45">
+          <AssociationSet Name="FK__AssetRequ__Asset__6EF57B66" Association="Self.FK__AssetRequ__Asset__6EF57B66">
             <End Role="AssetRequestStatus" EntitySet="AssetRequestStatus" />
             <End Role="AssetRequest" EntitySet="AssetRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK__AssetRequ__Asset__49C3F6B7" Association="Self.FK__AssetRequ__Asset__49C3F6B7">
+          <AssociationSet Name="FK__AssetRequ__Asset__70DDC3D8" Association="Self.FK__AssetRequ__Asset__70DDC3D8">
             <End Role="AssetRequest" EntitySet="AssetRequest" />
             <End Role="AssetRequestApprovalHistory" EntitySet="AssetRequestApprovalHistory" />
           </AssociationSet>
@@ -709,19 +697,15 @@
             <End Role="Assets" EntitySet="Assets" />
             <End Role="ComponentAssetMapping" EntitySet="ComponentAssetMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__Employ__5812160E" Association="Self.FK__Employee__Employ__5812160E">
+          <AssociationSet Name="FK__Employee__Employ__7E37BEF6" Association="Self.FK__Employee__Employ__7E37BEF6">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Employee__SeatID__59063A47" Association="Self.FK__Employee__SeatID__59063A47">
-            <End Role="Seats" EntitySet="Seats" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK__EmployeeA__Asset__1EA48E88" Association="Self.FK__EmployeeA__Asset__1EA48E88">
             <End Role="Assets" EntitySet="Assets" />
             <End Role="EmployeeAssetMapping" EntitySet="EmployeeAssetMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__Seats__LocationI__619B8048" Association="Self.FK__Seats__LocationI__619B8048">
+          <AssociationSet Name="FK__Seats__LocationI__06CD04F7" Association="Self.FK__Seats__LocationI__06CD04F7">
             <End Role="Location" EntitySet="Location" />
             <End Role="Seats" EntitySet="Seats" />
           </AssociationSet>
@@ -990,7 +974,7 @@
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="EmployeeRoleID" Type="Int32" Nullable="false" />
           <Property Name="EmployeeName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SeatID" Type="Int32" Nullable="false" />
+          <Property Name="SeatID" Type="Int32" />
           <Property Name="MailID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
@@ -1000,7 +984,6 @@
           <NavigationProperty Name="Assets" Relationship="Self.FK_Assets_Employee" FromRole="Employee" ToRole="Assets" />
           <NavigationProperty Name="AssetTracker" Relationship="Self.FK_AssetTracker_Employee" FromRole="Employee" ToRole="AssetTracker" />
           <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Employee__Employ__5070F446" FromRole="Employee" ToRole="EmployeeRole" />
-          <NavigationProperty Name="Seats" Relationship="Self.FK__Employee__SeatID__5165187F" FromRole="Employee" ToRole="Seats" />
           <NavigationProperty Name="EmployeeAssetMapping" Relationship="Self.FK_EmployeeAssetMapping_Employee" FromRole="Employee" ToRole="EmployeeAssetMapping" />
           <NavigationProperty Name="Vendor" Relationship="Self.FK_Vendor_Employee" FromRole="Employee" ToRole="Vendor" />
           <Property Name="RelievingDate" Type="DateTime" Precision="0" />
@@ -1115,7 +1098,6 @@
           <Property Name="LocationID" Type="Int32" Nullable="false" />
           <Property Name="SeatName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsFilled" Type="Boolean" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__Employee__SeatID__5165187F" FromRole="Seats" ToRole="Employee" />
           <NavigationProperty Name="Location" Relationship="Self.FK__Seats__LocationI__59FA5E80" FromRole="Seats" ToRole="Location" />
         </EntityType>
         <EntityType Name="SoftwareAssets">
@@ -1410,18 +1392,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__SeatID__5165187F">
-          <End Role="Seats" Type="Self.Seats" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Seats">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="SeatID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EmployeeAssetMapping_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="EmployeeAssetMapping" Type="Self.EmployeeAssetMapping" Multiplicity="*" />
@@ -1618,10 +1588,6 @@
           </AssociationSet>
           <AssociationSet Name="FK__Employee__Employ__5070F446" Association="Self.FK__Employee__Employ__5070F446">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Employee__SeatID__5165187F" Association="Self.FK__Employee__SeatID__5165187F">
-            <End Role="Seats" EntitySet="Seats" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeAssetMapping_Employee" Association="Self.FK_EmployeeAssetMapping_Employee">

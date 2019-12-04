@@ -12,7 +12,7 @@ namespace AMSUtilities.Models
         public int EmployeeID { get; set; }
         public int EmployeeRoleID { get; set; }
         public string EmployeeName { get; set; }
-        public int SeatID { get; set; }
+        public int? SeatID { get; set; }
         public string MailID { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }

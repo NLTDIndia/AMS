@@ -27,7 +27,7 @@ namespace AMSRepository.Models
         public int EmployeeID { get; set; }
         public int EmployeeRoleID { get; set; }
         public string EmployeeName { get; set; }
-        public int SeatID { get; set; }
+        public Nullable<int> SeatID { get; set; }
         public string MailID { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
@@ -42,7 +42,6 @@ namespace AMSRepository.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssetTracker> AssetTracker { get; set; }
         public virtual EmployeeRole EmployeeRole { get; set; }
-        public virtual Seats Seats { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeAssetMapping> EmployeeAssetMapping { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

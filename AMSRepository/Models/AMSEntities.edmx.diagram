@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0fce1a935b2a48feac6bea968e9c4173" Name="Diagram1">
+      <Diagram DiagramId="0fce1a935b2a48feac6bea968e9c4173" Name="Diagram1" ZoomLevel="87">
         <EntityTypeShape EntityType="AMSModel.AssetCategory" Width="1.5" PointX="1.5" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="AMSModel.AssetPurchaseOrderMapping" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AMSModel.AssetRequest" Width="1.5" PointX="1.5" PointY="39.125" IsExpanded="true" />
@@ -52,7 +52,6 @@
         <AssociationConnector Association="AMSModel.FK_ComponentAssetMapping_Components" ManuallyRouted="false" />
         <AssociationConnector Association="AMSModel.FK_Components_ComponentType" ManuallyRouted="false" />
         <AssociationConnector Association="AMSModel.FK__Employee__Employ__5070F446" ManuallyRouted="false" />
-        <AssociationConnector Association="AMSModel.FK__Employee__SeatID__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="AMSModel.FK_EmployeeAssetMapping_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="AMSModel.FK_Vendor_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="AMSModel.FK__Seats__LocationI__59FA5E80" ManuallyRouted="false" />
