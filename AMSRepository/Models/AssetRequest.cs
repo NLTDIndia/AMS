@@ -24,10 +24,10 @@ namespace AMSRepository.Models
         public int ID { get; set; }
         public int RequestedBy { get; set; }
         public int RequestedTo { get; set; }
-        public System.DateTime CreatedDate { get; set; }
         public int AssetRequestStatusID { get; set; }
         public int Priority { get; set; }
         public string RequestedAsset { get; set; }
+        public System.DateTime CreatedDate { get; set; }
     
         public virtual AssetRequestStatus AssetRequestStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

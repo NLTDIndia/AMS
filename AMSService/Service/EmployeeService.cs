@@ -30,7 +30,7 @@ namespace AMSService.Service
                 SeatID = employeeModel.SeatID,
                 MailID = employeeModel.MailID,
                 CreatedDate = employeeModel.CreatedDate,
-                CreatedBy = employeeModel.EmployeeID,
+                CreatedBy = employeeModel.ID,
                 ISActive = employeeModel.ISActive,
                 ManagerID = employeeModel.ManagerID,
                 CorpId = employeeModel.CorpId,
@@ -49,7 +49,7 @@ namespace AMSService.Service
                 employee.SeatID = employeeModel.SeatID;
                 employee.MailID = employeeModel.MailID;
                 employee.CreatedDate = employeeModel.CreatedDate;
-                employee.CreatedBy = employeeModel.EmployeeID;
+                employee.CreatedBy = employeeModel.ID;
                 employee.ISActive = employeeModel.ISActive;
                 employee.ManagerID = employeeModel.ManagerID;
                 employee.CorpId = employeeModel.CorpId;
@@ -69,7 +69,7 @@ namespace AMSService.Service
                     {
                         ID = employee.ID,
                         EmployeeName = employee.EmployeeName,
-                        EmployeeID = employee.EmployeeID,
+                        EmployeeID = Convert.ToString(employee.EmployeeID),
                         CorpId = employee.CorpId,
                         EmployeeRoleID = employee.EmployeeRoleID,
                         ISActive = employee.ISActive,
@@ -102,7 +102,7 @@ namespace AMSService.Service
                     SeatID = ac.SeatID,
                     MailID = ac.MailID,
                     CreatedDate = ac.CreatedDate,
-                    CreatedBy = ac.EmployeeID,
+                    CreatedBy = ac.ID,
                     ISActive = ac.ISActive,
                     ManagerID = ac.ManagerID,
                     CorpId = ac.CorpId,

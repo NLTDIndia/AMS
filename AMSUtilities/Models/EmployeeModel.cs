@@ -9,7 +9,7 @@ namespace AMSUtilities.Models
     public class EmployeeModel
     {
         public int ID { get; set; }
-        public int EmployeeID { get; set; }
+        public string EmployeeID { get; set; }
         public int EmployeeRoleID { get; set; }
         public string EmployeeName { get; set; }
         public int? SeatID { get; set; }

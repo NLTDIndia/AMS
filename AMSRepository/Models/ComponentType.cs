@@ -17,23 +17,23 @@ namespace AMSRepository.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ComponentType()
         {
-            this.Components = new HashSet<Components>();
             this.ComponentAssetMapping = new HashSet<ComponentAssetMapping>();
+            this.Components = new HashSet<Components>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
         public int AssetTypeID { get; set; }
         public bool IsActive { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public int CreatedBy { get; set; }
         public bool Mandatory { get; set; }
         public Nullable<int> ComponentCategory { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public int CreatedBy { get; set; }
     
-        public virtual AssetTypes AssetTypes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Components> Components { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ComponentAssetMapping> ComponentAssetMapping { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Components> Components { get; set; }
+        public virtual AssetTypes AssetTypes { get; set; }
     }
 }

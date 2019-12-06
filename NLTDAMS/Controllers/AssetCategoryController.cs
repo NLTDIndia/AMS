@@ -10,7 +10,7 @@ using log4net;
 
 namespace NLTDAMS.Controllers
 {
-    [Authorize(Roles = "Admin,Manager,HR")]
+    [Authorize(Roles = "IT")]
     public class AssetCategoryController : Controller
     {
         private readonly IAssetCategoryService _assetCategoryService;

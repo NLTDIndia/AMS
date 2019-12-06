@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace NLTDAMS.Controllers
 {
-    [Authorize(Roles = "Admin,Manager,HR")]
+    [Authorize(Roles = "IT")]
     public class ComponentTypeController : Controller
     {
         private readonly IComponentTypeService _ComponentTypeService;

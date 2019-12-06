@@ -36,6 +36,8 @@ namespace AMSRepository.Models
         public virtual DbSet<AssetTypes> AssetTypes { get; set; }
         public virtual DbSet<ComponentAssetMapping> ComponentAssetMapping { get; set; }
         public virtual DbSet<Components> Components { get; set; }
+        public virtual DbSet<ComponentStatus> ComponentStatus { get; set; }
+        public virtual DbSet<ComponentTracker> ComponentTracker { get; set; }
         public virtual DbSet<ComponentType> ComponentType { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<EmployeeAssetMapping> EmployeeAssetMapping { get; set; }
@@ -50,7 +52,5 @@ namespace AMSRepository.Models
         public virtual DbSet<Seats> Seats { get; set; }
         public virtual DbSet<SoftwareAssets> SoftwareAssets { get; set; }
         public virtual DbSet<Vendor> Vendor { get; set; }
-        public virtual DbSet<ComponentStatus> ComponentStatus { get; set; }
-        public virtual DbSet<ComponentTracker> ComponentTracker { get; set; }
     }
 }

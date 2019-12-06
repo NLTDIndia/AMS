@@ -12,7 +12,7 @@ using AMSUtilities.Enums;
 
 namespace NLTDAMS.Controllers
 {
-    [Authorize(Roles ="Admin,Manager,HR")]
+    [Authorize(Roles = "IT")]
     public class AssetController : Controller
     {
         private readonly IAssetService _assetService;

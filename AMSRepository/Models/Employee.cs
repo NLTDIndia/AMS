@@ -24,18 +24,18 @@ namespace AMSRepository.Models
         }
     
         public int ID { get; set; }
-        public int EmployeeID { get; set; }
+        public string EmployeeID { get; set; }
         public int EmployeeRoleID { get; set; }
         public string EmployeeName { get; set; }
         public Nullable<int> SeatID { get; set; }
         public string MailID { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public int CreatedBy { get; set; }
         public bool ISActive { get; set; }
         public Nullable<int> ManagerID { get; set; }
         public string CorpId { get; set; }
         public Nullable<System.DateTime> RelievingDate { get; set; }
         public Nullable<System.DateTime> JoiningDate { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public int CreatedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Assets> Assets { get; set; }

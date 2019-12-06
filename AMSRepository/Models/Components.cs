@@ -23,9 +23,9 @@ namespace AMSRepository.Models
         public int ID { get; set; }
         public int ComponentTypeID { get; set; }
         public string ComponentName { get; set; }
+        public string Description { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
-        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ComponentAssetMapping> ComponentAssetMapping { get; set; }

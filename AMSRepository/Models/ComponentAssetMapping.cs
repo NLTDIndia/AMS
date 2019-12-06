@@ -20,10 +20,10 @@ namespace AMSRepository.Models
         public Nullable<int> ActualAssetID { get; set; }
         public Nullable<System.DateTime> AssignedDate { get; set; }
         public Nullable<int> AssignedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public int CreatedBy { get; set; }
         public int ComponentStatusId { get; set; }
         public Nullable<int> ComponentTypeID { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public int CreatedBy { get; set; }
     
         public virtual Assets Assets { get; set; }
         public virtual Assets Assets1 { get; set; }

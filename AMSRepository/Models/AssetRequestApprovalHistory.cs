@@ -20,8 +20,8 @@ namespace AMSRepository.Models
         public int ApproverID { get; set; }
         public string Comments { get; set; }
         public int ApprovalStatus { get; set; }
-        public System.DateTime CreatedDate { get; set; }
         public string RequestedAsset { get; set; }
+        public System.DateTime CreatedDate { get; set; }
     
         public virtual AssetRequest AssetRequest { get; set; }
         public virtual AssetRequestStatus AssetRequestStatus { get; set; }
