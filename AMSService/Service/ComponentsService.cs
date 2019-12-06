@@ -36,6 +36,7 @@ namespace AMSService.Service
                     ComponentName = ac.ComponentName,
                     Description = ac.Description,
                     ComponentTypeID=ac.ComponentTypeID
+                    
                 }).ToList();
             }
             else
@@ -110,7 +111,7 @@ namespace AMSService.Service
                 componentsViewModel.ComponentTypeName = components.ComponentType.Name;
                 componentsViewModel.Description = components.Description;
                 componentsViewModel.AssignedCount = components.ComponentAssetMapping.Where(cap => cap.ComponentStatusId == (int)AMSUtilities.Enums.ComponentStatus.Assign).Count();
-                componentsViewModel.UnAssignedCount = components.ComponentAssetMapping.Where(cap => cap.ComponentStatusId == (int)AMSUtilities.Enums.ComponentStatus.Unassign).Count();
+                componentsViewModel.AssetTypeName = components.ComponentType.AssetTypes.Description;
                 getAllComponents.Add(componentsViewModel);
             });
             return getAllComponents;

@@ -152,7 +152,7 @@ namespace AMSService.Service
             {
                 components.ForEach(ct =>
                 {
-                    componenttypes.Add(new SelectListItem { Selected = selectedId == ct.ID ? true : false, Text = ct.Name, Value = ct.ID.ToString() });
+                    componenttypes.Add(new SelectListItem { Selected = selectedId == ct.ID ? true : false, Text = ct.Name + " - " + ct.AssetTypes.Description, Value = ct.ID.ToString() });
                 });
             }
 

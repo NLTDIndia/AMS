@@ -46,7 +46,7 @@
                         <div class="col-sm-5">
                             <div class="form-group">
 
-                                @Html.TextBoxFor(m => m.ComponentTypeName, new { @class = "form-control", @disabled = "true" })
+                                @Html.DropDownListFor(m => m.ComponentTypeID,Model.ComponentType,new { @class = "form-control", @disabled = "true" })
                                 @Html.HiddenFor(Model => Model.ComponentTypeID)
                             </div>
                         </div>

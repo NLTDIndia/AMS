@@ -61,9 +61,10 @@
                     <ul class="nav navbar-nav">
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="hidden-xs">@AMSUtilities.Common.UserDetails.GetFullName(User.Identity)</span>
                             </a>
+
                         </li>
                         <!-- Control Sidebar Toggle Button -->
                     </ul>
@@ -79,7 +80,7 @@
                 {
                     <ul class="sidebar-menu" data-widget="tree">
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("HR"))
+                        @if (User.IsInRole("IT"))
                         {
                             <!-- Assets -->
                             <li class="treeview">
@@ -109,7 +110,7 @@
                                 </ul>
                             </li>
                             <!-- Employees -->
-                            <li class="treeview">
+                            @*<li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-users"></i>
                                     <span>Employees</span>
@@ -121,9 +122,9 @@
                                     <li><a href="#">Manage Employees</a></li>
                                     <li><a href="#">Create Employee</a></li>
                                 </ul>
-                            </li>
+                            </li>*@
                             <!-- Vendors -->
-                            <li class="treeview">
+                            @*<li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-user"></i>
                                     <span>Vendors</span>
@@ -135,7 +136,7 @@
                                     <li><a href="@Url.Action("List", "Vendor")">Manage Vendors</a></li>
                                     <li><a href="@Url.Action("Create", "Vendor")">Create Vendor</a></li>
                                 </ul>
-                            </li>
+                            </li>*@
                             <!-- Settings -->
                             <li class="treeview">
                                 <a href="#">
