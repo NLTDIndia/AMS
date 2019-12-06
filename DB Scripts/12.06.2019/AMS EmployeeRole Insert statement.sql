@@ -30,7 +30,7 @@ ALTER TABLE [dbo].[Employee]  ADD  CONSTRAINT [FK_Employee_EmployeeRole] FOREIGN
 REFERENCES [dbo].[EmployeeRole] ([ID])
 GO
 /*Alter EmployeeID Column in Employee */
-ALTER TABLE [dbo].[Employee] ALTER COLUMN EmployeeID VARCHAR(10)
+ALTER TABLE [dbo].[Employee] ALTER COLUMN EmployeeID NVARCHAR(10)
 GO
 /*Add Constraint from ComponentType*/
 ALTER TABLE [dbo].[ComponentType]  ADD  CONSTRAINT [FK_ComponentType_AssetType] FOREIGN KEY([AssetTypeID])
