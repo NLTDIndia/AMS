@@ -47,11 +47,11 @@
                                             <td>
                                                 @if (!string.IsNullOrEmpty(item.EmployeeName))
                                                 {
-                                                <a class="btn btn-danger btn-sm"  onclick="GetUnassignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer">UnAssign</a>
+                                                <a class="btn btn-danger btn-sm"  onclick="GetUnassignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer;width:70px">UnAssign</a>
                                                 }
                                                 else
                                                 {
-                                                    <a class="btn btn-success btn-sm"  onclick="GetAssignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer" >Assign</a>
+                                                    <a class="btn btn-success btn-sm"  onclick="GetAssignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer;width:70px" >Assign</a>
                                                 }
                                                 @if (item.CategoryID == (int)AssetCategories.Software)
                                                 {

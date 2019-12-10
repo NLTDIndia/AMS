@@ -41,11 +41,11 @@
                                         <td>
                                             @if (item.IsActive)
                                             {
-                                                <a style="cursor:pointer" class="btn btn-primary btn-sm" href="@Url.Action("ComponentTypeStatus", "ComponentType", new { id = item.ID, status=false })">InActive</a>
+                                                <a style="cursor:pointer;width:70px" class="btn btn-primary btn-sm" href="@Url.Action("ComponentTypeStatus", "ComponentType", new { id = item.ID, status=false })">InActive</a>
                                             }
                                             else
                                             {
-                                                <a style="cursor:pointer" class="btn btn-primary btn-sm"  href="@Url.Action("ComponentTypeStatus", "ComponentType", new { id = item.ID,status=true })">Active</a>
+                                                <a style="cursor:pointer;width:70px" class="btn btn-primary btn-sm"  href="@Url.Action("ComponentTypeStatus", "ComponentType", new { id = item.ID,status=true })">Active</a>
                                             }
                                             <a style="cursor:pointer" class="btn btn-primary btn-sm"  href="@Url.Action("Edit","ComponentType",new { id=item.ID})">Edit</a>
                                         </td>
