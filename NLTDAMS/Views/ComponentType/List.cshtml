@@ -41,13 +41,13 @@
                                         <td>
                                             @if (item.IsActive)
                                             {
-                                                <a class="fa fa-toggle-off" data-toggle="tooltip" title="Make InActive" href="@Url.Action("ComponentTypeStatus", "ComponentType", new { id = item.ID, status=false })"></a>
+                                                <a style="cursor:pointer;width:70px" class="btn btn-primary btn-sm" href="@Url.Action("ComponentTypeStatus", "ComponentType", new { id = item.ID, status=false })">In Active</a>
                                             }
                                             else
                                             {
-                                                <a class="fa fa-toggle-on" data-toggle="tooltip" title="Make Active" href="@Url.Action("ComponentTypeStatus", "ComponentType", new { id = item.ID,status=true })"></a>
+                                                <a style="cursor:pointer;width:70px" class="btn btn-primary btn-sm"  href="@Url.Action("ComponentTypeStatus", "ComponentType", new { id = item.ID,status=true })">Active</a>
                                             }
-                                            <a class="fa fa-edit" href="@Url.Action("Edit","ComponentType",new { id=item.ID})"></a>
+                                            <a style="cursor:pointer" class="btn btn-primary btn-sm"  href="@Url.Action("Edit","ComponentType",new { id=item.ID})">Edit</a>
                                         </td>
                                     </tr>
                                 }

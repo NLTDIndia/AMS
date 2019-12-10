@@ -141,9 +141,9 @@ namespace NLTDAMS.Controllers
             }
         }
 
-        public JsonResult IsComponentNameExist(string ComponentName, int? ID)
+        public JsonResult IsComponentNameExist(string ComponentName, int? ID, int ComponentTypeID)
         {
-            var validateName = _componentsService.GetAllComponents().Where(fet => fet.ComponentName.ToLower() == ComponentName.ToLower() && fet.ID != ID).ToList();
+            var validateName = _componentsService.GetAllComponents().Where(fet => fet.ComponentName.ToLower() == ComponentName.ToLower() && fet.ID != ID && fet.ComponentTypeID == ComponentTypeID).ToList();
             if (validateName.Count() > 0)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);

@@ -33,7 +33,7 @@
                                         <td>@Html.DisplayFor(modelItem => item.Description)</td>
                                         <td>@Html.DisplayFor(modelItem => item.AssetCategoryName)</td>
                                         <td>
-                                            <a class="fa fa-edit" href="@Url.Action("Edit","AssetType",new { id=item.ID})"></a>
+                                            <a style="cursor:pointer" class="btn btn-primary btn-sm" href="@Url.Action("Edit","AssetType",new { id=item.ID})">Edit</a>
                                         </td>
                                     </tr>
                                 }

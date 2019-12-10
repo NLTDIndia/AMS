@@ -35,7 +35,7 @@
                                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                                     <td>@Html.DisplayFor(modelItem => item.ContactNumber)</td>
                                     <td>
-                                        <a class="fa fa-edit" href="@Url.Action("Edit","Vendor",new { id=item.ID})"></a>
+                                        <a class="btn btn-primary btn-sm" style="cursor:pointer" href="@Url.Action("Edit","Vendor",new { id=item.ID})">Edit</a>
                                     </td>
                                 </tr>
                                 }

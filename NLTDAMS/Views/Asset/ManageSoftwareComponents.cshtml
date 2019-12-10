@@ -2,6 +2,7 @@
 @{
     int i = 0;
 }
+<link href="~/Content/Site.css" rel="stylesheet" />
 <!-- iCheck for checkboxes and radio inputs -->
 <link href="~/Content/AMS/iCheck/all.css" rel="stylesheet" />
 @model AMSUtilities.Models.SoftwareAssetModel
@@ -24,7 +25,7 @@
                 <div class="tab-pane active" id="tab_1">
                     <div class="box-body">
                         @{
-                            int count = Model.ComponentTypeModels.Where(ct=>ct.Mandatory == true).Count();;
+                            int count = Model.ComponentTypeModels.Where(ct => ct.Mandatory == true).Count(); ;
                             if (Model.ComponentAssetMapping != null)
                             {
                                 if (Model.ComponentAssetMapping.ToList().Count == 0)
@@ -60,11 +61,11 @@
                                     var style = "";
                                     if (item.ComponentCategory == (int)ComponentCategory.Hardware)
                                     {
-                                        style = "color: #00a65a !important";
+                                        style = "color: #00a65a !important;float:left;";
                                     }
                                     else if (item.ComponentCategory == (int)ComponentCategory.Software)
                                     {
-                                        style = "color: #f39c12 !important";
+                                        style = "color: #f39c12 !important;float:left;";
                                     }
                                     var modalId = "modal-" + item.ID;
                                     int assetCategoryId = (int)AMSUtilities.Enums.AssetCategories.Hardware;
@@ -77,33 +78,42 @@
 
                                     <div class="col-md-10">
                                         <div class="form-group row-space">
-                                            <label for="inputEmail3" class="col-sm-2 control-label" style="@style">@item.Name</label>
-                                            @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeName", @item.Name)
-                                            @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeID", @item.ID)
+                                            <div class="col-sm-2 col-md-2">
+                                                <label for="inputEmail3" class="control-label" style="@style">@item.Name</label>
+                                                @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeName", @item.Name)
+                                                @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeID", @item.ID)
 
-                                            @if (Model.ComponentAssetMapping.ToList().Count > 0)
-                                            {
-                                                var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
-                                                if (component != null || item.Mandatory == true)
+                                                @if (Model.ComponentAssetMapping.ToList().Count > 0)
                                                 {
-                                                    <div class="col-sm-2">
-                                                        @Html.CheckBox("ComponentAssetMapping[" + i + "].Mandatory", (bool)item.Mandatory, new { @id = mandateId, @class = "minimalCheck minimal", @disabled = "true" })
-                                                    </div>
+                                                    var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
+                                                    if (component != null || item.Mandatory == true)
+                                                    {
+                                                        if (item.Mandatory == true)
+                                                        {
+                                                            <label class="required-label"><sup>*</sup></label>
+                                                        }
+                                                        else
+                                                        {
+                                                            <label class="required-label">  </label>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="required-label">  </label>
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    <div class="col-sm-2">
-                                                        @Html.CheckBox("ComponentAssetMapping[" + i + "].Mandatory", (bool)false, new { @id = mandateId, @class = "minimalCheck minimal", @disabled = "true" })
-                                                    </div>
+                                                    if (item.Mandatory == true)
+                                                    {
+                                                        <label class="required-label"><sup>*</sup></label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="required-label">  </label>
+                                                    }
                                                 }
-                                            }
-                                            else
-                                            {
-                                                <div class="col-sm-2">
-                                                    @Html.CheckBox("ComponentAssetMapping[" + i + "].Mandatory", (bool)item.Mandatory, new { @id = mandateId, @class = "minimalCheck minimal", @disabled = "true" })
-                                                </div>
-                                            }
-
+                                            </div>
                                             @if (item.Mandatory == true)
                                             {
                                                 if (Model.ComponentAssetMapping.ToList().Count > 0)
@@ -199,15 +209,15 @@
         checkboxClass: 'icheckbox_minimal-blue',
         radioClass: 'iradio_minimal-blue'
     })
-        $('input[type="checkbox"].minimalCheck').on('ifChanged', function (event) {
-      //  alert(this.id);
+    $('input[type="checkbox"].minimalCheck').on('ifChanged', function (event) {
+        //  alert(this.id);
         var status = $(this).is(':checked') ? 'checked' : 'unchecked';
-      //  alert(status);
+        //  alert(status);
         if (status == "checked") {
-            $("#" + this.id.replace("checkMandate","drp")).prop('required', true);
+            $("#" + this.id.replace("checkMandate", "drp")).prop('required', true);
         }
         else {
-            $("#" + this.id.replace("checkMandate","drp")).prop('required', false);
+            $("#" + this.id.replace("checkMandate", "drp")).prop('required', false);
         }
-});
+    });
 </script>
