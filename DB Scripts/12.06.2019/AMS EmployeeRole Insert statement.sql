@@ -23,7 +23,7 @@ INSERT [dbo].[EmployeeRole] ([ID], [Designation]) VALUES (1, N'IT')
 GO
 INSERT [dbo].[EmployeeRole] ([ID], [Designation]) VALUES (2, N'Employee')
 GO
-SET IDENTITY_INSERT [dbo].[Employee] OFF
+SET IDENTITY_INSERT [dbo].[EmployeeRole] OFF
 GO
 /*Add Constraint from Employee*/
 ALTER TABLE [dbo].[Employee]  ADD  CONSTRAINT [FK_Employee_EmployeeRole] FOREIGN KEY([EmployeeRoleID])
