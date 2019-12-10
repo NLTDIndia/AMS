@@ -41,15 +41,15 @@
                                         <td>
                                             @if (item.QuotationStatusID == (int)AMSUtilities.Enums.QuotationStatus.ApprovalPending)
                                             {
-                                                <a class="fa fa-check" data-toggle="tooltip" title="Approve" href="@Url.Action("ApproveQuotation","Quotation",new { quotationId=item.ID})"></a>
+                                                <a class="btn btn-primary btn-sm" style="cursor:pointer" href="@Url.Action("ApproveQuotation","Quotation",new { quotationId=item.ID})">Approve</a>
                                             }
                                             @if (item.QuotationStatusID == (int)AMSUtilities.Enums.QuotationStatus.Approved)
                                             {
-                                                <a class="fa fa-dollar" data-toggle="tooltip" title="Generate Invoice" onclick="GetInvoice('@item.VendorID')"></a>
+                                        <a class="btn btn-primary btn-sm" style="cursor:pointer" onclick="GetInvoice('@item.VendorID')">Generate Invoice</a>
                                             }
 
                                         </td>
-                                        <td><a class="fa fa-edit" data-toggle="tooltip" title="Edit" href="@Url.Action("EditQuotation","Quotation",new { quotationId=item.ID})"></a></td>
+                                        <td><a class="btn btn-primary btn-sm" style="cursor:pointer" href="@Url.Action("EditQuotation","Quotation",new { quotationId=item.ID})">Edit</a></td>
                                     </tr>
                                 }
                             </tbody>

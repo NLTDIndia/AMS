@@ -32,7 +32,7 @@
                                         <th>@Html.DisplayNameFor(model => model.SerialNumber)</th>
                                         <th>@Html.DisplayNameFor(model => model.AssetStatus)</th>
                                         <th>@Html.DisplayNameFor(model => model.EmployeeName)</th>
-                                        <th>Actions</th>
+                                        <th>Actions</th>                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,27 +47,27 @@
                                             <td>
                                                 @if (!string.IsNullOrEmpty(item.EmployeeName))
                                                 {
-                                                    <a class="fa fa-fw fa-thumbs-o-down" data-toggle="tooltip" style="cursor:pointer" title="UnAssign" onclick="GetUnassignAsset(@item.ID);" data-backdrop="static"></a>
+                                                <a class="btn btn-danger btn-sm"  onclick="GetUnassignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer">UnAssign</a>
                                                 }
                                                 else
                                                 {
-                                                    <a class="fa fa-fw fa-thumbs-up" data-toggle="tooltip" style="cursor:pointer" title="Assign" onclick="GetAssignAsset(@item.ID);" data-backdrop="static"></a>
+                                                    <a class="btn btn-success btn-sm"  onclick="GetAssignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer" >Assign</a>
                                                 }
                                                 @if (item.CategoryID == (int)AssetCategories.Software)
                                                 {
-                                                    <a class="fa fa-edit" data-toggle="tooltip" title="Edit" href="@Url.Action("EditSoftwareAsset","Asset",new { id=item.ID})"></a>
+                                            <a class="btn btn-primary btn-sm"  style="cursor:pointer" href="@Url.Action("EditSoftwareAsset","Asset",new { id=item.ID})">Edit</a>
                                                 }
                                                 else
                                                 {
-                                                    <a class="fa fa-edit" data-toggle="tooltip" title="Edit" href="@Url.Action("EditHardwareAsset","Asset",new { id=item.ID})"></a>
+                                                    <a class="btn btn-primary btn-sm"  style="cursor:pointer" href="@Url.Action("EditHardwareAsset","Asset",new { id=item.ID})">Edit</a>
                                                 }
                                                 @if (item.CategoryID == (int)AssetCategories.Software)
                                                 {
-                                                    <a class="fa fa-clone" data-toggle="tooltip" title="Clone" href="@Url.Action("CloneSoftwareAsset","Asset",new { assetId=item.ID})"></a>
+                                                    <a class="btn btn-primary btn-sm"  style="cursor:pointer" href="@Url.Action("CloneSoftwareAsset","Asset",new { assetId=item.ID})">Clone</a>
                                                 }
                                                 else
                                                 {
-                                                    <a class="fa fa-clone" data-toggle="tooltip" title="Clone" href="@Url.Action("CloneHardwareAsset","Asset",new { assetId=item.ID})"></a>
+                                                    <a  class="btn btn-primary btn-sm" style="cursor:pointer" href="@Url.Action("CloneHardwareAsset","Asset",new { assetId=item.ID})">Clone</a>
                                                 }
 
                                             </td>

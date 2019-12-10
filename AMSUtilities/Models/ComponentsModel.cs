@@ -19,7 +19,7 @@ namespace AMSUtilities.Models
 
         [Required(ErrorMessage = "Component Name Required")]
         [Display(Name = "Component Name")]
-        [Remote("IsComponentNameExist", "Components", AdditionalFields = "ID", ErrorMessage = "Component name already exists")]
+        [Remote("IsComponentNameExist", "Components", AdditionalFields = "ID, ComponentTypeID", ErrorMessage = "Component name already exists")]
         public string ComponentName { get; set; }
         public bool IsActive { get; set; }
 

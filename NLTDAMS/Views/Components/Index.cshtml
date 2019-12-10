@@ -39,8 +39,8 @@
                         <td>@item.AssignedCount</td>
                         <td>
 
-                            <a class="fa fa-thumbs-up" data-toggle="tooltip" title="Assign" onclick="GetAssignAsset(@item.ID);" data-backdrop="static"></a>
-                            <a class="fa fa-edit" data-toggle="tooltip" title="Edit" href="@Url.Action("UpdateComponents", "Components", new { id = item.ID })"></a>
+                            <a class="btn btn-success btn-sm"  onclick="GetAssignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer" >Assign</a>
+                            <a class="btn btn-primary btn-sm"  style="cursor:pointer"  href="@Url.Action("UpdateComponents", "Components", new { id = item.ID })">Edit</a>
                         </td>
 
                     </tr>
