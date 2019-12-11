@@ -5,8 +5,6 @@ using AMSUtilities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,6 +16,7 @@ namespace AMSService.Service
         private readonly IAssetCategoryService _assetCategoryService;
         private readonly IAssetTypeService _assetTypeService;
         private readonly IEmployeeService _employeeService;
+
         public ComponentTypeService(IComponentTypeRepository componentTypeRepository,
             IAssetCategoryService assetCategoryService,
             IAssetTypeService assetTypeService,
@@ -59,16 +58,15 @@ namespace AMSService.Service
                 {
                     AssetTypes = _assetTypeService.GetDropdownAssetTypes(assetCategoryId, assetTypeId),
                     ComponentCategories = GetComponentCategories()
-
                 };
             }
         }
 
         private static SelectList GetComponentCategories(int selectedId = -1)
         {
-            return new SelectList(new List<SelectListItem> { 
-                new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Component Category", Value = "" }, 
-                new SelectListItem { Selected = selectedId == (int)ComponentCategory.Hardware ? true : false, Text = ComponentCategory.Hardware.ToString(), Value = Convert.ToString( (int)ComponentCategory.Hardware) }, 
+            return new SelectList(new List<SelectListItem> {
+                new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Component Category", Value = "" },
+                new SelectListItem { Selected = selectedId == (int)ComponentCategory.Hardware ? true : false, Text = ComponentCategory.Hardware.ToString(), Value = Convert.ToString( (int)ComponentCategory.Hardware) },
                 new SelectListItem { Selected = selectedId == (int)ComponentCategory.Software ? true : false, Text = ComponentCategory.Software.ToString(), Value = Convert.ToString( (int)ComponentCategory.Software) }
             }, "Value", "Text");
         }
@@ -92,13 +90,12 @@ namespace AMSService.Service
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
+
         public ComponentTypeModel UpdateComponentType(ComponentTypeModel componentTypeModel)
         {
-
             ComponentType componentType = _componentTypeRepository.GetComponentTypeByID(componentTypeModel.ID);
             if (componentType != null)
             {
@@ -107,7 +104,6 @@ namespace AMSService.Service
                 componentType.ComponentCategory = componentTypeModel.ComponentCategory;
                 componentType.IsActive = componentTypeModel.IsActive;
                 componentType.Mandatory = componentTypeModel.Mandatory;
-
             }
             _componentTypeRepository.UpdateComponentType(componentType);
             return componentTypeModel;
@@ -133,7 +129,6 @@ namespace AMSService.Service
         {
             var ComponentTypes = _componentTypeRepository.GetComponentTypes();
             return GetComponentTypesModel(ComponentTypes);
-
         }
 
         public List<ComponentTypeModel> GetActiveComponentTypes()
@@ -141,13 +136,12 @@ namespace AMSService.Service
         {
             var ComponentTypes = _componentTypeRepository.GetComponentTypes().Where(ct => ct.IsActive == true).ToList();
             return GetComponentTypesModel(ComponentTypes);
-
         }
 
         public SelectList GetDropdownComponentTypes(int selectedId = -1)
         {
             List<SelectListItem> componenttypes = new List<SelectListItem> { new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Component Type", Value = "" } };
-            var components = _componentTypeRepository.GetComponentTypes().Where(ct=>ct.IsActive== true).ToList();
+            var components = _componentTypeRepository.GetComponentTypes().Where(ct => ct.IsActive == true).ToList();
             if (components != null && components.Count > 0)
             {
                 components.ForEach(ct =>

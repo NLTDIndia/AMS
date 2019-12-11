@@ -1,9 +1,5 @@
 ﻿using AMSRepository.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AMSRepository.Repository
 {
@@ -23,10 +19,12 @@ namespace AMSRepository.Repository
         {
             return GetAll();
         }
+
         public EmployeeAssetMapping GetEmployeeAssetMappingByID(int employeeAssetMappingID)
         {
             return GetByID(employeeAssetMappingID);
         }
+
         public void DeleteEmployeeAssetMappingByID(int employeeAssetMappingID)
         {
             Delete(employeeAssetMappingID);

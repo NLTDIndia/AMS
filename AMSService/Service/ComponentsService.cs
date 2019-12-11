@@ -1,42 +1,39 @@
-﻿using System;
+﻿using AMSRepository.Models;
+using AMSRepository.Repository;
+using AMSUtilities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AMSUtilities.Models;
-using AMSRepository.Models;
-using AMSRepository.Repository;
-using System.Web.Mvc;
 using System.Web;
+using System.Web.Mvc;
 
 namespace AMSService.Service
 {
     public class ComponentsService : IComponentsService
     {
-       private readonly IComponentsRepository _componentRepository;
-       private readonly IEmployeeService _employeeService;
-       private readonly IComponentTypeService _componentTypeService;
-      
-       public ComponentsService(IComponentsRepository componentsRepository, IEmployeeService employeeService, IComponentTypeService componentTypeService)
+        private readonly IComponentsRepository _componentRepository;
+        private readonly IEmployeeService _employeeService;
+        private readonly IComponentTypeService _componentTypeService;
+
+        public ComponentsService(IComponentsRepository componentsRepository, IEmployeeService employeeService, IComponentTypeService componentTypeService)
         {
             _componentRepository = componentsRepository;
             _employeeService = employeeService;
             _componentTypeService = componentTypeService;
-           
         }
+
         public List<ComponentsModel> GetActiveComponents()
         {
-            var components = _componentRepository.GetComponents().Where(fet=>fet.ComponentType.IsActive==true).ToList();
+            var components = _componentRepository.GetComponents().Where(fet => fet.ComponentType.IsActive == true).ToList();
             ComponentsModel componentsModel = new ComponentsModel();
             if (components != null && components.Count > 0)
             {
                 return components.Select(ac => new ComponentsModel
                 {
-                    ID=ac.ID,
+                    ID = ac.ID,
                     ComponentName = ac.ComponentName,
                     Description = ac.Description,
-                    ComponentTypeID=ac.ComponentTypeID
-                    
+                    ComponentTypeID = ac.ComponentTypeID
                 }).ToList();
             }
             else
@@ -44,25 +41,24 @@ namespace AMSService.Service
                 return new List<ComponentsModel> { };
             }
         }
+
         public int createComponents(ComponentsModel componentsModel)
         {
-
-             var components = _componentRepository.CreateComponent(new Components
-                {
-                    ComponentName = componentsModel.ComponentName,
-                    ComponentTypeID = componentsModel.ComponentTypeID,
-                    Description = componentsModel.Description,
-                    CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
-                    CreatedDate = DateTime.Now,
-
-                });
+            var components = _componentRepository.CreateComponent(new Components
+            {
+                ComponentName = componentsModel.ComponentName,
+                ComponentTypeID = componentsModel.ComponentTypeID,
+                Description = componentsModel.Description,
+                CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
+                CreatedDate = DateTime.Now,
+            });
             componentsModel.ID = components.ID;
 
             return componentsModel.ID;
         }
+
         public int UpdateComponents(ComponentsModel componentsModel)
         {
-
             Components UpdateComponents = _componentRepository.GetComponentsByID(componentsModel.ID);
 
             if (UpdateComponents != null)
@@ -76,10 +72,12 @@ namespace AMSService.Service
             componentsModel.ID = UpdateComponents.ID;
             return componentsModel.ID;
         }
+
         public int GetLoginEmployeeId()
         {
             return _employeeService.GetEmployeeId();
         }
+
         public List<ComponentsModel> AllActiveComponents()
         {
             var components = _componentRepository.AllActiveComponents();
@@ -89,7 +87,6 @@ namespace AMSService.Service
                 return components.Select(ac => new ComponentsModel
                 {
                     ComponentName = ac.ComponentName
-
                 }).ToList();
             }
             else
@@ -104,18 +101,19 @@ namespace AMSService.Service
             List<ComponentsModel> getAllComponents = new List<ComponentsModel>();
             getComponents.ForEach(components =>
             {
-                ComponentsModel componentsViewModel = new ComponentsModel();
-                componentsViewModel.ID = components.ID;
-                componentsViewModel.ComponentName = components.ComponentName;
-                componentsViewModel.ComponentTypeID = components.ComponentTypeID;
-                componentsViewModel.ComponentTypeName = components.ComponentType.Name;
-                componentsViewModel.Description = components.Description;
-                componentsViewModel.AssignedCount = components.ComponentAssetMapping.Where(cap => cap.ComponentStatusId == (int)AMSUtilities.Enums.ComponentStatus.Assign).Count();
-                componentsViewModel.AssetTypeName = components.ComponentType.AssetTypes.Description;
+                ComponentsModel componentsViewModel = new ComponentsModel
+                {
+                    ID = components.ID,
+                    ComponentName = components.ComponentName,
+                    ComponentTypeID = components.ComponentTypeID,
+                    ComponentTypeName = components.ComponentType.Name,
+                    Description = components.Description,
+                    AssignedCount = components.ComponentAssetMapping.Where(cap => cap.ComponentStatusId == (int)AMSUtilities.Enums.ComponentStatus.Assign).Count(),
+                    AssetTypeName = components.ComponentType.AssetTypes.Description
+                };
                 getAllComponents.Add(componentsViewModel);
             });
             return getAllComponents;
-
         }
 
         public ComponentsModel GetComponentsById(int id)
@@ -138,7 +136,7 @@ namespace AMSService.Service
             ComponentsModel componetModel = new ComponentsModel
             {
                 ID = componentsModel.ID,
-                ComponentName = componentsModel.ComponentName,              
+                ComponentName = componentsModel.ComponentName,
                 Description = componentsModel.Description,
                 ComponentType = ddltypes,
                 ComponentTypeID = componentsModel.ComponentTypeID,

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.DirectoryServices.AccountManagement;
-using System.DirectoryServices.Protocols;
-using System.Linq;
+﻿using System.DirectoryServices.AccountManagement;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AMSUtilities.Common
 {

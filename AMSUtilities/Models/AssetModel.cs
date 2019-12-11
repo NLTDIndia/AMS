@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace AMSUtilities.Models
@@ -14,8 +10,9 @@ namespace AMSUtilities.Models
         [Required(ErrorMessage = "AssetID required")]
         public int ID { get; set; }
 
-        [Display(Name="Asset Name")]
+        [Display(Name = "Asset Name")]
         public string AssetName { get; set; }
+
         public int AssetTypeID { get; set; }
 
         [Display(Name = "Asset Type")]
@@ -23,12 +20,15 @@ namespace AMSUtilities.Models
 
         [Display(Name = "Serial Number")]
         public string SerialNumber { get; set; }
+
         public int AssetStatusID { get; set; }
 
         [Display(Name = "Asset Status")]
         public string AssetStatus { get; set; }
+
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
+
         [Display(Name = "Assigned Date")]
         [Required(ErrorMessage = "Assigned Date Required")]
         public DateTime AssignDate { get; set; }

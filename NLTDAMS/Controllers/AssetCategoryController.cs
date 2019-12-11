@@ -1,12 +1,9 @@
 ﻿using AMSService.Service;
 using AMSUtilities.Enums;
 using AMSUtilities.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using log4net;
+using System;
+using System.Web.Mvc;
 
 namespace NLTDAMS.Controllers
 {
@@ -15,16 +12,18 @@ namespace NLTDAMS.Controllers
     {
         private readonly IAssetCategoryService _assetCategoryService;
         private readonly ILog _logger;
+
         public AssetCategoryController(IAssetCategoryService assetCategoryService, ILog logger)
         {
             _assetCategoryService = assetCategoryService;
             _logger = logger;
         }
+
         // GET: AssetCategory
         public ActionResult List()
         {
             return View(_assetCategoryService.GetAssetCategories());
-        }      
+        }
 
         // GET: AssetCategory/Create
         public ActionResult Create()
@@ -51,7 +50,7 @@ namespace NLTDAMS.Controllers
                     return View(assetCategoryModel);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error(e);
                 TempData["Message"] = "Internal server error. Asset Category not created. Please contact administrator.";
@@ -83,7 +82,6 @@ namespace NLTDAMS.Controllers
                 {
                     return View(assetCategoryModel);
                 }
-
             }
             catch (Exception e)
             {

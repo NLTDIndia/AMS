@@ -3,9 +3,6 @@ using AMSUtilities.Enums;
 using AMSUtilities.Models;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NLTDAMS.Controllers
@@ -21,11 +18,12 @@ namespace NLTDAMS.Controllers
             _assetTypeService = assetTypeService;
             _logger = logger;
         }
+
         // GET: AssetType
         public ActionResult List()
         {
             return View(_assetTypeService.GetAssetTypes());
-        }        
+        }
 
         // GET: AssetType/Create
         public ActionResult Create()
@@ -38,20 +36,20 @@ namespace NLTDAMS.Controllers
         public ActionResult Create(AssetTypeModel assetTypeModel)
         {
             try
+            {
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
-                    {
-                        _assetTypeService.CreateAssetType(assetTypeModel);
+                    _assetTypeService.CreateAssetType(assetTypeModel);
 
-                        TempData["Message"] = "Asset type created successfully.";
-                        TempData["MessageType"] = (int)AlertMessageTypes.Success;
-                        return RedirectToAction("List");
-                    }
-                    else
-                    {
-                        return View(_assetTypeService.GetAssetTypeModel(assetCategoryID: assetTypeModel.AssetCategoryID));
-                    }
+                    TempData["Message"] = "Asset type created successfully.";
+                    TempData["MessageType"] = (int)AlertMessageTypes.Success;
+                    return RedirectToAction("List");
                 }
+                else
+                {
+                    return View(_assetTypeService.GetAssetTypeModel(assetCategoryID: assetTypeModel.AssetCategoryID));
+                }
+            }
             catch (Exception e)
             {
                 _logger.Error(e);
@@ -84,7 +82,6 @@ namespace NLTDAMS.Controllers
                 {
                     return View(assetTypeModel);
                 }
-
             }
             catch (Exception e)
             {

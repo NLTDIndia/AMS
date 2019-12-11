@@ -1,17 +1,13 @@
 ﻿using AMSRepository.Models;
-using AMSRepository.Repository;
-using AMSService.Service;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Security;
 
 namespace NLTDAMS.Models
 {
     public class UserRoleProvider : RoleProvider
     {
-        AMSEntities Context = new AMSEntities();
+        private AMSEntities Context = new AMSEntities();
 
         public override string ApplicationName
         {
@@ -52,19 +48,18 @@ namespace NLTDAMS.Models
         }
 
         public override string[] GetRolesForUser(string username)
-        {          
-                string Role = Context.Employee.Where(e => e.CorpId == username).Select(e => e.EmployeeRole.Designation).FirstOrDefault();
-                string[] RoleName = new string[1];
-                if(Role != "" && Role != null)
+        {
+            string Role = Context.Employee.Where(e => e.CorpId == username).Select(e => e.EmployeeRole.Designation).FirstOrDefault();
+            string[] RoleName = new string[1];
+            if (Role != "" && Role != null)
+            {
+                for (int i = 0; i < Role.Length; i++)
                 {
-                     for (int i = 0; i < Role.Length; i++)
-                     {
-                           RoleName[i] = Role;
-                           Role = "";
-                     }
-                }                
-                return RoleName;
-
+                    RoleName[i] = Role;
+                    Role = "";
+                }
+            }
+            return RoleName;
         }
 
         public override string[] GetUsersInRole(string roleName)

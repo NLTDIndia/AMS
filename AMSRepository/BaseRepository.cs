@@ -1,14 +1,15 @@
-﻿using System;
+﻿using AMSRepository.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using AMSRepository.Models;
+
 namespace AMSRepository
 {
     public class BaseRepository<TEntity> where TEntity : class
     {
         internal AMSEntities context;
         internal DbSet<TEntity> dbSet;
+
         public BaseRepository()
         {
             this.context = new AMSEntities();
@@ -18,7 +19,7 @@ namespace AMSRepository
         public virtual TEntity Insert(TEntity entity)
         {
             dbSet.Add(entity);
-            context.SaveChanges();          
+            context.SaveChanges();
             return entity;
         }
 
@@ -56,5 +57,4 @@ namespace AMSRepository
             return dbSet.Find(id);
         }
     }
-
 }

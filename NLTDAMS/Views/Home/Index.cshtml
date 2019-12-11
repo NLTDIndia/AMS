@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div id="partialPlaceHolder"></div>    
+            <div id="partialPlaceHolder"></div>
             <div class="box-footer" id="footerId">
                 <div id="conformBox"></div>
                 <div class="col-sm-2"   style="padding-right:0px;float:right">
@@ -40,7 +40,7 @@
     $("#AssetCategory").on("change", function(){
         var selectedValue = $(this).children("option:selected").val();
          //    + "?selectedItem=" + $(this).val();
-        var url = '';       
+        var url = '';
         if (selectedValue == 1) {
             url = '@Url.Action("HardwareAsset", "Home")';
         }
@@ -60,6 +60,6 @@
         else {
             $("#footerId").hide();
         }
-   
+
 })
 </script>

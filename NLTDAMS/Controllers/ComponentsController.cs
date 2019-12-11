@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AMSService.Service;
-using AMSUtilities.Models;
-using Unity;
-using log4net;
+﻿using AMSService.Service;
 using AMSUtilities.Enums;
+using AMSUtilities.Models;
+using log4net;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NLTDAMS.Controllers
 {
     [Authorize(Roles = "IT")]
     public class ComponentsController : Controller
     {
-        IComponentsService _componentsService;
-        IComponentTypeService _componentTypeService;
-        IComponentAssetMappingService _componentAssetMappingService;
+        private IComponentsService _componentsService;
+        private IComponentTypeService _componentTypeService;
+        private IComponentAssetMappingService _componentAssetMappingService;
         private readonly ILog _logger;
+
         public ComponentsController(IComponentsService componentsService, IComponentTypeService componentTypeService, IComponentAssetMappingService componentAssetMappingService, ILog logger)
         {
             _componentsService = componentsService;
@@ -25,23 +23,23 @@ namespace NLTDAMS.Controllers
             _componentAssetMappingService = componentAssetMappingService;
             _logger = logger;
         }
-            
 
         // GET: Components
         public ActionResult Index()
         {
             var Components = _componentsService.GetAllComponents();
             return View(Components);
-          
         }
+
         public ActionResult NewComponents()
         {
             ComponentsModel components = new ComponentsModel
             {
                 ComponentType = _componentTypeService.GetDropdownComponentTypes()
-            };           
+            };
             return View(components);
         }
+
         [HttpPost]
         public ActionResult NewComponents(ComponentsModel components)
         {
@@ -49,7 +47,7 @@ namespace NLTDAMS.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                // var componentexist =   _componentsService.GetAllComponents().Where(fetch => fetch.ComponentName.ToLower() == componentsModel.ComponentName.ToLower()).ToList().FirstOrDefault();
+                    // var componentexist =   _componentsService.GetAllComponents().Where(fetch => fetch.ComponentName.ToLower() == componentsModel.ComponentName.ToLower()).ToList().FirstOrDefault();
                     _componentsService.createComponents(components);
                     TempData["Message"] = "Component type created successfully.";
                     TempData["MessageType"] = (int)AlertMessageTypes.Success;
@@ -58,11 +56,7 @@ namespace NLTDAMS.Controllers
                 else
                 {
                     return RedirectToAction("NewComponents");
-            
-                    
                 }
-               
-            
             }
             catch (Exception e)
             {
@@ -71,14 +65,11 @@ namespace NLTDAMS.Controllers
                 TempData["MessageType"] = (int)AlertMessageTypes.Danger;
                 return View("Index");
             }
-           
         }
 
         public ActionResult UpdateComponents(int id)
         {
             return View(_componentsService.GetComponentsById(id));
-
-
         }
 
         [HttpPost]
@@ -95,7 +86,6 @@ namespace NLTDAMS.Controllers
                 }
                 else
                 {
-
                     return View(componentModel);
                 }
             }
@@ -106,8 +96,8 @@ namespace NLTDAMS.Controllers
                 TempData["MessageType"] = (int)AlertMessageTypes.Danger;
                 return View(componentModel);
             }
-
         }
+
         public ActionResult AssignComponents(int ID)
         {
             ComponentAssetMappingModel componentAssetMappingModel = new ComponentAssetMappingModel()
@@ -117,10 +107,9 @@ namespace NLTDAMS.Controllers
             var components = _componentAssetMappingService.GetComponentAssetMappingByComponentID(ID);
             components.Assets = componentAssetMappingModel.Assets;
 
-
             return PartialView("../Shared/_AssignComponents", components);
-
         }
+
         [HttpPost]
         public ActionResult AssignComponents(ComponentAssetMappingModel componentAssetMappingModel)
         {
@@ -134,7 +123,6 @@ namespace NLTDAMS.Controllers
             }
             else
             {
-
                 TempData["Message"] = "Component not assigned.";
                 TempData["MessageType"] = (int)AlertMessageTypes.Danger;
                 return View(componentAssetMappingModel);

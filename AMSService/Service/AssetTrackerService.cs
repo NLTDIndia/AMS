@@ -1,22 +1,20 @@
 ﻿using AMSRepository.Models;
 using AMSRepository.Repository;
 using AMSUtilities.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace AMSService.Service
 {
     public class AssetTrackerService : IAssetTrackerService
     {
         private readonly IAssetTrackerRepository _assetTrackerRepository;
+
         public AssetTrackerService(IAssetTrackerRepository assetTrackerRepository)
         {
             _assetTrackerRepository = assetTrackerRepository;
         }
+
         public int CreateAssetTracker(AssetTrackerModel assetTrackerModel)
         {
             AssetTracker assetTracker = null;
@@ -31,6 +29,7 @@ namespace AMSService.Service
             });
             return assetTracker.ID;
         }
+
         public List<AssetTrackerModel> GetAssetCategories()
         {
             var assetTrackers = _assetTrackerRepository.GetAssetTrackers();

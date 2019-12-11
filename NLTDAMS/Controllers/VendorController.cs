@@ -3,9 +3,6 @@ using AMSUtilities.Enums;
 using AMSUtilities.Models;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NLTDAMS.Controllers
@@ -26,7 +23,7 @@ namespace NLTDAMS.Controllers
         public ActionResult List()
         {
             return View(_vendorService.GetVendors());
-        }      
+        }
 
         // GET: Vendor/Create
         public ActionResult Create()
@@ -53,7 +50,7 @@ namespace NLTDAMS.Controllers
                     return View(vendorModel);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error(e);
                 TempData["Message"] = "Internal server error. Vendor not created. Please contact administrator.";
@@ -85,9 +82,8 @@ namespace NLTDAMS.Controllers
                 {
                     return View(_vendorService);
                 }
-
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error(e);
                 TempData["Message"] = "Internal server error. Vendor not updated. Please contact administrator.";

@@ -1,11 +1,7 @@
 ﻿using AMSRepository.Repository;
-using AMSRepository.Models;
 using AMSUtilities.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace AMSService.Service
@@ -14,6 +10,7 @@ namespace AMSService.Service
     {
         private readonly IEmployeeAssetMappingRepository _employeeAssetMappingRepository;
         private readonly IEmployeeService _employeeService;
+
         public EmployeeAssetMappingService(IEmployeeAssetMappingRepository employeeAssetMappingRepository, IEmployeeService employeeService)
         {
             _employeeAssetMappingRepository = employeeAssetMappingRepository;
@@ -29,12 +26,11 @@ namespace AMSService.Service
                 {
                     ID = eam.ID,
                     EmployeeID = eam.EmployeeID,
-                    EmployeeName =eam.Employee.EmployeeName,
+                    EmployeeName = eam.Employee.EmployeeName,
                     AssetID = eam.AssetID,
                     AssetName = eam.Assets.AssetName,
                     CreatedDate = eam.CreatedDate,
                     CreatedBy = eam.CreatedBy
-
                 }).ToList();
             }
             else
@@ -58,7 +54,6 @@ namespace AMSService.Service
                     AssetName = eam.Assets.AssetName,
                     CreatedDate = eam.CreatedDate,
                     CreatedBy = eam.CreatedBy
-
                 }).ToList();
             }
             else
@@ -66,6 +61,5 @@ namespace AMSService.Service
                 return new List<EmployeeAssetMappingModel> { };
             }
         }
-
     }
 }

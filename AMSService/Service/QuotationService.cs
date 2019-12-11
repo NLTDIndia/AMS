@@ -4,8 +4,6 @@ using AMSUtilities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AMSService.Service
 {
@@ -14,7 +12,8 @@ namespace AMSService.Service
         private readonly IQuotationRepository _quotationRepository;
         private readonly IVendorService _vendorService;
         private readonly IAssetRequestService _assetRequestService;
-        public QuotationService(IQuotationRepository quotationRepository,IVendorService vendorService, IAssetRequestService assetRequestService)
+
+        public QuotationService(IQuotationRepository quotationRepository, IVendorService vendorService, IAssetRequestService assetRequestService)
         {
             _quotationRepository = quotationRepository;
             _vendorService = vendorService;
@@ -47,17 +46,18 @@ namespace AMSService.Service
             }
             else
             {
-                return new QuotationModel {
-
+                return new QuotationModel
+                {
                     Vendorddl = _vendorService.GetDropdownVendors(),
                     AssetRequestddl = _assetRequestService.GetDropdownAssetRequest()
                 };
             }
         }
+
         public List<QuotationModel> GetQuotations()
         {
             var quotations = _quotationRepository.GetQuotations();
-            if(quotations != null && quotations.Count > 0)
+            if (quotations != null && quotations.Count > 0)
             {
                 return quotations.Select(q => new QuotationModel
                 {
@@ -108,7 +108,5 @@ namespace AMSService.Service
 
             return quotation.ID;
         }
-
-
     }
 }

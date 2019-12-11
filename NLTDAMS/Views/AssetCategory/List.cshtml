@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Asset Categories";
 }
-              
+
 <div class="row">
     <div class="col-sm-12">
         <div class="box box-primary">
@@ -54,7 +54,7 @@
 <script>
     $(document).ready(function () {
         DisplayMessage("@TempData["MessageType"]","@TempData["Message"]");
-        //$('#assetCategories').DataTable();  
+        //$('#assetCategories').DataTable();
 
              // Setup - add a text input to each footer cell
     $('#assetCategories thead tr').clone(true).appendTo('#assetCategories thead');
@@ -89,5 +89,3 @@
     });
     })
 </script>
-
-

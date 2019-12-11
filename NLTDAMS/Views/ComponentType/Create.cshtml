@@ -30,7 +30,6 @@
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
-
                         </div>
                     </div>
                     <div class="row">
@@ -97,7 +96,6 @@
                             <input type="button" value="Cancel" class="btn btn-primary" onclick='window.location.href = "@Url.Action("List", "ComponentType", routeValues: null)"' />
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

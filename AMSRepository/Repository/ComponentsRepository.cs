@@ -1,9 +1,6 @@
 ﻿using AMSRepository.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AMSRepository.Repository
 {
@@ -23,6 +20,7 @@ namespace AMSRepository.Repository
         {
             return GetAll();
         }
+
         public Components GetComponentsByID(int componentID)
         {
             return GetByID(componentID);
@@ -30,7 +28,6 @@ namespace AMSRepository.Repository
 
         public List<Components> AllActiveComponents()
         {
-
             var list = (from ct in context.ComponentType.Where(fet => fet.IsActive == true) join c in context.Components on ct.ID equals c.ComponentTypeID select c).ToList();
             return list;
         }

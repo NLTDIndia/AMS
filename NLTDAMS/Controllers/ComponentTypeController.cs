@@ -3,9 +3,6 @@ using AMSUtilities.Enums;
 using AMSUtilities.Models;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NLTDAMS.Controllers
@@ -16,17 +13,19 @@ namespace NLTDAMS.Controllers
         private readonly IComponentTypeService _ComponentTypeService;
         private readonly ILog _logger;
         private readonly IAssetTypeService _assetTypeService;
+
         public ComponentTypeController(IComponentTypeService ComponentTypeService, ILog logger, IAssetTypeService assetTypeService)
         {
             _ComponentTypeService = ComponentTypeService;
             _logger = logger;
             _assetTypeService = assetTypeService;
         }
+
         // GET: ComponentType
         public ActionResult List()
         {
             return View(_ComponentTypeService.GetComponentTypes());
-        }        
+        }
 
         // GET: ComponentType/Create
         public ActionResult Create()
@@ -51,7 +50,6 @@ namespace NLTDAMS.Controllers
                 else
                 {
                     return View(_ComponentTypeService.GetComponentTypeModel(null, assetCategoryId: assetCategoryId));
-
                 }
             }
             catch (Exception e)
@@ -62,9 +60,9 @@ namespace NLTDAMS.Controllers
                 return View(componentTypeModel);
             }
         }
+
         public JsonResult SetAssetTypes(int? assetCategoryId)
         {
-
             try
             {
                 var assetTypes = _assetTypeService.GetDropdownAssetTypes(assetCategoryId);
@@ -107,7 +105,6 @@ namespace NLTDAMS.Controllers
                 {
                     return View(componentTypeModel);
                 }
-
             }
             catch (Exception e)
             {
@@ -135,13 +132,12 @@ namespace NLTDAMS.Controllers
             }
             catch (Exception e)
             {
-
                 _logger.Error(e);
                 TempData["Message"] = "Internal server error. Component Type not updated. Please contact administrator.";
                 TempData["MessageType"] = (int)AlertMessageTypes.Danger;
             }
             return RedirectToAction("List");
-        }        
+        }
 
         // GET: ComponentType/Details/5
         public ActionResult Details(int id)

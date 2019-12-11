@@ -1,14 +1,12 @@
 ﻿using AMSService.Service;
+using AMSUtilities.Enums;
+using AMSUtilities.Models;
 using log4net;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
-using System.Web;
 using System.Web.Mvc;
-using AMSUtilities.Models;
-using AMSUtilities.Enums;
 
 namespace NLTDAMS.Controllers
 {
@@ -16,17 +14,18 @@ namespace NLTDAMS.Controllers
     public class AssetController : Controller
     {
         private readonly IAssetService _assetService;
-        ILog _logger;
+        private ILog _logger;
+
         public AssetController(IAssetService assetService, ILog logger)
         {
             _logger = logger;
             _assetService = assetService;
         }
-        ResourceManager rm = new ResourceManager("NLTDAMS.Properties.Resources", Assembly.GetExecutingAssembly());
-        
+
+        private readonly ResourceManager rm = new ResourceManager("NLTDAMS.Properties.Resources", Assembly.GetExecutingAssembly());
+
         public ActionResult HardwareAsset()
         {
-
             HardwareAssetModel hardwareAssetModel = new HardwareAssetModel();
             try
             {
@@ -44,6 +43,7 @@ namespace NLTDAMS.Controllers
             }
             return View(hardwareAssetModel);
         }
+
         public ActionResult CloneHardwareAsset(int assetId)
         {
             try
@@ -63,37 +63,36 @@ namespace NLTDAMS.Controllers
                 _logger.Error(ex);
                 return RedirectToAction("ManageAssets");
             }
-
         }
 
         [HttpPost]
         public ActionResult CreateHardwareAsset(HardwareAssetModel hardwareAssetModel, bool isClone)
         {
             try
-            {               
-                    if ((hardwareAssetModel.AssetTypeID == (int)AssetTypes.CPU && hardwareAssetModel.AssetName == null) || (hardwareAssetModel.AssetTypeID == (int)AssetTypes.Laptop && hardwareAssetModel.AssetName == null))
-                    {
-                        ModelState.AddModelError("AssetName", "Please enter Asset Name");
-                        var assetCategories = _assetService.GetAssetCategories();
-                        hardwareAssetModel.AssetCategories = new SelectList(assetCategories, "ID", "Description", (int)AssetCategories.Hardware);
-                        var assetTypes = _assetService.GetAssetTypes((int)AssetCategories.Hardware);
-                        hardwareAssetModel.AssetTypes = assetTypes;
-                        hardwareAssetModel.ComponentTypeModels = _assetService.GetComponentTypes();
-                        hardwareAssetModel.ComponentsModels = _assetService.GetComponents();
-                        return View("HardwareAsset", hardwareAssetModel);
-                    }
-                    _assetService.CreateHardwareAsset(hardwareAssetModel);
-                    TempData["Message"] = "Hardware Asset Created Successfully";
-                    TempData["MessageType"] = (int)AlertMessageTypes.Success;
-                    if (isClone)
-                    {
-                        TempData["hardwareAssetModel"] = hardwareAssetModel;
-                        return RedirectToAction("CloneHardwareAsset", new { assetId = hardwareAssetModel.AssetID });
-                    }
-                    else
-                    {
-                        return RedirectToAction("ManageAssets");
-                    }
+            {
+                if ((hardwareAssetModel.AssetTypeID == (int)AssetTypes.CPU && hardwareAssetModel.AssetName == null) || (hardwareAssetModel.AssetTypeID == (int)AssetTypes.Laptop && hardwareAssetModel.AssetName == null))
+                {
+                    ModelState.AddModelError("AssetName", "Please enter Asset Name");
+                    var assetCategories = _assetService.GetAssetCategories();
+                    hardwareAssetModel.AssetCategories = new SelectList(assetCategories, "ID", "Description", (int)AssetCategories.Hardware);
+                    var assetTypes = _assetService.GetAssetTypes((int)AssetCategories.Hardware);
+                    hardwareAssetModel.AssetTypes = assetTypes;
+                    hardwareAssetModel.ComponentTypeModels = _assetService.GetComponentTypes();
+                    hardwareAssetModel.ComponentsModels = _assetService.GetComponents();
+                    return View("HardwareAsset", hardwareAssetModel);
+                }
+                _assetService.CreateHardwareAsset(hardwareAssetModel);
+                TempData["Message"] = "Hardware Asset Created Successfully";
+                TempData["MessageType"] = (int)AlertMessageTypes.Success;
+                if (isClone)
+                {
+                    TempData["hardwareAssetModel"] = hardwareAssetModel;
+                    return RedirectToAction("CloneHardwareAsset", new { assetId = hardwareAssetModel.AssetID });
+                }
+                else
+                {
+                    return RedirectToAction("ManageAssets");
+                }
             }
             catch (Exception ex)
             {
@@ -121,6 +120,7 @@ namespace NLTDAMS.Controllers
             }
             return View(softwareAssetModel);
         }
+
         public ActionResult CloneSoftwareAsset(int assetId)
         {
             try
@@ -139,6 +139,7 @@ namespace NLTDAMS.Controllers
                 return RedirectToAction("ManageAssets");
             }
         }
+
         [HttpPost]
         public ActionResult CreateSoftwareAsset(SoftwareAssetModel softwareAssetModel, bool isClone)
         {
@@ -151,7 +152,7 @@ namespace NLTDAMS.Controllers
                 {
                     //return View("CloneSoftwareAsset", softwareAssetModel);
                     TempData["softwareAssetModel"] = softwareAssetModel;
-                    return RedirectToAction("CloneSoftwareAsset",new { assetId=softwareAssetModel.AssetID });
+                    return RedirectToAction("CloneSoftwareAsset", new { assetId = softwareAssetModel.AssetID });
                 }
                 else
                 {
@@ -186,6 +187,7 @@ namespace NLTDAMS.Controllers
             }
             return View(hardwareAssetModel);
         }
+
         [HttpPost]
         public ActionResult UpdateHardwareAsset(HardwareAssetModel hardwareAssetModel)
         {
@@ -215,6 +217,7 @@ namespace NLTDAMS.Controllers
                 return RedirectToAction("ManageAssets");
             }
         }
+
         public ActionResult EditSoftwareAsset(int Id)
         {
             SoftwareAssetModel softwareAssetModel = _assetService.EditSoftwareAsset(Id);
@@ -232,6 +235,7 @@ namespace NLTDAMS.Controllers
             }
             return View(softwareAssetModel);
         }
+
         [HttpPost]
         public ActionResult UpdateSoftwareAsset(SoftwareAssetModel softwareAssetModel)
         {
@@ -250,9 +254,9 @@ namespace NLTDAMS.Controllers
                 return RedirectToAction("ManageAssets");
             }
         }
+
         public JsonResult CreateComponent(ComponentsModel component)
         {
-
             try
             {
                 var createdComponent = _assetService.CreateComponent(component);
@@ -271,14 +275,15 @@ namespace NLTDAMS.Controllers
                 return Json("Error", JsonRequestBehavior.AllowGet);
             }
         }
+
         public ActionResult ManageComponents(int assetType, int? assetId)
         {
             HardwareAssetModel hardwareAssetModel = new HardwareAssetModel();
-            if(assetId != 0 && assetId != null)
+            if (assetId != 0 && assetId != null)
             {
                 hardwareAssetModel.ComponentAssetMapping = _assetService.GetComponentAssetMappings(assetId.Value);
             }
-            hardwareAssetModel.ComponentTypeModels = _assetService.GetComponentTypes().Where(fet => fet.AssetTypeID == assetType).OrderBy(ct=>ct.ComponentCategory).ToList();
+            hardwareAssetModel.ComponentTypeModels = _assetService.GetComponentTypes().Where(fet => fet.AssetTypeID == assetType).OrderBy(ct => ct.ComponentCategory).ToList();
             if (hardwareAssetModel.ComponentTypeModels.Count > 0)
             {
                 hardwareAssetModel.componentStyle = "display:block";
@@ -290,6 +295,7 @@ namespace NLTDAMS.Controllers
             hardwareAssetModel.ComponentsModels = _assetService.GetComponents();
             return PartialView(hardwareAssetModel);
         }
+
         public ActionResult ManageSoftwareComponents(int assetType, int? assetId)
         {
             SoftwareAssetModel softwareAssetModel = new SoftwareAssetModel();
@@ -309,6 +315,7 @@ namespace NLTDAMS.Controllers
             softwareAssetModel.ComponentsModels = _assetService.GetComponents();
             return PartialView(softwareAssetModel);
         }
+
         public ActionResult ManageAssets()
         {
             var Assets = _assetService.GetAssets();
@@ -355,10 +362,11 @@ namespace NLTDAMS.Controllers
             var Assets = _assetService.GetAssetByID(Id);
             return PartialView("../Shared/_UnassignAsset", Assets);
         }
+
         public JsonResult IsAssetNameExist(string AssetName, int? AssetID)
         {
-            var validateName = _assetService.GetAssets().Where(fet=>fet.AssetName.ToLower() == AssetName.ToLower() && fet.ID!= AssetID).ToList();
-            if (validateName.Count()>0)
+            var validateName = _assetService.GetAssets().Where(fet => fet.AssetName.ToLower() == AssetName.ToLower() && fet.ID != AssetID).ToList();
+            if (validateName.Count() > 0)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
@@ -367,11 +375,12 @@ namespace NLTDAMS.Controllers
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         public JsonResult GetManufacturer(string manufacturer)
         {
             var listOfObjects = _assetService.GetAssets();
-            //Searching records from list using LINQ query  
+            //Searching records from list using LINQ query
             var manufacturerList = listOfObjects.Where(fet => fet.AssetName.Contains(manufacturer)).ToList();
             return Json(manufacturerList, JsonRequestBehavior.AllowGet);
         }
@@ -379,8 +388,8 @@ namespace NLTDAMS.Controllers
         [HttpPost]
         public ActionResult AutoCompleteForModel(string prefix)
         {
-              var Model = _assetService.AutoCompleteForModel(prefix);
-              var ModelAuto = (from M in Model                              
+            var Model = _assetService.AutoCompleteForModel(prefix);
+            var ModelAuto = (from M in Model
                              select new
                              {
                                  label = M.Model,
@@ -395,12 +404,11 @@ namespace NLTDAMS.Controllers
             var Manufacturer = _assetService.AutoCompleteForManufacturer(prefix);
             var ManufacturerAuto = (from M in Manufacturer
                                     select new
-                             {
-                                 label = M.Manufacturer,
-                                 val = M.Manufacturer
+                                    {
+                                        label = M.Manufacturer,
+                                        val = M.Manufacturer
                                     }).Distinct().ToList();
             return Json(ManufacturerAuto);
         }
-
     }
 }

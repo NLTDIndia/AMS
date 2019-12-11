@@ -1,23 +1,20 @@
-﻿
-using AMSRepository.Models;
+﻿using AMSRepository.Models;
 using AMSRepository.Repository;
 using AMSUtilities.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace AMSService.Service
 {
     public class ComponentTrackerService : IComponentTrackerService
     {
         private readonly IComponentTrackerRepository _componentTrackerRepository;
+
         public ComponentTrackerService(IComponentTrackerRepository componentTrackerRepository)
         {
             _componentTrackerRepository = componentTrackerRepository;
         }
+
         public int CreateComponentTracker(ComponentTrackerModel componentTrackerModel)
         {
             ComponentTracker componentTracker = _componentTrackerRepository.GetComponentTrackerByID(componentTrackerModel.ID);
@@ -45,9 +42,10 @@ namespace AMSService.Service
                     Remarks = componentTrackerModel.Remarks,
                 });
             }
-           
+
             return componentTracker.ID;
         }
+
         public List<ComponentTrackerModel> GetAssetCategories()
         {
             var componentTrackers = _componentTrackerRepository.GetComponentTrackers();

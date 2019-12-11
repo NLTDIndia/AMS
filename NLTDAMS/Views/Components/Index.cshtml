@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<AMSUtilities.Models.ComponentsModel>
+﻿@model IEnumerable<AMSUtilities.Models.ComponentsModel>
 
 @{
     ViewBag.Title = "Index";
@@ -25,7 +24,6 @@
                     <th>Component Type</th>
                     <th>Assigned Count</th>
                     <th>Action</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -42,7 +40,6 @@
                             <a class="btn btn-primary btn-sm"  onclick="GetAssignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer;width:70px" >Assign</a>
                             <a class="btn btn-primary btn-sm"  style="cursor:pointer"  href="@Url.Action("UpdateComponents", "Components", new { id = item.ID })">Edit</a>
                         </td>
-
                     </tr>
                 }
             </tbody>
@@ -54,15 +51,13 @@
     </div>
     <!-- /.box-body -->
     <div id="LoadPopup">
-
     </div>
-
 </div>
 <script src="~/Scripts/AMS/jquery.dataTables.min.js"></script>
 <script src="~/Scripts/AMS/dataTables.bootstrap.min.js"></script>
 <script>
      $(document).ready(function () {
-        DisplayMessage("@TempData["MessageType"]", "@TempData["Message"]");      
+        DisplayMessage("@TempData["MessageType"]", "@TempData["Message"]");
          $('[data-toggle="tooltip"]').tooltip();
           // Setup - add a text input to each footer cell
     $('#Components thead tr').clone(true).appendTo('#Components thead');
@@ -95,7 +90,7 @@
         fixedHeader: true,
          retrieve: true,
     });
-     });  
+     });
      function GetAssignAsset(ID) {
         var url = '@Url.Action("AssignComponents", "Components")?Id=' + ID;
         if (url != "" && url != null) {

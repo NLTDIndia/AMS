@@ -32,7 +32,7 @@
                                         <th>@Html.DisplayNameFor(model => model.SerialNumber)</th>
                                         <th>@Html.DisplayNameFor(model => model.AssetStatus)</th>
                                         <th>@Html.DisplayNameFor(model => model.EmployeeName)</th>
-                                        <th>Actions</th>                                        
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,7 +69,6 @@
                                                 {
                                                     <a  class="btn btn-primary btn-sm" style="cursor:pointer" href="@Url.Action("CloneHardwareAsset","Asset",new { assetId=item.ID})">Clone</a>
                                                 }
-
                                             </td>
                                         </tr>
                                     }
@@ -83,7 +82,6 @@
                     </div>
                 </div>
                 <div id="LoadPopup">
-
                 </div>
             </div>
         </div>
@@ -97,7 +95,7 @@
     });
 
     function GetAssignAsset(ID) {
-        var url = '@Url.Action("AssignAsset", "Asset")?Id=' + ID; 
+        var url = '@Url.Action("AssignAsset", "Asset")?Id=' + ID;
         if (url != "" && url != null) {
             $("#LoadPopup").load(url, function () {
                 $('#LoadPopup').show();
@@ -110,7 +108,7 @@
     }
 
     function GetUnassignAsset(ID) {
-        var url = '@Url.Action("UnassignAsset", "Asset")?Id=' + ID; 
+        var url = '@Url.Action("UnassignAsset", "Asset")?Id=' + ID;
         if (url != "" && url != null) {
             $("#LoadPopup").load(url, function () {
                 $('#LoadPopup').show();
@@ -120,7 +118,7 @@
                 });
             })
         }
-    }   
+    }
 $(document).ready(function() {
     // Setup - add a text input to each footer cell
     $('#manageAssets thead tr').clone(true).appendTo('#manageAssets thead');
@@ -133,7 +131,7 @@ $(document).ready(function() {
         if (i < Length) {
         var title = $(this).text();
         $(this).html( '<input type="text" class="form-control" style="width:150px;" placeholder="'+title+'" />' );
- 
+
         $( 'input', this ).on( 'keyup change', function () {
             if ( table.column(i).search() !== this.value ) {
                 table
@@ -147,15 +145,10 @@ $(document).ready(function() {
             $(this).empty("");
         }
     });
- 
+
     var table = $('#manageAssets').DataTable({
         orderCellsTop: true,
         fixedHeader: true
     });
 });
 </script>
-
-
-
-
-

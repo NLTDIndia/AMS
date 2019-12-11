@@ -1,9 +1,8 @@
+using AMSRepository.Repository;
+using AMSService.Service;
 using System;
-
 using Unity;
 using Unity.log4net;
-using AMSService.Service;
-using AMSRepository.Repository;
 
 namespace NLTDAMS
 {
@@ -13,6 +12,7 @@ namespace NLTDAMS
     public static class UnityConfig
     {
         #region Unity Container
+
         private static Lazy<IUnityContainer> container =
           new Lazy<IUnityContainer>(() =>
           {
@@ -25,7 +25,8 @@ namespace NLTDAMS
         /// Configured Unity Container.
         /// </summary>
         public static IUnityContainer Container => container.Value;
-        #endregion
+
+        #endregion Unity Container
 
         /// <summary>
         /// Registers the type mappings with the Unity container.
@@ -47,7 +48,7 @@ namespace NLTDAMS
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.AddNewExtension<Log4NetExtension>();
 
-            //Register Services 
+            //Register Services
             container.RegisterType<IAssetService, AssetService>();
             container.RegisterType<IAssetTrackerService, AssetTrackerService>();
             container.RegisterType<IAssetCategoryService, AssetCategoryService>();
@@ -63,7 +64,7 @@ namespace NLTDAMS
             container.RegisterType<IComponentTrackerService, ComponentTrackerService>();
             container.RegisterType<IQuotationService, QuotationService>();
             container.RegisterType<IAssetRequestService, AssetRequestService>();
-            //Register Repository 
+            //Register Repository
             container.RegisterType<IAssetRepository, AssetRepository>();
             container.RegisterType<IAssetTrackerRepository, AssetTrackerRepository>();
             container.RegisterType<IAssetCategoryRepository, AssetCategoryRepository>();
@@ -71,14 +72,14 @@ namespace NLTDAMS
             container.RegisterType<IAssetPurchaseOrderMappingRepository, AssetPurchaseOrderMappingRepository>();
             container.RegisterType<IHardwareAssetRepository, HardwareAssetRepository>();
             container.RegisterType<ISoftwareAssetRepository, SoftwareAssetRepository>();
-            container.RegisterType <IComponentAssetMappingRepository,ComponentAssetMappingRepository>();
+            container.RegisterType<IComponentAssetMappingRepository, ComponentAssetMappingRepository>();
             container.RegisterType<IComponentTypeRepository, ComponentTypeRepository>();
             container.RegisterType<IComponentsRepository, ComponentsRepository>();
             container.RegisterType<IEmployeeAssetMappingRepository, EmployeeAssetMappingRepository>();
             container.RegisterType<IEmployeeRepository, EmployeeRepository>();
             container.RegisterType<IEmployeeRoleRepository, EmployeeRoleRepository>();
             container.RegisterType<ILocationRepository, LocationRepository>();
-            container.RegisterType<ISeatsRepository, SeatsRepository>(); 
+            container.RegisterType<ISeatsRepository, SeatsRepository>();
             container.RegisterType<IPurchaseOrderRepository, PurchaseOrderRepository>();
             container.RegisterType<IPurchaseStatusRepository, PurchaseStatusRepository>();
             container.RegisterType<IQuotationRepository, QuotationRepository>();

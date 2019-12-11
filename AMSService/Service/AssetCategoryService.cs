@@ -4,8 +4,6 @@ using AMSUtilities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace AMSService.Service
@@ -13,10 +11,12 @@ namespace AMSService.Service
     public class AssetCategoryService : IAssetCategoryService
     {
         private readonly IAssetCategoryRepository _assetCategoryRepository;
+
         public AssetCategoryService(IAssetCategoryRepository assetCategoryRepository)
         {
             _assetCategoryRepository = assetCategoryRepository;
         }
+
         public AssetCategoryModel GetCategoryeModel(int? Id = null)
         {
             if (Id.HasValue)
@@ -41,6 +41,7 @@ namespace AMSService.Service
                 return new AssetCategoryModel { };
             }
         }
+
         public int CreateAssetCategory(AssetCategoryModel assetCategoryModel)
         {
             AssetCategory assetCategory = null;
@@ -91,13 +92,13 @@ namespace AMSService.Service
             var assetCategories = _assetCategoryRepository.GetAssetCategories();
             if (assetCategories != null && assetCategories.Count > 0)
             {
-                assetCategories.ForEach(at => {
+                assetCategories.ForEach(at =>
+                {
                     assetCategoryItems.Add(new SelectListItem { Selected = selectedId == at.ID ? true : false, Text = at.Description, Value = at.ID.ToString() });
                 });
             }
 
             return new SelectList(assetCategoryItems, "Value", "Text", selectedId);
-
         }
     }
 }

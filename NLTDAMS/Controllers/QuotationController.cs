@@ -3,10 +3,7 @@ using AMSUtilities.Enums;
 using AMSUtilities.Models;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,14 +15,16 @@ namespace NLTDAMS.Controllers
         private readonly IQuotationService _quotationService;
         private readonly ILog _logger;
         private readonly IVendorService _vendorService;
+
         public QuotationController(IQuotationService quotationService, ILog logger, IVendorService vendorService)
         {
             _quotationService = quotationService;
             _logger = logger;
             _vendorService = vendorService;
         }
+
         // GET: Quotation
-        public ActionResult ManageQuotation()        
+        public ActionResult ManageQuotation()
         {
             var quotations = _quotationService.GetQuotations();
             return View(quotations);
@@ -58,7 +57,6 @@ namespace NLTDAMS.Controllers
                         string fileName = Path.GetFileName(QuotationFile.FileName);
                         fileName = quotationModel.QuotationFilePath;
                         QuotationFile.SaveAs(path + fileName);
-                        
                     }
                     _quotationService.CreateQuotation(quotationModel);
 
@@ -67,7 +65,7 @@ namespace NLTDAMS.Controllers
                     return RedirectToAction("ManageQuotation");
                 }
                 else
-                {                  
+                {
                     return View(quotationModel);
                 }
             }
@@ -117,7 +115,6 @@ namespace NLTDAMS.Controllers
                 {
                     return View(_quotationService);
                 }
-
             }
             catch (Exception e)
             {

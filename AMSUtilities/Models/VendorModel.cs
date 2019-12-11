@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AMSUtilities.Models
 {
@@ -19,7 +15,7 @@ namespace AMSUtilities.Models
         [StringLength(4000)]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "EmailID required")]      
+        [Required(ErrorMessage = "EmailID required")]
         [StringLength(400)]
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email is not valid.")]
         public string Email { get; set; }
@@ -39,6 +35,5 @@ namespace AMSUtilities.Models
 
         [Required(ErrorMessage = "CreatedBy required")]
         public int CreatedBy { get; set; }
-
     }
 }

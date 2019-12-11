@@ -30,7 +30,6 @@
                                     @Html.DisplayFor(m => m.ComponentTypeName)
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -40,8 +39,6 @@
                                 @Html.DropDownListFor(m => m.AssignedAssetID, Model.Assets, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.AssignedAssetID, "", new { @class = "text-danger" })
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -57,4 +54,3 @@
 </div>
 <!-- /.modal -->
 @Scripts.Render("~/bundles/jqueryval")
-

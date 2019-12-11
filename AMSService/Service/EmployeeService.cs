@@ -4,8 +4,6 @@ using AMSUtilities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -19,6 +17,7 @@ namespace AMSService.Service
         {
             _employeeRepository = employeeRepository;
         }
+
         public int CreateEmployee(EmployeeModel employeeModel)
         {
             Employee employee = null;
@@ -38,6 +37,7 @@ namespace AMSService.Service
 
             return employee.ID;
         }
+
         public int UpdateEmployee(EmployeeModel employeeModel)
         {
             Employee employee = _employeeRepository.GetEmployeeByID(employeeModel.ID);
@@ -58,6 +58,7 @@ namespace AMSService.Service
 
             return employee.ID;
         }
+
         public EmployeeModel GetEmployeeByCorpId(string corpId)
         {
             try
@@ -84,10 +85,10 @@ namespace AMSService.Service
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
+
         public List<EmployeeModel> GetAssetCategories()
         {
             var employees = _employeeRepository.GetEmployees();
@@ -113,6 +114,7 @@ namespace AMSService.Service
                 return new List<EmployeeModel> { };
             }
         }
+
         public SelectList GetDropdownEmployees(int selectedId = -1)
         {
             List<SelectListItem> EmployeesItems = new List<SelectListItem> { new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Employee", Value = "" } };
@@ -127,6 +129,7 @@ namespace AMSService.Service
 
             return new SelectList(EmployeesItems, "Value", "Text");
         }
+
         public int GetEmployeeId(string corpId = null)
         {
             if (corpId == null)

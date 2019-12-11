@@ -66,7 +66,7 @@
         if (i < Length) {
         var title = $(this).text();
         $(this).html( '<input type="text" class="form-control" style="width:150px;" placeholder="'+title+'" />' );
- 
+
         $( 'input', this ).on( 'keyup change', function () {
             if ( table.column(i).search() !== this.value ) {
                 table
@@ -80,7 +80,7 @@
             $(this).empty("");
         }
     });
- 
+
     var table = $('#vendors').DataTable({
         orderCellsTop: true,
         fixedHeader: true

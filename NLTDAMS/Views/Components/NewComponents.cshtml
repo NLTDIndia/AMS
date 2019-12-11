@@ -15,7 +15,6 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-
                     </div>
                 </div>
             </div>
@@ -28,10 +27,8 @@
 
                         @Html.DropDownListFor(m => m.ComponentTypeID, Model.ComponentType, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.ComponentTypeID, "", new { @class = "text-danger" })
-
                     </div>
                 </div>
-
             </div>
             <div class="row">
                 <div class="form-group" style="margin-top:15px;">
@@ -54,10 +51,8 @@
 
                         @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-
                     </div>
                 </div>
-
             </div>
             <div class="row ">
                 <div class="form-group" style="margin-top:15px;">
@@ -66,9 +61,7 @@
                         <a class="btn btn-primary" href='@Url.Content("~/Components/index")'>Cancel</a>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 

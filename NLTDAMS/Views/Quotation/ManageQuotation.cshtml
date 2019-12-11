@@ -47,7 +47,6 @@
                                             {
                                         <a class="btn btn-primary btn-sm" style="cursor:pointer" onclick="GetInvoice('@item.VendorID')">Generate Invoice</a>
                                             }
-
                                         </td>
                                         <td><a class="btn btn-primary btn-sm" style="cursor:pointer" href="@Url.Action("EditQuotation","Quotation",new { quotationId=item.ID})">Edit</a></td>
                                     </tr>
@@ -62,7 +61,6 @@
                 </div>
             </div>
             <div id="LoadPopup">
-
             </div>
         </div>
     </div>
@@ -74,9 +72,8 @@
         $('[data-toggle="tooltip"]').tooltip();
         });
 
-
         function GetInvoice(ID) {
-        var url = '@Url.Action("GenerateInvoice", "Quotation")?Id=' + ID; 
+        var url = '@Url.Action("GenerateInvoice", "Quotation")?Id=' + ID;
         if (url != "" && url != null) {
             $("#LoadPopup").load(url, function () {
                 $('#LoadPopup').show();

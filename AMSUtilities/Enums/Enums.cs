@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AMSUtilities.Enums
+﻿namespace AMSUtilities.Enums
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum AlertMessageTypes
     {
-        Success =0,
+        Success = 0,
         Info = 1,
         Warning = 2,
         Danger = 3
@@ -32,6 +26,7 @@ namespace AMSUtilities.Enums
         Scraped = 8,
         Retire = 9
     }
+
     /// <summary>
     /// Refering the values from Componenet table
     /// </summary>
@@ -47,6 +42,7 @@ namespace AMSUtilities.Enums
         Scraped = 8,
         Retire = 9
     }
+
     public enum AssetCategories
     {
         Hardware = 1,
@@ -67,15 +63,13 @@ namespace AMSUtilities.Enums
 
     public enum QuotationStatus
     {
-
         InProgress = 1,
         ApprovalPending = 2,
         Approved = 3,
         Rejected = 4,
         Cancelled = 5,
         Completed = 6,
-        Closed =7
-
+        Closed = 7
     }
 
     public enum ComponentCategory

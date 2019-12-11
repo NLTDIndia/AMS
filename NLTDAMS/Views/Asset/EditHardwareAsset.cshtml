@@ -64,7 +64,6 @@
                                 <label for="From">Serial Number</label>
                                 @Html.TextBoxFor(model => model.SerialNumber, "" as string, new { @id = "serialNumber", @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
-
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -112,7 +111,6 @@
                                 @Html.ValidationMessageFor(model => model.WarrantyEndDate, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        
                     </div>
                     <div class="row">
                         <div class="col-sm-9">
@@ -304,5 +302,3 @@
         });
     });
 </script>
-
-

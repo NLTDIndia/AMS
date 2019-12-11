@@ -1,9 +1,6 @@
 ﻿using AMSRepository.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AMSRepository.Repository
 {
@@ -23,6 +20,7 @@ namespace AMSRepository.Repository
         {
             return GetAll();
         }
+
         public ComponentAssetMapping GetComponentAssetMappingByID(int componentAssetMappingID)
         {
             return GetByID(componentAssetMappingID);

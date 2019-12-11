@@ -1,22 +1,20 @@
 ﻿using AMSRepository.Models;
 using AMSRepository.Repository;
 using AMSUtilities.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace AMSService.Service
 {
     public class HardwareAssetService : IHardwareAssetService
     {
         private readonly IHardwareAssetRepository _hardwareAssetRepository;
+
         public HardwareAssetService(IHardwareAssetRepository hardwareAssetRepository)
         {
             _hardwareAssetRepository = hardwareAssetRepository;
         }
+
         public int CreateHardwareAsset(HardwareAssetModel hardwareAssetModel)
         {
             HardwareAssets hardwareAsset = null;
@@ -33,6 +31,7 @@ namespace AMSService.Service
 
             return hardwareAsset.ID;
         }
+
         public int UpdateHardwareAsset(HardwareAssetModel hardwareAssetModel)
         {
             HardwareAssets hardwareAsset = _hardwareAssetRepository.GetHardwareAssetByAssetID(hardwareAssetModel.AssetID);
@@ -80,12 +79,12 @@ namespace AMSService.Service
             {
                 HardwareAssetModel harwareAssetModel = new HardwareAssetModel
                 {
-                     Model = hardwareAsset.Model,
-                     ServiceTag = hardwareAsset.ServiceTag,
-                     Manufacturer = hardwareAsset.Manufacturer,
-                     WarrantyStartDate = hardwareAsset.WarrantyStartDate,
-                     WarrantyEndDate = hardwareAsset.WarrantyEndDate,
-                     Comment = hardwareAsset.Comment
+                    Model = hardwareAsset.Model,
+                    ServiceTag = hardwareAsset.ServiceTag,
+                    Manufacturer = hardwareAsset.Manufacturer,
+                    WarrantyStartDate = hardwareAsset.WarrantyStartDate,
+                    WarrantyEndDate = hardwareAsset.WarrantyEndDate,
+                    Comment = hardwareAsset.Comment
                 };
                 return harwareAssetModel;
             }

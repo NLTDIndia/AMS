@@ -1,7 +1,4 @@
-﻿
-
-@model AMSUtilities.Models.ComponentAssetMappingModel
-
+﻿@model AMSUtilities.Models.ComponentAssetMappingModel
 
 <div class="modal fade" id="modal-Unassign">
     <div class="modal-dialog">
@@ -20,7 +17,6 @@
                     @Html.HiddenFor(m => m.ID)
 
                     <p>Do you want to remove @Html.DisplayFor(m => m.ComponentName) from @Html.DisplayFor(m => m.AssetName)?</p>
-
                 </div>
                 <div class="modal-footer" style="border-top:none;">
                     <button type="submit" class="btn btn-primary">Unassign</button>

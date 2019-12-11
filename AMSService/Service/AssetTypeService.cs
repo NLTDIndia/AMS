@@ -4,8 +4,6 @@ using AMSUtilities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace AMSService.Service
@@ -14,7 +12,8 @@ namespace AMSService.Service
     {
         private readonly IAssetTypeRepository _assetAssetTypeRepository;
         private readonly IAssetCategoryService _assetCategoryService;
-        public AssetTypeService(IAssetTypeRepository assetAssetTypeRepository, 
+
+        public AssetTypeService(IAssetTypeRepository assetAssetTypeRepository,
             IAssetCategoryService assetCategoryService)
         {
             _assetAssetTypeRepository = assetAssetTypeRepository;
@@ -47,14 +46,14 @@ namespace AMSService.Service
                 return new AssetTypeModel { AssetCategories = _assetCategoryService.GetDropdownAssetCategories(assetCategoryID) };
             }
         }
+
         public int CreateAssetType(AssetTypeModel assetTypeModel)
         {
             AssetTypes assetType = null;
             assetType = this._assetAssetTypeRepository.CreateAssetType(new AssetTypes()
             {
                 Description = assetTypeModel.Description,
-                AssetCategoryID = assetTypeModel.AssetCategoryID               
-
+                AssetCategoryID = assetTypeModel.AssetCategoryID
             });
 
             return assetType.ID;
@@ -80,7 +79,7 @@ namespace AMSService.Service
                 return assetTypes.Select(at => new AssetTypeModel
                 {
                     ID = at.ID,
-                    Description = at.Description,                    
+                    Description = at.Description,
                     AssetCategoryName = at.AssetCategory.Description
                 }).ToList();
             }
@@ -90,19 +89,19 @@ namespace AMSService.Service
             }
         }
 
-        public SelectList GetDropdownAssetTypes(int? assetCategoryId,int selectedId = -1)
+        public SelectList GetDropdownAssetTypes(int? assetCategoryId, int selectedId = -1)
         {
             List<SelectListItem> assetTypeItems = new List<SelectListItem> { new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Asset Type", Value = "" } };
-            var assetTypes = assetCategoryId.HasValue && assetCategoryId.Value > 0 ? _assetAssetTypeRepository.GetAssetTypes().Where(at=> at.AssetCategoryID == assetCategoryId.Value).ToList(): _assetAssetTypeRepository.GetAssetTypes();
+            var assetTypes = assetCategoryId.HasValue && assetCategoryId.Value > 0 ? _assetAssetTypeRepository.GetAssetTypes().Where(at => at.AssetCategoryID == assetCategoryId.Value).ToList() : _assetAssetTypeRepository.GetAssetTypes();
             if (assetTypes != null && assetTypes.Count > 0)
             {
-                assetTypes.ForEach(at => {
+                assetTypes.ForEach(at =>
+                {
                     assetTypeItems.Add(new SelectListItem { Selected = selectedId == at.ID ? true : false, Text = at.Description, Value = at.ID.ToString() });
                 });
             }
 
             return new SelectList(assetTypeItems, "Value", "Text");
-
         }
     }
 }

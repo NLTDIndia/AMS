@@ -1,12 +1,9 @@
-﻿using AMSRepository.Repository;
-using AMSRepository.Models;
-using AMSUtilities.Common;
+﻿using AMSRepository.Models;
+using AMSRepository.Repository;
 using AMSUtilities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,7 +13,8 @@ namespace AMSService.Service
     {
         private readonly IVendorRepository _vendorRepository;
         private readonly IEmployeeService _employeeService;
-        public VendorService(IVendorRepository vendorRepository, 
+
+        public VendorService(IVendorRepository vendorRepository,
             IEmployeeService employeeService)
         {
             _vendorRepository = vendorRepository;
@@ -64,13 +62,11 @@ namespace AMSService.Service
                     ContactNumber = vendorModel.ContactNumber,
                     ContactPerson = vendorModel.ContactPerson,
                     CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID
-
                 });
                 return vendor.ID;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

@@ -1,13 +1,10 @@
 ﻿using AMSRepository.Models;
 using AMSRepository.Repository;
-using AMSService.Service;
 using AMSUtilities.Enums;
 using AMSUtilities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,18 +12,19 @@ namespace AMSService.Service
 {
     public class AssetService : IAssetService
     {
-        IAssetRepository _assetRepository;
-        IAssetTypeService _assetTypeService;
-        IAssetCategoryService _assetCategoryService;
-        IHardwareAssetService _hardwareAssetService;
-        ISoftwareAssetService _softwareAssetService;
-        IAssetTrackerService _assetTrackerService;
-        IEmployeeService _employeeService;
-        IComponentTypeService _componentTypeService;
-        IComponentsService _componentsService;
-        IComponentAssetMappingService _componentAssetMappingService;
-        IEmployeeAssetMappingRepository _employeeAssetMappingRepository;
-        IComponentTrackerService _componentTrackerService;
+        private IAssetRepository _assetRepository;
+        private IAssetTypeService _assetTypeService;
+        private IAssetCategoryService _assetCategoryService;
+        private IHardwareAssetService _hardwareAssetService;
+        private ISoftwareAssetService _softwareAssetService;
+        private IAssetTrackerService _assetTrackerService;
+        private IEmployeeService _employeeService;
+        private IComponentTypeService _componentTypeService;
+        private IComponentsService _componentsService;
+        private IComponentAssetMappingService _componentAssetMappingService;
+        private IEmployeeAssetMappingRepository _employeeAssetMappingRepository;
+        private IComponentTrackerService _componentTrackerService;
+
         public AssetService(IAssetCategoryService assetCategoryService
             , IAssetTypeService assetTypeService
             , IAssetRepository assetRepository
@@ -53,16 +51,19 @@ namespace AMSService.Service
             _employeeAssetMappingRepository = employeeAssetMappingRepository;
             _componentTrackerService = componentTrackerService;
         }
+
         public List<AssetCategoryModel> GetAssetCategories()
         {
             var assetCategoryList = _assetCategoryService.GetAssetCategories();
             return assetCategoryList;
         }
+
         public SelectList GetAssetTypes(int assetCategory, int id = -1)
         {
             var assetTypes = _assetTypeService.GetDropdownAssetTypes(assetCategory, id);
             return assetTypes;
         }
+
         public HardwareAssetModel CreateHardwareAsset(HardwareAssetModel hardwareAssetModel)
         {
             Assets assets = new Assets
@@ -91,9 +92,9 @@ namespace AMSService.Service
 
             if (hardwareAssetModel.ComponentAssetMapping != null)
             {
-                if (hardwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList().Count > 0)
+                if (hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
                 {
-                    foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList())
+                    foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
                     {
                         item.AssignedAssetID = createdAsset.ID;
                         item.ActualAssetID = createdAsset.ID;
@@ -117,6 +118,7 @@ namespace AMSService.Service
             }
             return hardwareAssetModel;
         }
+
         public SoftwareAssetModel CreateSoftwareAsset(SoftwareAssetModel softwareAssetModel)
         {
             Assets assets = new Assets
@@ -143,9 +145,9 @@ namespace AMSService.Service
             _assetTrackerService.CreateAssetTracker(assetTrackerModel);
             if (softwareAssetModel.ComponentAssetMapping != null)
             {
-                if (softwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList().Count > 0)
+                if (softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
                 {
-                    foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList())
+                    foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
                     {
                         item.AssignedAssetID = createdAsset.ID;
                         item.ActualAssetID = createdAsset.ID;
@@ -189,7 +191,7 @@ namespace AMSService.Service
                     CreatedBy = asset.CreatedBy,
                 };
             }
-            if(hardwareAsset != null)
+            if (hardwareAsset != null)
             {
                 hardwareAssetModel.Model = hardwareAsset.Model;
                 hardwareAssetModel.ServiceTag = hardwareAsset.ServiceTag;
@@ -199,7 +201,7 @@ namespace AMSService.Service
                 hardwareAssetModel.Comment = hardwareAsset.Comment;
             }
             var componentAssetMapping = _componentAssetMappingService.GetComponentAssetMappingsByAssetID(assetID);
-            if(componentAssetMapping != null && componentAssetMapping.Count > 0)
+            if (componentAssetMapping != null && componentAssetMapping.Count > 0)
             {
                 hardwareAssetModel.ComponentAssetMapping = componentAssetMapping.ToList();
             }
@@ -222,10 +224,10 @@ namespace AMSService.Service
                     AssetStatusID = asset.AssetStatusID,
                     AssetCategoryId = asset.AssetTypes.AssetCategoryID,
                     CreatedDate = asset.CreatedDate,
-                    CreatedBy = asset.CreatedBy,                   
+                    CreatedBy = asset.CreatedBy,
                 };
             }
-            if(softwareAsset != null)
+            if (softwareAsset != null)
             {
                 softwareAssetModel.ProductName = softwareAsset.ProductName;
                 softwareAssetModel.LicenceNumber = softwareAsset.LicenceNumber;
@@ -276,7 +278,8 @@ namespace AMSService.Service
             }
             return hardwareAssetModel;
         }
-           public List<ComponentAssetMappingModel> GetComponentAssetMappings(int assetID)
+
+        public List<ComponentAssetMappingModel> GetComponentAssetMappings(int assetID)
         {
             var componentAssetMapping = _componentAssetMappingService.GetComponentAssetMappingsByAssetID(assetID);
             return componentAssetMapping;
@@ -316,10 +319,12 @@ namespace AMSService.Service
             }
             return softwareAssetModel;
         }
+
         public int GetLoginEmployeeId()
         {
             return _employeeService.GetEmployeeId();
         }
+
         public HardwareAssetModel UpdateHardwareAsset(HardwareAssetModel hardwareAssetModel)
         {
             Assets selectedAsset = _assetRepository.GetAssetByID(hardwareAssetModel.AssetID);
@@ -336,9 +341,9 @@ namespace AMSService.Service
 
             if (hardwareAssetModel.ComponentAssetMapping != null)
             {
-                if (hardwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList().Count > 0)
+                if (hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
                 {
-                    foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList())
+                    foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
                     {
                         item.AssignedAssetID = selectedAsset.ID;
                         item.ActualAssetID = selectedAsset.ID;
@@ -361,6 +366,7 @@ namespace AMSService.Service
 
             return hardwareAssetModel;
         }
+
         public SoftwareAssetModel UpdateSoftwareAsset(SoftwareAssetModel softwareAssetModel)
         {
             Assets selectedAsset = _assetRepository.GetAssetByID(softwareAssetModel.AssetID);
@@ -377,9 +383,9 @@ namespace AMSService.Service
 
             if (softwareAssetModel.ComponentAssetMapping != null)
             {
-                if (softwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList().Count > 0)
+                if (softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
                 {
-                    foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet =>  fet.ComponentID != 0).ToList())
+                    foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
                     {
                         item.AssignedAssetID = selectedAsset.ID;
                         item.ActualAssetID = selectedAsset.ID;
@@ -401,20 +407,24 @@ namespace AMSService.Service
             }
             return softwareAssetModel;
         }
+
         public List<ComponentTypeModel> GetComponentTypes()
         {
             var componentTypes = _componentTypeService.GetActiveComponentTypes();
             return componentTypes;
         }
+
         public List<ComponentsModel> GetComponents()
         {
             var components = _componentsService.GetActiveComponents();
             return components;
         }
+
         public int CreateComponent(ComponentsModel component)
         {
             return _componentsService.createComponents(component);
         }
+
         public List<AssetModel> GetAssets()
         {
             List<AssetModel> assetModels = new List<AssetModel>();
@@ -429,6 +439,7 @@ namespace AMSService.Service
                 return new List<AssetModel> { };
             }
         }
+
         public AssetModel GetAssetByID(int Id)
         {
             var asset = _assetRepository.GetAssetByID(Id);
@@ -445,7 +456,6 @@ namespace AMSService.Service
 
         public int AssignAsset(AssetModel assetModel)
         {
-
             EmployeeAssetMappingModel employeeAssetMappingModel = new EmployeeAssetMappingModel
             {
                 EmployeeID = assetModel.EmployeeID,
@@ -459,7 +469,6 @@ namespace AMSService.Service
                 EmployeeID = assetModel.EmployeeID,
                 CreatedDate = assetModel.AssignDate,
                 CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
-
             });
 
             if (employeeAssetMapping != null && employeeAssetMapping.ID != 0)
@@ -480,13 +489,11 @@ namespace AMSService.Service
                 }
             }
 
-
             return assetModel.ID;
         }
 
         public void UnassignAsset(AssetModel assetModel)
         {
-
             if (assetModel.ID != 0 && assetModel.EmployeeID != 0)
             {
                 var employeeAssetMapping = _employeeAssetMappingRepository.GetEmployeeAssetMappings().Where(m => m.AssetID == assetModel.ID && m.EmployeeID == assetModel.EmployeeID).First();

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace AMSUtilities.Models
@@ -17,6 +13,7 @@ namespace AMSUtilities.Models
 
         [Required(ErrorMessage = "Asset is required")]
         public int? AssignedAssetID { get; set; }
+
         public int? ActualAssetID { get; set; }
         public DateTime? AssignedDate { get; set; }
         public int? AssignedBy { get; set; }
@@ -31,5 +28,3 @@ namespace AMSUtilities.Models
         public string AssetName { get; set; }
     }
 }
-
-

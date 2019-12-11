@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,11 +8,12 @@ namespace AMSUtilities.Models
     public class QuotationModel
     {
         public int ID { get; set; }
-        [Required(ErrorMessage ="Vendor is Required")]
+
+        [Required(ErrorMessage = "Vendor is Required")]
         public int VendorID { get; set; }
 
         [Required(ErrorMessage = "Asset Request is Required")]
-        [Display(Name ="Asset Request")]
+        [Display(Name = "Asset Request")]
         public int AssetRequestID { get; set; }
 
         [Display(Name = "Quotation")]
@@ -29,7 +26,7 @@ namespace AMSUtilities.Models
         [Required(ErrorMessage = "Quotation Received Date is Required")]
         public DateTime? QuotationReceivedDate { get; set; }
 
-        [Display(Name ="Vendor")]
+        [Display(Name = "Vendor")]
         public string VendorName { get; set; }
 
         [Display(Name = "Quotation Status")]
@@ -38,8 +35,9 @@ namespace AMSUtilities.Models
         public SelectList Vendorddl { get; set; }
 
         [Required(ErrorMessage = "Quotation is Required")]
-       // [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.pdf)$", ErrorMessage = "Only PDF files allowed.")]
+        // [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.pdf)$", ErrorMessage = "Only PDF files allowed.")]
         public HttpPostedFileBase QuotationFile { get; set; }
+
         public SelectList AssetRequestddl { get; set; }
     }
 }

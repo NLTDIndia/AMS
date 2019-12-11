@@ -1,22 +1,20 @@
 ﻿using AMSRepository.Models;
 using AMSRepository.Repository;
 using AMSUtilities.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace AMSService.Service
 {
     public class SoftwareAssetService : ISoftwareAssetService
     {
         private readonly ISoftwareAssetRepository _softwareAssetRepository;
+
         public SoftwareAssetService(ISoftwareAssetRepository softwareAssetRepository)
         {
             _softwareAssetRepository = softwareAssetRepository;
         }
+
         public int CreateSoftwareAsset(SoftwareAssetModel softwareAssetModel)
         {
             SoftwareAssets softwareAsset = null;
@@ -32,6 +30,7 @@ namespace AMSService.Service
 
             return softwareAsset.ID;
         }
+
         public int UpdateSoftwareAsset(SoftwareAssetModel softwareAssetModel)
         {
             SoftwareAssets softwareAsset = _softwareAssetRepository.GetSoftwareAssetByAssetID(softwareAssetModel.AssetID);
