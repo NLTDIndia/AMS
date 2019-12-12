@@ -13,9 +13,9 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Components</h3>
             </div>
-            <div style="float:right">
-                <span class="label label-success">Hardware</span>
-                <span class="label label-warning">Software</span>
+            <div class="div-notification" style="float:right">
+                <span class="label label-success label-notification">Hardware</span>
+                <span class="label label-warning label-notification">Software</span>
             </div>
             @*<ul class="nav nav-tabs">
                    <li class="active"><a href="#tab_1" data-toggle="tab">Hardware Components</a></li>
@@ -24,174 +24,179 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                     <div class="box-body">
-                        @{
-                            int count = Model.ComponentTypeModels.Where(ct=>ct.Mandatory == true).Count();
-                            if (Model.ComponentAssetMapping != null)
-                            {
-                                if (Model.ComponentAssetMapping.ToList().Count == 0)
+                        <div class="container col-md-10 container-comp">
+                            @{
+                                int count = Model.ComponentTypeModels.Where(ct => ct.Mandatory == true).Count();
+                                if (Model.ComponentAssetMapping != null)
+                                {
+                                    if (Model.ComponentAssetMapping.ToList().Count == 0)
+                                    {
+                                        Model.ComponentAssetMapping = new List<AMSUtilities.Models.ComponentAssetMappingModel>() { };
+                                    }
+                                }
+                                else if (Model.ComponentAssetMapping == null)
                                 {
                                     Model.ComponentAssetMapping = new List<AMSUtilities.Models.ComponentAssetMappingModel>() { };
                                 }
                             }
-                            else if(Model.ComponentAssetMapping == null)
+                            @if (Model.ComponentTypeModels != null)
                             {
-                                Model.ComponentAssetMapping = new List<AMSUtilities.Models.ComponentAssetMappingModel>() { };
-                            }
-                        }
-                        @if (Model.ComponentTypeModels != null)
+                                if (Model.ComponentTypeModels.ToList().Count > 0)
+                                {
+                                    Model.ComponentTypeModels = Model.ComponentTypeModels.OrderByDescending(ct => ct.Mandatory).ToList();
+                                    foreach (var item in Model.ComponentTypeModels)
                                     {
-                                        if (Model.ComponentTypeModels.ToList().Count > 0)
+                                        var selectList = new SelectList(Model.ComponentsModels.Where(fet => fet.ComponentTypeID == item.ID).ToList(), "ID", "ComponentName");
+                                        if (Model.ComponentAssetMapping != null)
                                         {
-                                            Model.ComponentTypeModels = Model.ComponentTypeModels.OrderByDescending(ct => ct.Mandatory).ToList();
-                                            foreach (var item in Model.ComponentTypeModels)
-                                            {
-                                                var selectList = new SelectList(Model.ComponentsModels.Where(fet => fet.ComponentTypeID == item.ID).ToList(), "ID", "ComponentName");
-                                                if (Model.ComponentAssetMapping != null)
-                                                {
-                                                    if (Model.ComponentAssetMapping.ToList().Count > 0)
-                                                    {
-                                                        var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
-                                                        if (component != null)
-                                                        {
-                                                            selectList = new SelectList(Model.ComponentsModels.Where(fet => fet.ComponentTypeID == item.ID).ToList(), "ID", "ComponentName", component.ComponentID);
-                                                            @Html.Hidden("ComponentAssetMapping[" + i + "].ID", component.ID);
-                                                        }
-                                                    }
-                                                }
-                                                var style = "";
-                                                if (item.ComponentCategory == (int)ComponentCategory.Hardware)
-                                                {
-                                                    style = "color: #00a65a !important;float:left;";
-                                                }
-                                                else if (item.ComponentCategory == (int)ComponentCategory.Software)
-                                                {
-                                                    style = "color: #f39c12 !important;float:left;";
-                                                }
-                                                var modalId = "modal-" + item.ID;
-                                                int assetCategoryId = (int)AMSUtilities.Enums.AssetCategories.Hardware;
-                                                var dropdownId = "drp" + item.ID;
-                                                var mandateId = "checkMandate" + item.ID;
-                                                var componentNameId = "txtComponent" + item.ID;
-                                                var descriptionId = "txtDescription" + item.ID;
-                                                var compValidationId = "compValidation" + item.ID;
-                                                var descValidationId = "descValidation" + item.ID;
-                                    <div class="col-md-10">
-                                        <div class="form-group row-space">
-                                            <div class="col-sm-2 col-md-2">
-                                            <label for="inputEmail3" class="control-label" style="@style">@item.Name</label>
-                                            @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeName", @item.Name)
-                                            @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeID", @item.ID)
-
-                                            @if (Model.ComponentAssetMapping.ToList().Count > 0)
+                                            if (Model.ComponentAssetMapping.ToList().Count > 0)
                                             {
                                                 var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
-                                                if (component != null || item.Mandatory == true)
+                                                if (component != null)
                                                 {
-                                                    if (item.Mandatory == true)
+                                                    selectList = new SelectList(Model.ComponentsModels.Where(fet => fet.ComponentTypeID == item.ID).ToList(), "ID", "ComponentName", component.ComponentID);
+                                                    @Html.Hidden("ComponentAssetMapping[" + i + "].ID", component.ID);
+                                                }
+                                            }
+                                        }
+                                        var style = "";
+                                        if (item.ComponentCategory == (int)ComponentCategory.Hardware)
+                                        {
+                                            style = "color: #00a65a !important;float:left;";
+                                        }
+                                        else if (item.ComponentCategory == (int)ComponentCategory.Software)
+                                        {
+                                            style = "color: #f39c12 !important;float:left;";
+                                        }
+                                        var modalId = "modal-" + item.ID;
+                                        int assetCategoryId = (int)AMSUtilities.Enums.AssetCategories.Hardware;
+                                        var dropdownId = "drp" + item.ID;
+                                        var mandateId = "checkMandate" + item.ID;
+                                        var componentNameId = "txtComponent" + item.ID;
+                                        var descriptionId = "txtDescription" + item.ID;
+                                        var compValidationId = "compValidation" + item.ID;
+                                        var descValidationId = "descValidation" + item.ID;
+                                    
+                                            <div class="row">
+                                                <div class="col-sm-2 col-md-2">
+                                                    <label for="inputEmail3" class="control-label" style="@style">@item.Name</label>
+                                                    @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeName", @item.Name)
+                                                    @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeID", @item.ID)
+
+                                                    @if (Model.ComponentAssetMapping.ToList().Count > 0)
                                                     {
-                                                        <label class="required-label"><sup>*</sup></label>
+                                                        var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
+                                                        if (component != null || item.Mandatory == true)
+                                                        {
+                                                            if (item.Mandatory == true)
+                                                            {
+                                                                <label class="required-label"><sup>*</sup></label>
+                                                            }
+                                                            else
+                                                            {
+                                                                <label class="required-label">  </label>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <label class="required-label">  </label>
+                                                        }
                                                     }
                                                     else
                                                     {
-                                                        <label class="required-label">  </label>
+                                                        if (item.Mandatory == true)
+                                                        {
+                                                            <label class="required-label"><sup>*</sup></label>
+                                                        }
+                                                        else
+                                                        {
+                                                            <label class="required-label">  </label>
+                                                        }
                                                     }
-                                                }
-                                                else
+                                                </div>
+                                                @if (item.Mandatory == true)
                                                 {
-                                                    <label class="required-label">  </label>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                if (item.Mandatory == true)
-                                                {
-                                                    <label class="required-label"><sup>*</sup></label>
-                                                }
-                                                else
-                                                {
-                                                    <label class="required-label">  </label>
-                                                }
-                                            }
-                                        </div>
-                                            @if (item.Mandatory == true)
-                                            {
-                                                if (Model.ComponentAssetMapping.ToList().Count > 0)
-                                                {
-                                                    if (Model.ComponentAssetMapping.ToList().Count <= count)
+                                                    if (Model.ComponentAssetMapping.ToList().Count > 0)
+                                                    {
+                                                        if (Model.ComponentAssetMapping.ToList().Count <= count)
+                                                        {
+                                                            <div class="col-sm-7">
+                                                                @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="col-sm-7">
+                                                                @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
+                                                            </div>
+                                                        }
+                                                    }
+                                                    else
                                                     {
                                                         <div class="col-sm-7">
                                                             @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })
                                                         </div>
                                                     }
-                                                    else
-                                                    {
-                                                        <div class="col-sm-7">
-                                                            @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
-                                                        </div>
-                                                    }
+                                                    count++;
                                                 }
                                                 else
                                                 {
                                                     <div class="col-sm-7">
-                                                        @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })
+                                                        @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
                                                     </div>
                                                 }
-                                                count++;
-                                            }
-                                            else
-                                            {
-                                                <div class="col-sm-7">
-                                                    @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
+                                                <div class="col-sm-1 text-left">
+                                                    <a data-toggle="modal" data-target="#@modalId" data-select="assigned_user_select" data-backdrop="static" class="btn btn-primary">New</a>
                                                 </div>
-                                            }
-                                            <div class="col-sm-1 text-left">
-                                                <a data-toggle="modal" data-target="#@modalId" data-select="assigned_user_select" data-backdrop="static" class="btn btn-sm btn-default">New</a>
+
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade" id="@modalId">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                    <h4 class="modal-title">Add @item.Name</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group row-space">
-                                                            <label for="inputEmail3" class="col-sm-2 control-label">Component: </label>
-                                                            <div class="col-sm-7">
-                                                                @Html.TextBox("componentName", "" as string, new { @id = componentNameId, @class = "form-control" })
-                                                                <label class="has-error" style="color:red;display:none" id="@compValidationId">Invalid Component name </label>
+                           
+                                        <div class="modal fade" id="@modalId">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Add @item.Name</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-12 form-group row-space">
+                                                                    <label for="inputEmail3" class="col-sm-4 control-label">Component: </label>
+                                                                    <div class="col-sm-12">
+                                                                        @Html.TextBox("componentName", "" as string, new { @id = componentNameId, @class = "form-control" })
+                                                                        <label class="has-error" style="color:red;display:none" id="@compValidationId">Invalid Component name </label>
+                                                                    </div>
+                                                                </div>                                                                
+                                                            </div> 
+                                                            <div class="row">
+                                                                <div class="col-md-12 form-group row-space">
+                                                                    <label for="inputEmail3" class="col-sm-4 control-label">Description: </label>
+                                                                    <div class="col-sm-12">
+                                                                        @Html.TextBox("componentName", "" as string, new { @id = descriptionId, @class = "form-control" })
+                                                                        <label class="has-error" style="color:red;display:none" id="@descValidationId">Invalid Description </label>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group row-space">
-                                                            <label for="inputEmail3" class="col-sm-2 control-label">Description: </label>
-                                                            <div class="col-sm-7">
-                                                                @Html.TextBox("componentName", "" as string, new { @id = descriptionId, @class = "form-control" })
-                                                                <label class="has-error" style="color:red;display:none" id="@descValidationId">Invalid Description </label>
-                                                            </div>
+                                                    <div class="modal-footer" style="border-top:none">
+                                                        <div class="row-space">
+                                                            <button type="button" class="btn btn-primary row-space" onclick="createComponent(@item.ID,@assetCategoryId,'@dropdownId','@componentNameId','@descriptionId','@compValidationId','@descValidationId','@modalId')">Add Component</button>
+                                                            <button type="button" class="btn btn-primary row-space" data-dismiss="modal">Cancel</button>
+                                                            <label class="success componentSuccess" style="color:green;display:none">Component added successfully</label>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer" style="border-top:none">
-                                                    <div class="row-space">
-                                                        <button type="button" class="btn btn-primary row-space" onclick="createComponent(@item.ID,@assetCategoryId,'@dropdownId','@componentNameId','@descriptionId','@compValidationId','@descValidationId','@modalId')">Add Component</button>
-                                                        <button type="button" class="btn btn-primary row-space" data-dismiss="modal">Cancel</button>
-                                                        <label class="success componentSuccess" style="color:green;display:none">Component added successfully</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    i++;
+                                        i++;
+                                    }
                                 }
                             }
-                        }
+                        </div>                        
                     </div>
                 </div>
                 <!-- /.tab-pane -->

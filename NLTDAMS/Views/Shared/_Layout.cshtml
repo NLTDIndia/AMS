@@ -9,8 +9,8 @@
     <link rel="icon" href='@Url.Content("~/favicon.ico")' type="image/x-icon">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="~/Content/AMS/bootstrap.min.css">
+    <!-- Bootstrap 4.4.1 -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link href="~/Content/AMS/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <!-- Ionicons -->
@@ -21,12 +21,12 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="~/Content/AMS/_all-skins.min.css">
     <!-- Date Picker -->
-    <link rel="stylesheet" href="~/Content/AMS/bootstrap-datepicker.min.css">
+    @*<link rel="stylesheet" href="~/Content/AMS/bootstrap-datepicker.min.css">*@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="~/Content/AMS/daterangepicker.css">
 
-    <link href="~/Content/AMS/bootstrap-datetimepicker.css" rel="stylesheet" />
-
+    @*<link href="~/Content/AMS/bootstrap-datetimepicker.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/Site.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,7 +36,8 @@
     <![endif]-->
     <!-- Google Font -->
     <link rel="stylesheet" href="~/Content/AMS/Sans.css">
-    <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Content/Datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -61,7 +62,7 @@
                     <ul class="nav navbar-nav">
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
-                            <a class="dropdown-toggle" data-toggle="dropdown">
+                            <a>
                                 <span class="hidden-xs">@AMSUtilities.Common.UserDetails.GetFullName(User.Identity)</span>
                             </a>
                         </li>
@@ -160,7 +161,7 @@
         </aside>
 
         <!-- ./wrapper -->
-        <!-- jQuery 3 -->
+        <!-- jQuery 3.4.1 -->
         <script src="~/Scripts/Libraries/jquery.min.js"></script>
         <!-- jQuery UI 1.11.4 -->
         <script src="~/Scripts/Libraries/jquery-ui.min.js"></script>
@@ -168,18 +169,20 @@
         <script>
             $.widget.bridge('uibutton', $.ui.button);
         </script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="~/Scripts/Libraries/bootstrap.min.js"></script>
+        <!-- Bootstrap 4.4.1 -->
+        <script src="~/Scripts/bootstrap.min.js"></script>
         <!-- Sparkline -->
         <script src="~/Scripts/Libraries/jquery.sparkline.min.js"></script>
         <!-- jvectormap -->
         <script src="~/Scripts/Libraries/jquery-jvectormap-1.2.2.min.js"></script>
         <script src="~/Scripts/Libraries/jquery-jvectormap-world-mill-en.js"></script>
         <!-- daterangepicker -->
-        <script src="~/Scripts/Libraries/moment.min.js"></script>
+        <script src="~/Scripts/moment.js"></script>
+        @*<script src="~/Scripts/Libraries/moment.min.js"></script>*@
         <!--<script src="~/Scripts/Libraries/daterangepicker.js"></script>-->
         <!-- datepicker -->
-        <script src="~/Scripts/Libraries/bootstrap-datetimepicker.js"></script>
+        @*<script src="~/Scripts/Libraries/bootstrap-datetimepicker.js"></script>*@
+        <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
         @*<script src="~/Scripts/Libraries/bootstrap-datepicker.min.js"></script>*@
         <!-- Slimscroll -->
         <script src="~/Scripts/Libraries/jquery.slimscroll.min.js"></script>
@@ -191,9 +194,9 @@
         <script src="~/Scripts/Libraries/demo.js"></script>
         <!-- Common java scripts used in application  -->
         <script src="~/Scripts/AMS/AMS.js"></script>
-        @*DataTable*@
-        <script src="~/Scripts/Libraries/jquery.dataTables.min.js"></script>
-        <script src="~/Scripts/Libraries/dataTables.bootstrap.min.js"></script>
+        <!-- DataTable  -->
+        <script src="~/Scripts/Datatable/jquery.dataTables.min.js"></script>
+        <script src="~/Scripts/Datatable/dataTables.bootstrap4.min.js"></script>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->

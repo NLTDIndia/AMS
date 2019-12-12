@@ -23,7 +23,7 @@
         Expire = 5,
         Renew = 6,
         Damage = 7,
-        Scraped = 8,
+        Scrapped = 8,
         Retire = 9
     }
 
@@ -39,7 +39,7 @@
         Expire = 5,
         Renew = 6,
         Damage = 7,
-        Scraped = 8,
+        Scrapped = 8,
         Retire = 9
     }
 
@@ -53,12 +53,6 @@
     {
         Laptop = 1,
         CPU = 2
-    }
-
-    public enum ComponentStatus
-    {
-        Assign = 2,
-        Unassign = 3
     }
 
     public enum QuotationStatus

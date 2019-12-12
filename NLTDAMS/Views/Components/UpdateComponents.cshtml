@@ -31,7 +31,6 @@
                         </div>
                         <div class="col-sm-5">
                             <div class="form-group">
-
                                 @Html.DropDownListFor(m => m.ComponentTypeID, Model.ComponentType, new { @class = "form-control", @disabled = "true" })
                                 @Html.HiddenFor(Model => Model.ComponentTypeID)
                             </div>
@@ -65,7 +64,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-7" align="right">
+                        <div class="col-sm-8" align="right">
                             <input type="submit" value="Update" class="btn btn-primary" />
                             <input type="button" value="Cancel" class="btn btn-primary" onclick='window.location.href = "@Url.Action("Index", "Components", routeValues: null)"' />
                         </div>

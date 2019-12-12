@@ -21,9 +21,12 @@ namespace AMSUtilities.Models
         [Required(ErrorMessage = "Description Required")]
         public string Description { get; set; }
 
+        [Display(Name = "Component Type")]
         public string ComponentTypeName { get; set; }
         public string AssetTypeName { get; set; }
         public SelectList ComponentType { get; set; }
+
+        [Display(Name = "Assigned Count")]
         public int AssignedCount { get; set; }
         public int UnAssignedCount { get; set; }
     }

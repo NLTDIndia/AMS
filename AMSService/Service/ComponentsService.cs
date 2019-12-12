@@ -108,7 +108,7 @@ namespace AMSService.Service
                     ComponentTypeID = components.ComponentTypeID,
                     ComponentTypeName = components.ComponentType.Name,
                     Description = components.Description,
-                    AssignedCount = components.ComponentAssetMapping.Where(cap => cap.ComponentStatusId == (int)AMSUtilities.Enums.ComponentStatus.Assign).Count(),
+                    AssignedCount = components.ComponentAssetMapping.Where(cap => cap.ComponentStatusId == (int)AMSUtilities.Enums.ComponentTrackingStatus.Assign).Count(),
                     AssetTypeName = components.ComponentType.AssetTypes.Description
                 };
                 getAllComponents.Add(componentsViewModel);

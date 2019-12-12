@@ -20,9 +20,9 @@
         <table id="Components" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>Component Name</th>
-                    <th>Component Type</th>
-                    <th>Assigned Count</th>
+                    <th>@Html.DisplayNameFor(model => model.ComponentName)</th>
+                    <th>@Html.DisplayNameFor(model => model.ComponentTypeName)</th>
+                    <th>@Html.DisplayNameFor(model => model.AssignedCount)</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -37,7 +37,7 @@
                         <td>@item.AssignedCount</td>
                         <td>
 
-                            <a class="btn btn-primary btn-sm"  onclick="GetAssignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer;width:70px" >Assign</a>
+                            <a class="btn btn-primary btn-sm"  onclick="GetAssignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer;" >Assign</a>
                             <a class="btn btn-primary btn-sm"  style="cursor:pointer"  href="@Url.Action("UpdateComponents", "Components", new { id = item.ID })">Edit</a>
                         </td>
                     </tr>
@@ -53,13 +53,11 @@
     <div id="LoadPopup">
     </div>
 </div>
-<script src="~/Scripts/AMS/jquery.dataTables.min.js"></script>
-<script src="~/Scripts/AMS/dataTables.bootstrap.min.js"></script>
 <script>
      $(document).ready(function () {
         DisplayMessage("@TempData["MessageType"]", "@TempData["Message"]");
          $('[data-toggle="tooltip"]').tooltip();
-          // Setup - add a text input to each footer cell
+    // Setup - add a text input to each footer cell
     $('#Components thead tr').clone(true).appendTo('#Components thead');
     var Length = 0;
     $('#Components thead tr:eq(1) th').each(function (i) {
@@ -87,8 +85,7 @@
 
     var table = $('#Components').DataTable({
         orderCellsTop: true,
-        fixedHeader: true,
-         retrieve: true,
+        fixedHeader: true
     });
      });
      function GetAssignAsset(ID) {
@@ -97,7 +94,7 @@
             $("#LoadPopup").load(url, function () {
                 $('#LoadPopup').show();
                 $('#modal-Assign').modal({
-                    show: 'true',
+                    show: true,
                     backdrop : false
                 });
             })

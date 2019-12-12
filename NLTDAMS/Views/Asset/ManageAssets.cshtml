@@ -28,8 +28,7 @@
                                 <thead>
                                     <tr>
                                         <th>@Html.DisplayNameFor(model => model.AssetName)</th>
-                                        <th>@Html.DisplayNameFor(model => model.AssetType)</th>
-                                        <th>@Html.DisplayNameFor(model => model.SerialNumber)</th>
+                                        <th>@Html.DisplayNameFor(model => model.AssetType)</th>                              
                                         <th>@Html.DisplayNameFor(model => model.AssetStatus)</th>
                                         <th>@Html.DisplayNameFor(model => model.EmployeeName)</th>
                                         <th>Actions</th>
@@ -41,34 +40,35 @@
                                         <tr>
                                             <td>@Html.DisplayFor(modelItem => item.AssetName)</td>
                                             <td>@Html.DisplayFor(modelItem => item.AssetType)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.SerialNumber)</td>
                                             <td>@Html.DisplayFor(modelItem => item.AssetStatus)</td>
                                             <td>@Html.DisplayFor(modelItem => item.EmployeeName)</td>
                                             <td>
-                                                @if (!string.IsNullOrEmpty(item.EmployeeName))
-                                                {
-                                                <a class="btn btn-primary btn-sm"  onclick="GetUnassignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer;width:70px">Un Assign</a>
-                                                }
-                                                else
-                                                {
-                                                    <a class="btn btn-primary btn-sm"  onclick="GetAssignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer;width:70px" >Assign</a>
-                                                }
-                                                @if (item.CategoryID == (int)AssetCategories.Software)
-                                                {
-                                            <a class="btn btn-primary btn-sm"  style="cursor:pointer" href="@Url.Action("EditSoftwareAsset","Asset",new { id=item.ID})">Edit</a>
-                                                }
-                                                else
-                                                {
-                                                    <a class="btn btn-primary btn-sm"  style="cursor:pointer" href="@Url.Action("EditHardwareAsset","Asset",new { id=item.ID})">Edit</a>
-                                                }
-                                                @if (item.CategoryID == (int)AssetCategories.Software)
-                                                {
-                                                    <a class="btn btn-primary btn-sm"  style="cursor:pointer" href="@Url.Action("CloneSoftwareAsset","Asset",new { assetId=item.ID})">Clone</a>
-                                                }
-                                                else
-                                                {
-                                                    <a  class="btn btn-primary btn-sm" style="cursor:pointer" href="@Url.Action("CloneHardwareAsset","Asset",new { assetId=item.ID})">Clone</a>
-                                                }
+                                                <div>
+                                                    @if (!string.IsNullOrEmpty(item.EmployeeName))
+                                                    {
+                                                        <a class="btn btn-primary btn-sm" onclick="GetUnassignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer;width:76px;">Un Assign</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-primary btn-sm" onclick="GetAssignAsset(@item.ID);" data-backdrop="static" style="cursor:pointer;width:76px;">Assign</a>
+                                                    }
+                                                    @if (item.CategoryID == (int)AssetCategories.Software)
+                                                    {
+                                                        <a class="btn btn-primary btn-sm" style="cursor:pointer" href="@Url.Action("EditSoftwareAsset","Asset",new { id=item.ID})">Edit</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-primary btn-sm" style="cursor:pointer" href="@Url.Action("EditHardwareAsset","Asset",new { id=item.ID})">Edit</a>
+                                                    }
+                                                    @if (item.CategoryID == (int)AssetCategories.Software)
+                                                    {
+                                                        <a class="btn btn-primary btn-sm" style="cursor:pointer" href="@Url.Action("CloneSoftwareAsset","Asset",new { assetId=item.ID})">Clone</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-primary btn-sm inline-btn" style="cursor:pointer" href="@Url.Action("CloneHardwareAsset","Asset",new { assetId=item.ID})">Clone</a>
+                                                    }
+                                                </div>                                                
                                             </td>
                                         </tr>
                                     }
@@ -100,7 +100,7 @@
             $("#LoadPopup").load(url, function () {
                 $('#LoadPopup').show();
                 $('#modal-Assign').modal({
-                    show: 'true',
+                    show: true,
                     backdrop : false
                 });
             })
@@ -113,7 +113,7 @@
             $("#LoadPopup").load(url, function () {
                 $('#LoadPopup').show();
                 $('#modal-Unassign').modal({
-                    show: 'true',
+                    show: true,
                     backdrop : false
                 });
             })

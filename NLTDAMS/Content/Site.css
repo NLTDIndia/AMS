@@ -20,6 +20,54 @@ table tbody tr td a {
 .required-label {
     color: red;
     float: left;
-    font-size: 25px;
+    font-size: 30px;
     margin-left:5px;
+}
+
+table {
+    width:100% !important;
+}
+
+.navbar {
+    padding:0px 0px 0px 0px;
+}
+
+.main-header .sidebar-toggle {
+    padding: 13px 15px
+}
+
+.navbar-custom-menu {
+    margin-right: 10px;
+}
+
+a:not([href])
+{
+    color:white;
+}
+
+a:not([href]):hover{
+     color:white;
+}
+
+.container-comp
+{
+    margin-left:0px;
+}
+
+.div-notification {
+    float: right;
+    margin-top: 4px;
+}
+
+.label-notification {
+    padding: 4px 4px 4px 4px;
+    border-radius: 4px;
+}
+
+label {
+    font-weight: 600;
+}
+
+.box-title {
+    font-weight: 700;
 }

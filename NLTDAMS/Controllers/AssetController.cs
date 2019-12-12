@@ -70,7 +70,7 @@ namespace NLTDAMS.Controllers
         {
             try
             {
-                if ((hardwareAssetModel.AssetTypeID == (int)AssetTypes.CPU && hardwareAssetModel.AssetName == null) || (hardwareAssetModel.AssetTypeID == (int)AssetTypes.Laptop && hardwareAssetModel.AssetName == null))
+                if ((hardwareAssetModel.AssetTypeID == (int)AssetTypes.CPU || hardwareAssetModel.AssetTypeID == (int)AssetTypes.Laptop) && hardwareAssetModel.AssetName == null)
                 {
                     ModelState.AddModelError("AssetName", "Please enter Asset Name");
                     var assetCategories = _assetService.GetAssetCategories();
