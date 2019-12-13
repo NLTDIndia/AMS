@@ -20,23 +20,23 @@
                     <div class="row">
                         @*<div class="col-sm-3">*@
                         @*<div class="form-group">
-        <label for="InvoiceNumber">Invoice</label>
-        <select id="invoiceId" name="InvoiceId" class="form-control">
-            <option disabled selected value="">Please select value</option>
-            <option value="1">00123</option>
-            <option value="2">00124</option>
-            <option value="3">00125</option>
-        </select>*@
+                            <label for="InvoiceNumber">Invoice</label>
+                            <select id="invoiceId" name="InvoiceId" class="form-control">
+                                <option disabled selected value="">Please select value</option>
+                                <option value="1">00123</option>
+                                <option value="2">00124</option>
+                                <option value="3">00125</option>
+                            </select>*@
                         @*@Html.ValidationMessageFor(model => model.InvoiceId, "", new { @class = "text-danger" })*@
                         @*<div class="col-sm-1 text-left">
-            <a data-toggle="modal" data-target="#createModal" data-select="assigned_user_select" class="btn btn-sm btn-default">New</a>
-        </div>*@
+                                <a data-toggle="modal" data-target="#createModal" data-select="assigned_user_select" class="btn btn-sm btn-default">New</a>
+                            </div>*@
                         @*</div>*@
                         @*</div>*@
                         @*<div class="col-sm-3">
-            <label for="Asset_Category">Asset Category</label>
-            @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
-        </div>*@
+                                <label for="Asset_Category">Asset Category</label>
+                                @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
+                            </div>*@
                         <div class="col-sm-3">
                             <label for="Asset_Type">Asset Type</label>
                             @Html.DropDownListFor(model => model.AssetTypeID, Model.AssetTypes, new { @id = "assetType", @class = "form-control" })
@@ -81,7 +81,7 @@
                             <div class="form-group">
                                 <label for="From">Warranty Start Date</label>
                                 <div class='input-group date startDate'>
-                                    @Html.TextBox("WarrantyStartDate", DateTime.Now.ToString("MM/dd/yyyy"), new { @id = "warrantyStartDate", @class = "form-control", autocomplete="off" })
+                                    @Html.TextBox("WarrantyStartDate", DateTime.Now.ToString("MM/dd/yyyy"), new { @id = "warrantyStartDate", @class = "form-control", autocomplete = "off" })
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -93,7 +93,7 @@
                             <div class="form-group">
                                 <label for="To">Warranty End Date</label>
                                 <div class='input-group date endDate'>
-                                    @Html.TextBox("WarrantyEndDate", "", new { @id = "warrantyEndDate", @class = "form-control", autocomplete="off" })
+                                    @Html.TextBox("WarrantyEndDate", "", new { @id = "warrantyEndDate", @class = "form-control", autocomplete = "off" })
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -434,7 +434,7 @@
 <script src="~/Scripts/AMS/AMSCalendar.js"></script>
 
 @*<script src="~/Scripts/AMS/jquery-1.10.0.min.js"></script>
-<script src="~/Scripts/AMS/jquery-ui.min.js"></script>*@
+    <script src="~/Scripts/AMS/jquery-ui.min.js"></script>*@
 <link href="~/Content/AMS/jquery-ui.css" rel="stylesheet" />
 <script>
        $(function () {

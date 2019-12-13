@@ -159,7 +159,7 @@
           <Property Name="EmployeeRoleID" Type="int" Nullable="false" />
           <Property Name="EmployeeName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="SeatID" Type="int" />
-          <Property Name="MailID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MailID" Type="nvarchar" MaxLength="100" />
           <Property Name="ISActive" Type="bit" Nullable="false" />
           <Property Name="ManagerID" Type="int" />
           <Property Name="CorpId" Type="varchar" MaxLength="50" />
@@ -1011,7 +1011,7 @@
           <Property Name="EmployeeRoleID" Type="Int32" Nullable="false" />
           <Property Name="EmployeeName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SeatID" Type="Int32" />
-          <Property Name="MailID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MailID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ISActive" Type="Boolean" Nullable="false" />
           <Property Name="ManagerID" Type="Int32" />
           <Property Name="CorpId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />

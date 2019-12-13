@@ -5,8 +5,11 @@ using AMSUtilities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
+
+
 
 namespace AMSService.Service
 {
@@ -64,112 +67,134 @@ namespace AMSService.Service
             return assetTypes;
         }
 
-        public HardwareAssetModel CreateHardwareAsset(HardwareAssetModel hardwareAssetModel)
-        {
-            Assets assets = new Assets
-            {
-                AssetName = hardwareAssetModel.AssetName,
-                SerialNumber = hardwareAssetModel.SerialNumber,
-                AssetTypeID = hardwareAssetModel.AssetTypeID,
-                AssetStatusID = (int)AssetTrackingStatus.New,
-                CreatedDate = DateTime.Now,
-                CreatedBy = GetLoginEmployeeId()
-            };
-            var createdAsset = _assetRepository.CreateAsset(assets);
+        public HardwareAssetModel CreateHardwareAsset(HardwareAssetModel hardwareAssetModel)        {
 
-            hardwareAssetModel.AssetID = createdAsset.ID;
-            _hardwareAssetService.CreateHardwareAsset(hardwareAssetModel);
+            using (var scope = new TransactionScope(TransactionScopeOption.Required))
+            {                try                {                    Assets assets = new Assets                    {                        AssetName = hardwareAssetModel.AssetName,                        SerialNumber = hardwareAssetModel.SerialNumber,                        AssetTypeID = hardwareAssetModel.AssetTypeID,                        AssetStatusID = (int)AssetTrackingStatus.New,                        CreatedDate = DateTime.Now,                        CreatedBy = GetLoginEmployeeId()                    };                    var createdAsset = _assetRepository.CreateAsset(assets);                    hardwareAssetModel.AssetID = createdAsset.ID;                    _hardwareAssetService.CreateHardwareAsset(hardwareAssetModel);                    AssetTrackerModel assetTrackerModel = new AssetTrackerModel                    {                        AssetID = hardwareAssetModel.AssetID,                        AssetStatusID = (int)AssetTrackingStatus.New,                        CreatedDate = DateTime.Now,                        CreatedBy = assets.CreatedBy,                        Remarks = hardwareAssetModel.Comment,                    };                    _assetTrackerService.CreateAssetTracker(assetTrackerModel);                    if (hardwareAssetModel.ComponentAssetMapping != null)                    {                        if (hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)                        {                            foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())                            {                                item.AssignedAssetID = createdAsset.ID;                                item.ActualAssetID = createdAsset.ID;                                item.AssignedDate = DateTime.Now;                                item.AssignedBy = GetLoginEmployeeId();                                item.CreatedDate = DateTime.Now;                                item.CreatedBy = GetLoginEmployeeId();                                item.ComponentStatusId = (int)ComponentTrackingStatus.Assign;                                _componentAssetMappingService.CreateComponentAssetMapping(item);                                ComponentTrackerModel componentTrackerModel = new ComponentTrackerModel                                {                                    AssetID = createdAsset.ID,                                    ComponentID = item.ComponentID,                                    ComponentStatusID = (int)ComponentTrackingStatus.Assign,                                    CreatedBy = GetLoginEmployeeId(),                                    CreatedDate = DateTime.Now                                };                                _componentTrackerService.CreateComponentTracker(componentTrackerModel);                            }                        }                    }                    scope.Complete();                    return hardwareAssetModel;                }                catch (Exception)                {
+                    scope.Dispose();                    throw;                }            }
 
-            AssetTrackerModel assetTrackerModel = new AssetTrackerModel
-            {
-                AssetID = hardwareAssetModel.AssetID,
-                AssetStatusID = (int)AssetTrackingStatus.New,
-                CreatedDate = DateTime.Now,
-                CreatedBy = assets.CreatedBy,
-                Remarks = hardwareAssetModel.Comment,
-            };
-            _assetTrackerService.CreateAssetTracker(assetTrackerModel);
 
-            if (hardwareAssetModel.ComponentAssetMapping != null)
-            {
-                if (hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
-                {
-                    foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
-                    {
-                        item.AssignedAssetID = createdAsset.ID;
-                        item.ActualAssetID = createdAsset.ID;
-                        item.AssignedDate = DateTime.Now;
-                        item.AssignedBy = GetLoginEmployeeId();
-                        item.CreatedDate = DateTime.Now;
-                        item.CreatedBy = GetLoginEmployeeId();
-                        item.ComponentStatusId = (int)ComponentTrackingStatus.Assign;
-                        _componentAssetMappingService.CreateComponentAssetMapping(item);
-                        ComponentTrackerModel componentTrackerModel = new ComponentTrackerModel
-                        {
-                            AssetID = createdAsset.ID,
-                            ComponentID = item.ComponentID,
-                            ComponentStatusID = (int)ComponentTrackingStatus.Assign,
-                            CreatedBy = GetLoginEmployeeId(),
-                            CreatedDate = DateTime.Now
-                        };
-                        _componentTrackerService.CreateComponentTracker(componentTrackerModel);
-                    }
-                }
-            }
-            return hardwareAssetModel;
+           
         }
+
+        //public HardwareAssetModel CreateHardwareAsset(HardwareAssetModel hardwareAssetModel)
+        // {
+
+        //     Assets assets = new Assets
+        //     {
+        //         AssetName = hardwareAssetModel.AssetName,
+        //         SerialNumber = hardwareAssetModel.SerialNumber,
+        //         AssetTypeID = hardwareAssetModel.AssetTypeID,
+        //         AssetStatusID = (int)AssetTrackingStatus.New,
+        //         CreatedDate = DateTime.Now,
+        //         CreatedBy = GetLoginEmployeeId()
+        //     };
+        //     var createdAsset = _assetRepository.CreateAsset(assets);
+
+        //     hardwareAssetModel.AssetID = createdAsset.ID;
+        //     _hardwareAssetService.CreateHardwareAsset(hardwareAssetModel);
+
+        //     AssetTrackerModel assetTrackerModel = new AssetTrackerModel
+        //     {
+        //         AssetID = hardwareAssetModel.AssetID,
+        //         AssetStatusID = (int)AssetTrackingStatus.New,
+        //         CreatedDate = DateTime.Now,
+        //         CreatedBy = assets.CreatedBy,
+        //         Remarks = hardwareAssetModel.Comment,
+        //     };
+        //     _assetTrackerService.CreateAssetTracker(assetTrackerModel);
+
+        //     if (hardwareAssetModel.ComponentAssetMapping != null)
+        //     {
+        //         if (hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
+        //         {
+        //             foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
+        //             {
+        //                 item.AssignedAssetID = createdAsset.ID;
+        //                 item.ActualAssetID = createdAsset.ID;
+        //                 item.AssignedDate = DateTime.Now;
+        //                 item.AssignedBy = GetLoginEmployeeId();
+        //                 item.CreatedDate = DateTime.Now;
+        //                 item.CreatedBy = GetLoginEmployeeId();
+        //                 item.ComponentStatusId = (int)ComponentTrackingStatus.Assign;
+        //                 _componentAssetMappingService.CreateComponentAssetMapping(item);
+        //                 ComponentTrackerModel componentTrackerModel = new ComponentTrackerModel
+        //                 {
+        //                     AssetID = createdAsset.ID,
+        //                     ComponentID = item.ComponentID,
+        //                     ComponentStatusID = (int)ComponentTrackingStatus.Assign,
+        //                     CreatedBy = GetLoginEmployeeId(),
+        //                     CreatedDate = DateTime.Now
+        //                 };
+        //                 _componentTrackerService.CreateComponentTracker(componentTrackerModel);
+        //             }
+        //         }
+        //     }
+        //     return hardwareAssetModel;
+        // }
 
         public SoftwareAssetModel CreateSoftwareAsset(SoftwareAssetModel softwareAssetModel)
         {
-            Assets assets = new Assets
-            {
-                AssetName = softwareAssetModel.AssetName,
-                SerialNumber = softwareAssetModel.SerialNumber,
-                AssetTypeID = softwareAssetModel.AssetTypeID,
-                AssetStatusID = (int)AssetTrackingStatus.New,
-                CreatedDate = DateTime.Now,
-                CreatedBy = GetLoginEmployeeId()
-            };
-            var createdAsset = _assetRepository.CreateAsset(assets);
-            softwareAssetModel.AssetID = createdAsset.ID;
-            _softwareAssetService.CreateSoftwareAsset(softwareAssetModel);
-
-            AssetTrackerModel assetTrackerModel = new AssetTrackerModel
-            {
-                AssetID = softwareAssetModel.AssetID,
-                AssetStatusID = (int)AssetTrackingStatus.New,
-                CreatedDate = DateTime.Now,
-                CreatedBy = assets.CreatedBy,
-                Remarks = softwareAssetModel.Comment,
-            };
-            _assetTrackerService.CreateAssetTracker(assetTrackerModel);
-            if (softwareAssetModel.ComponentAssetMapping != null)
-            {
-                if (softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
-                {
-                    foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
+            using (var scope = new TransactionScope(TransactionScopeOption.Required))
+            {                try                {
+                    Assets assets = new Assets
                     {
-                        item.AssignedAssetID = createdAsset.ID;
-                        item.ActualAssetID = createdAsset.ID;
-                        item.AssignedDate = DateTime.Now;
-                        item.AssignedBy = GetLoginEmployeeId();
-                        item.CreatedDate = DateTime.Now;
-                        item.CreatedBy = GetLoginEmployeeId();
-                        item.ComponentStatusId = (int)ComponentTrackingStatus.Assign;
-                        _componentAssetMappingService.CreateComponentAssetMapping(item);
-                        ComponentTrackerModel componentTrackerModel = new ComponentTrackerModel
+                        AssetName = softwareAssetModel.AssetName,
+                        SerialNumber = softwareAssetModel.SerialNumber,
+                        AssetTypeID = softwareAssetModel.AssetTypeID,
+                        AssetStatusID = (int)AssetTrackingStatus.New,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = GetLoginEmployeeId()
+                    };
+                    var createdAsset = _assetRepository.CreateAsset(assets);
+                    softwareAssetModel.AssetID = createdAsset.ID;
+                    _softwareAssetService.CreateSoftwareAsset(softwareAssetModel);
+
+                    AssetTrackerModel assetTrackerModel = new AssetTrackerModel
+                    {
+                        AssetID = softwareAssetModel.AssetID,
+                        AssetStatusID = (int)AssetTrackingStatus.New,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = assets.CreatedBy,
+                        Remarks = softwareAssetModel.Comment,
+                    };
+                    _assetTrackerService.CreateAssetTracker(assetTrackerModel);
+                    if (softwareAssetModel.ComponentAssetMapping != null)
+                    {
+                        if (softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
                         {
-                            AssetID = createdAsset.ID,
-                            ComponentID = item.ComponentID,
-                            ComponentStatusID = (int)ComponentTrackingStatus.Assign,
-                            CreatedBy = GetLoginEmployeeId(),
-                            CreatedDate = DateTime.Now
-                        };
-                        _componentTrackerService.CreateComponentTracker(componentTrackerModel);
+                            foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
+                            {
+                                item.AssignedAssetID = createdAsset.ID;
+                                item.ActualAssetID = createdAsset.ID;
+                                item.AssignedDate = DateTime.Now;
+                                item.AssignedBy = GetLoginEmployeeId();
+                                item.CreatedDate = DateTime.Now;
+                                item.CreatedBy = GetLoginEmployeeId();
+                                item.ComponentStatusId = (int)ComponentTrackingStatus.Assign;
+                                _componentAssetMappingService.CreateComponentAssetMapping(item);
+                                ComponentTrackerModel componentTrackerModel = new ComponentTrackerModel
+                                {
+                                    AssetID = createdAsset.ID,
+                                    ComponentID = item.ComponentID,
+                                    ComponentStatusID = (int)ComponentTrackingStatus.Assign,
+                                    CreatedBy = GetLoginEmployeeId(),
+                                    CreatedDate = DateTime.Now
+                                };
+                                _componentTrackerService.CreateComponentTracker(componentTrackerModel);
+                            }
+                        }
                     }
+                    scope.Complete();
+                    return softwareAssetModel;
+                }
+
+                catch (Exception)
+                {
+                    scope.Dispose();                    throw;
+
                 }
             }
-            return softwareAssetModel;
         }
 
         public HardwareAssetModel EditHardwareAsset(int assetID)
@@ -327,85 +352,111 @@ namespace AMSService.Service
 
         public HardwareAssetModel UpdateHardwareAsset(HardwareAssetModel hardwareAssetModel)
         {
-            Assets selectedAsset = _assetRepository.GetAssetByID(hardwareAssetModel.AssetID);
-            if (selectedAsset != null)
+            using (var scope = new TransactionScope(TransactionScopeOption.Required))
             {
-                selectedAsset.AssetName = hardwareAssetModel.AssetName;
-                selectedAsset.SerialNumber = hardwareAssetModel.SerialNumber;
-                selectedAsset.AssetTypeID = hardwareAssetModel.AssetTypeID;
-                selectedAsset.AssetStatusID = (int)AssetTrackingStatus.New;
-            }
-            _assetRepository.UpdateAsset(selectedAsset);
-
-            _hardwareAssetService.UpdateHardwareAsset(hardwareAssetModel);
-
-            if (hardwareAssetModel.ComponentAssetMapping != null)
-            {
-                if (hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
+                try
                 {
-                    foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
-                    {
-                        item.AssignedAssetID = selectedAsset.ID;
-                        item.ActualAssetID = selectedAsset.ID;
-                        item.AssignedDate = DateTime.Now;
-                        item.AssignedBy = GetLoginEmployeeId();
-                        item.ComponentStatusId = (int)ComponentTrackingStatus.Assign;
-                        _componentAssetMappingService.UpdateComponentAssetMapping(item);
-                        ComponentTrackerModel componentTrackerModel = new ComponentTrackerModel
-                        {
-                            AssetID = selectedAsset.ID,
-                            ComponentID = item.ComponentID,
-                            ComponentStatusID = (int)ComponentTrackingStatus.Assign,
-                            CreatedBy = GetLoginEmployeeId(),
-                            CreatedDate = DateTime.Now
-                        };
-                        _componentTrackerService.CreateComponentTracker(componentTrackerModel);
-                    }
-                }
-            }
 
-            return hardwareAssetModel;
+                    Assets selectedAsset = _assetRepository.GetAssetByID(hardwareAssetModel.AssetID);
+                    if (selectedAsset != null)
+                    {
+                        selectedAsset.AssetName = hardwareAssetModel.AssetName;
+                        selectedAsset.SerialNumber = hardwareAssetModel.SerialNumber;
+                        selectedAsset.AssetTypeID = hardwareAssetModel.AssetTypeID;
+                        selectedAsset.AssetStatusID = (int)AssetTrackingStatus.New;
+                    }
+                    _assetRepository.UpdateAsset(selectedAsset);
+
+                    _hardwareAssetService.UpdateHardwareAsset(hardwareAssetModel);
+
+                    if (hardwareAssetModel.ComponentAssetMapping != null)
+                    {
+                        if (hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
+                        {
+                            foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
+                            {
+                                item.AssignedAssetID = selectedAsset.ID;
+                                item.ActualAssetID = selectedAsset.ID;
+                                item.AssignedDate = DateTime.Now;
+                                item.AssignedBy = GetLoginEmployeeId();
+                                item.ComponentStatusId = (int)ComponentTrackingStatus.Assign;
+                                _componentAssetMappingService.UpdateComponentAssetMapping(item);
+                                ComponentTrackerModel componentTrackerModel = new ComponentTrackerModel
+                                {
+                                    AssetID = selectedAsset.ID,
+                                    ComponentID = item.ComponentID,
+                                    ComponentStatusID = (int)ComponentTrackingStatus.Assign,
+                                    CreatedBy = GetLoginEmployeeId(),
+                                    CreatedDate = DateTime.Now
+                                };
+                                _componentTrackerService.CreateComponentTracker(componentTrackerModel);
+                            }
+                        }
+                    }
+                    scope.Complete();
+                    return hardwareAssetModel;
+                }
+                catch(Exception)
+                {
+                    scope.Dispose();
+                    throw;
+
+                }
+                }
+
         }
 
         public SoftwareAssetModel UpdateSoftwareAsset(SoftwareAssetModel softwareAssetModel)
         {
-            Assets selectedAsset = _assetRepository.GetAssetByID(softwareAssetModel.AssetID);
-            if (selectedAsset != null)
+            using (var scope = new TransactionScope(TransactionScopeOption.Required))
             {
-                selectedAsset.AssetName = softwareAssetModel.AssetName;
-                selectedAsset.SerialNumber = softwareAssetModel.SerialNumber;
-                selectedAsset.AssetTypeID = softwareAssetModel.AssetTypeID;
-                selectedAsset.AssetStatusID = (int)AssetTrackingStatus.New;
-            }
-            _assetRepository.UpdateAsset(selectedAsset);
-
-            _softwareAssetService.UpdateSoftwareAsset(softwareAssetModel);
-
-            if (softwareAssetModel.ComponentAssetMapping != null)
-            {
-                if (softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
+                try
                 {
-                    foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
+                    Assets selectedAsset = _assetRepository.GetAssetByID(softwareAssetModel.AssetID);
+                    if (selectedAsset != null)
                     {
-                        item.AssignedAssetID = selectedAsset.ID;
-                        item.ActualAssetID = selectedAsset.ID;
-                        item.AssignedDate = DateTime.Now;
-                        item.AssignedBy = GetLoginEmployeeId();
-                        item.ComponentStatusId = (int)ComponentTrackingStatus.Assign;
-                        _componentAssetMappingService.UpdateComponentAssetMapping(item);
-                        ComponentTrackerModel componentTrackerModel = new ComponentTrackerModel
-                        {
-                            AssetID = selectedAsset.ID,
-                            ComponentID = item.ComponentID,
-                            ComponentStatusID = (int)ComponentTrackingStatus.Assign,
-                            CreatedBy = GetLoginEmployeeId(),
-                            CreatedDate = DateTime.Now
-                        };
-                        _componentTrackerService.CreateComponentTracker(componentTrackerModel);
+                        selectedAsset.AssetName = softwareAssetModel.AssetName;
+                        selectedAsset.SerialNumber = softwareAssetModel.SerialNumber;
+                        selectedAsset.AssetTypeID = softwareAssetModel.AssetTypeID;
+                        selectedAsset.AssetStatusID = (int)AssetTrackingStatus.New;
                     }
+                    _assetRepository.UpdateAsset(selectedAsset);
+
+                    _softwareAssetService.UpdateSoftwareAsset(softwareAssetModel);
+
+                    if (softwareAssetModel.ComponentAssetMapping != null)
+                    {
+                        if (softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)
+                        {
+                            foreach (var item in softwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())
+                            {
+                                item.AssignedAssetID = selectedAsset.ID;
+                                item.ActualAssetID = selectedAsset.ID;
+                                item.AssignedDate = DateTime.Now;
+                                item.AssignedBy = GetLoginEmployeeId();
+                                item.ComponentStatusId = (int)ComponentTrackingStatus.Assign;
+                                _componentAssetMappingService.UpdateComponentAssetMapping(item);
+                                ComponentTrackerModel componentTrackerModel = new ComponentTrackerModel
+                                {
+                                    AssetID = selectedAsset.ID,
+                                    ComponentID = item.ComponentID,
+                                    ComponentStatusID = (int)ComponentTrackingStatus.Assign,
+                                    CreatedBy = GetLoginEmployeeId(),
+                                    CreatedDate = DateTime.Now
+                                };
+                                _componentTrackerService.CreateComponentTracker(componentTrackerModel);
+                            }
+                        }
+                    }
+                    scope.Complete();
+                    return softwareAssetModel;
                 }
-            }
-            return softwareAssetModel;
+                catch(Exception)
+                {
+                    scope.Dispose();
+                    throw;
+                }
+                }
         }
 
         public List<ComponentTypeModel> GetComponentTypes()
@@ -456,69 +507,92 @@ namespace AMSService.Service
 
         public int AssignAsset(AssetModel assetModel)
         {
-            EmployeeAssetMappingModel employeeAssetMappingModel = new EmployeeAssetMappingModel
+            using (var scope = new TransactionScope(TransactionScopeOption.Required))
             {
-                EmployeeID = assetModel.EmployeeID,
-                AssetID = assetModel.ID,
-                CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID
-            };
-
-            var employeeAssetMapping = _employeeAssetMappingRepository.CreateEmployeeAssetMapping(new EmployeeAssetMapping
-            {
-                AssetID = assetModel.ID,
-                EmployeeID = assetModel.EmployeeID,
-                CreatedDate = assetModel.AssignDate,
-                CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
-            });
-
-            if (employeeAssetMapping != null && employeeAssetMapping.ID != 0)
-            {
-                int id = _assetTrackerService.CreateAssetTracker(new AssetTrackerModel
+                try
                 {
-                    AssetID = assetModel.ID,
-                    EmpID = assetModel.EmployeeID,
-                    AssetStatusID = (int)AssetTrackingStatus.Assign,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = employeeAssetMappingModel.CreatedBy,
-                    Remarks = assetModel.Remarks
-                });
-                if (id != 0)
-                {
-                    assetModel.AssetStatusID = (int)AssetTrackingStatus.Assign;
-                    id = UpdateAsset(assetModel);
+                    EmployeeAssetMappingModel employeeAssetMappingModel = new EmployeeAssetMappingModel
+                    {
+                        EmployeeID = assetModel.EmployeeID,
+                        AssetID = assetModel.ID,
+                        CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID
+                    };
+
+                    var employeeAssetMapping = _employeeAssetMappingRepository.CreateEmployeeAssetMapping(new EmployeeAssetMapping
+                    {
+                        AssetID = assetModel.ID,
+                        EmployeeID = assetModel.EmployeeID,
+                        CreatedDate = assetModel.AssignDate,
+                        CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
+                    });
+
+                    if (employeeAssetMapping != null && employeeAssetMapping.ID != 0)
+                    {
+                        int id = _assetTrackerService.CreateAssetTracker(new AssetTrackerModel
+                        {
+                            AssetID = assetModel.ID,
+                            EmpID = assetModel.EmployeeID,
+                            AssetStatusID = (int)AssetTrackingStatus.Assign,
+                            CreatedDate = DateTime.Now,
+                            CreatedBy = employeeAssetMappingModel.CreatedBy,
+                            Remarks = assetModel.Remarks
+                        });
+                        if (id != 0)
+                        {
+                            assetModel.AssetStatusID = (int)AssetTrackingStatus.Assign;
+                            id = UpdateAsset(assetModel);
+                        }
+                    }
+                    scope.Complete();
+                    return assetModel.ID;
                 }
-            }
-
-            return assetModel.ID;
+                catch(Exception)
+                {
+                    scope.Dispose();
+                    throw;
+                }
+                }
         }
 
         public void UnassignAsset(AssetModel assetModel)
         {
-            if (assetModel.ID != 0 && assetModel.EmployeeID != 0)
+            using (var scope = new TransactionScope(TransactionScopeOption.Required))
             {
-                var employeeAssetMapping = _employeeAssetMappingRepository.GetEmployeeAssetMappings().Where(m => m.AssetID == assetModel.ID && m.EmployeeID == assetModel.EmployeeID).First();
-
-                if (employeeAssetMapping != null)
+                try
                 {
-                    _employeeAssetMappingRepository.DeleteEmployeeAssetMappingByID(employeeAssetMapping.ID);
+                    if (assetModel.ID != 0 && assetModel.EmployeeID != 0)
+                    {
+                        var employeeAssetMapping = _employeeAssetMappingRepository.GetEmployeeAssetMappings().Where(m => m.AssetID == assetModel.ID && m.EmployeeID == assetModel.EmployeeID).First();
+
+                        if (employeeAssetMapping != null)
+                        {
+                            _employeeAssetMappingRepository.DeleteEmployeeAssetMappingByID(employeeAssetMapping.ID);
+                        }
+                    }
+
+                    int id = _assetTrackerService.CreateAssetTracker(new AssetTrackerModel
+                    {
+                        AssetID = assetModel.ID,
+                        EmpID = assetModel.EmployeeID,
+                        AssetStatusID = (int)AssetTrackingStatus.Unassign,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
+                        Remarks = assetModel.Remarks
+                    });
+
+                    if (id != 0)
+                    {
+                        assetModel.AssetStatusID = (int)AssetTrackingStatus.Unassign;
+                        id = UpdateAsset(assetModel);
+                    }
+                    scope.Complete();
                 }
-            }
-
-            int id = _assetTrackerService.CreateAssetTracker(new AssetTrackerModel
-            {
-                AssetID = assetModel.ID,
-                EmpID = assetModel.EmployeeID,
-                AssetStatusID = (int)AssetTrackingStatus.Unassign,
-                CreatedDate = DateTime.Now,
-                CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
-                Remarks = assetModel.Remarks
-            });
-
-            if (id != 0)
-            {
-                assetModel.AssetStatusID = (int)AssetTrackingStatus.Unassign;
-                id = UpdateAsset(assetModel);
-            }
+                catch(Exception)
+                {
+                    scope.Dispose();
+                    throw;
+                }
+                }
         }
 
         public int UpdateAsset(AssetModel assetModel)
