@@ -423,12 +423,15 @@
         if ($("#assetType").children("option:selected")) {
             var assetType = $("#assetType").children("option:selected").val();
             $("#componentsTab").css("display", "block");
-        var url =  '@Url.Action("ManageComponents", "Asset")?assetType='+assetType;
+            if (assetType != "") {
+                        var url =  '@Url.Action("ManageComponents", "Asset")?assetType='+assetType;
         if (url != "" && url != null) {
         $("#partialPlaceHolder").load(url, function () {
             $('#partialPlaceHolder').fadeIn('fast');
         });
         }
+            }
+
         }
     });
 </script>
