@@ -1,5 +1,8 @@
 ﻿@model AMSUtilities.Models.AssetModel
-
+@using System.Globalization
+@{ 
+    string sysFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+}
 <link href="~/Content/AMS/bootstrap-datetimepicker.css" rel="stylesheet" />
 
 <div class="modal fade" id="modal-Assign">
@@ -8,12 +11,12 @@
             @using (Html.BeginForm("AssignAsset", "Asset", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
-            <div class="modal-header">
-                <h4 class="modal-title">Assign Asset</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Assign Asset</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <div class="modal-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(m => m.ID)
@@ -22,7 +25,7 @@
                     @Html.HiddenFor(m => m.SerialNumber)
                     @Html.HiddenFor(m => m.AssetStatusID)
                     @Html.HiddenFor(m => m.CreatedDate)
-                    @Html.HiddenFor(m => m.CreatedBy)                    
+                    @Html.HiddenFor(m => m.CreatedBy)
                     <div class="container col-md-12">
                         <div class="row">
                             <div class="col-md-4">
@@ -71,7 +74,7 @@
                                     @Html.ValidationMessageFor(m => m.AssignDate, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer" style="border-top:none;">
@@ -88,3 +91,27 @@
 @Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/Libraries/bootstrap-datetimepicker.js"></script>
 <script src="~/Scripts/AMS/AMSCalendar.js"></script>
+
+<script>
+    //Date picker
+    $(function () {
+      var cultureInfo = '@sysFormat';
+        cultureInfo = cultureInfo.toUpperCase();
+    $('.datePicker').datetimepicker({
+        ignoreReadonly: true,
+        format: cultureInfo,
+        allowInputToggle: true,
+        useCurrent: false,
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down",
+            previous: "fa fa-chevron-left",
+            next: "fa fa-chevron-right",
+            today: "fa fa-clock-o",
+            clear: "fa fa-trash-o"
+        }
+    }) 
+});
+</script>

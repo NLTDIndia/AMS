@@ -1,8 +1,10 @@
 ﻿@model AMSUtilities.Models.SoftwareAssetModel
 @using AMSUtilities.Enums
+@using System.Globalization
 @{
     ViewBag.Title = "CloneSoftwareAsset";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string sysFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
 }
 @using (Html.BeginForm("CreateSoftwareAsset", "Asset", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "formCreateAsset", @class = "formAssetCreation" }))
 {
@@ -18,20 +20,20 @@
                     @Html.HiddenFor(model => model.AssetCategoryId, (int)AssetCategories.Software)
                     <div class="row">
                         @*<div class="col-sm-3">
-            <div class="form-group">
-                <label for="InvoiceNumber">Invoice</label>
-                <select id="invoiceId" name="InvoiceId" class="form-control">
-                    <option disabled selected value="">Please select value</option>
-                    <option value="1">00123</option>
-                    <option value="2">00124</option>
-                    <option value="3">00125</option>
-                </select>
-            </div>
-        </div>*@
+                                <div class="form-group">
+                                    <label for="InvoiceNumber">Invoice</label>
+                                    <select id="invoiceId" name="InvoiceId" class="form-control">
+                                        <option disabled selected value="">Please select value</option>
+                                        <option value="1">00123</option>
+                                        <option value="2">00124</option>
+                                        <option value="3">00125</option>
+                                    </select>
+                                </div>
+                            </div>*@
                         @*<div class="col-sm-3">
-            <label for="Asset_Category">Asset Category</label>
-            @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
-        </div>*@
+                                <label for="Asset_Category">Asset Category</label>
+                                @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
+                            </div>*@
                         <div class="col-sm-3">
                             <label for="Asset_Type">Asset Type</label>
                             @Html.DropDownListFor(model => model.AssetTypeID, Model.AssetTypes, new { @id = "assetType", @class = "form-control" })
@@ -70,11 +72,11 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="From">License Purchase Date</label>
-                                <div class='input-group date startDate'>
-                                    @Html.TextBox("LicencePurchaseDate", Model.LicencePurchaseDate.ToString("MM/dd/yyyy"), new { @id = "licencePurchaseDate", @class = "form-control", autocomplete="off" })
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                                <div class="input-group mb-3">
+                                    @Html.TextBox("LicencePurchaseDate", DateTime.Now.ToString("MM/dd/yyyy"), new { @id = "licencePurchaseDate", @class = "startDate form-control", autocomplete = "off" })
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
+                                    </div>
                                 </div>
                                 @Html.ValidationMessageFor(model => model.LicencePurchaseDate, "", new { @class = "text-danger" })
                             </div>
@@ -82,11 +84,11 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="To">License Expiry Date</label>
-                                <div class='input-group date endDate'>
-                                    @Html.TextBox("LicenceExpiryDate", Model.LicenceExpiryDate.ToString("MM/dd/yyyy"), new { @id = "licenceExpiryDate", @class = "form-control", autocomplete="off" })
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                                <div class="input-group mb-3">
+                                    @Html.TextBox("LicenceExpiryDate", "", new { @id = "licenceExpiryDate", @class = "endDate form-control", autocomplete = "off" })
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
+                                    </div>
                                 </div>
                                 @Html.ValidationMessageFor(model => model.LicenceExpiryDate, "", new { @class = "text-danger" })
                             </div>
@@ -227,4 +229,50 @@
     {
             $('#'+selectId).append('<option value="'+optionValue+'">'+optionText+'</option>');
     }
+</script>
+<script>
+    //Date picker
+    $(function () {
+        var cultureInfo = '@sysFormat';
+        cultureInfo = cultureInfo.toUpperCase();
+    $('.startDate').datetimepicker({
+        ignoreReadonly: true,
+        format: cultureInfo,
+        allowInputToggle: true,
+        useCurrent: false,
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down",
+            previous: "fa fa-chevron-left",
+            next: "fa fa-chevron-right",
+            today: "fa fa-clock-o",
+            clear: "fa fa-trash-o"
+        }
+    });
+    var dateToday = new Date();
+    $('.endDate').datetimepicker({
+        ignoreReadonly: true,
+        format: cultureInfo,
+        allowInputToggle: true,
+        useCurrent: false,
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down",
+            previous: "fa fa-chevron-left",
+            next: "fa fa-chevron-right",
+            today: "fa fa-clock-o",
+            clear: "fa fa-trash-o"
+        }
+    });
+    $(".startDate").on("dp.change", function (e) {
+        $('.endDate').data("DateTimePicker").minDate(e.date);
+    });
+    $(".endDate").on("dp.change", function (e) {
+        $('.startDate').data("DateTimePicker").maxDate(e.date);
+    });
+});
 </script>

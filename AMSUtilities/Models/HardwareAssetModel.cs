@@ -43,7 +43,7 @@ namespace AMSUtilities.Models
         public System.DateTime WarrantyStartDate { get; set; }
 
         [Required(ErrorMessage = "Please select Warranty End Date")]
-        [Display(Name = "Warranty End Date")]
+        [Display(Name = "Warranty End Date")]       
         public System.DateTime WarrantyEndDate { get; set; }
 
         public string Comment { get; set; }
