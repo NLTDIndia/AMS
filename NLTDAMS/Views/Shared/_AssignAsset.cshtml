@@ -65,11 +65,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="From">@Html.LabelFor(m => m.AssignDate)</label>
-                                    <div class='input-group date datePicker'>
-                                        @Html.TextBoxFor(m => m.AssignDate, DateTime.Now.ToString("MM/dd/yyyy"), new { @id = "CreatedDate", @class = "form-control" })
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
+                                    <div class="input-group mb-3">
+                                        @Html.TextBoxFor(m => m.AssignDate, DateTime.Now.ToString("MM/dd/yyyy"), new { @id = "CreatedDate", @class = "datePicker form-control" })
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
+                                        </div>
                                     </div>
                                     @Html.ValidationMessageFor(m => m.AssignDate, "", new { @class = "text-danger" })
                                 </div>
