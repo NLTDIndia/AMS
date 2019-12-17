@@ -38,13 +38,11 @@ namespace AMSUtilities.Models
         [Display(Name = "Manufacturer")]
         public string Manufacturer { get; set; }
 
-        [Required(ErrorMessage = "Please select Warranty Start Date")]
         [Display(Name = "Warranty Start Date")]
-        public System.DateTime WarrantyStartDate { get; set; }
+        public System.DateTime? WarrantyStartDate { get; set; }
 
-        [Required(ErrorMessage = "Please select Warranty End Date")]
         [Display(Name = "Warranty End Date")]       
-        public System.DateTime WarrantyEndDate { get; set; }
+        public System.DateTime? WarrantyEndDate { get; set; }
 
         public string Comment { get; set; }
 

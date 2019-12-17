@@ -4,7 +4,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Create Asset";
-    string sysFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+   // string sysFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
 }
 @using (Html.BeginForm("CreateHardwareAsset", "Asset", FormMethod.Post, new { @name = "createHardwareAsset", @id = "formCreateAsset", @class = "formAssetCreation" }))
 {
@@ -78,7 +78,7 @@
                             @Html.TextBoxFor(model => model.Manufacturer, "" as string, new { @id = "manufacturer", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Manufacturer, "", new { @class = "text-danger" })
                         </div>
-                        <div class="col-sm-3">
+                        @*<div class="col-sm-3">
                             <div class="form-group">
                                 <label for="From">Warranty Start Date</label>
                                 <div class="input-group mb-3">
@@ -87,7 +87,7 @@
                                         <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
                                     </div>
                                 </div>
-                                @*  @Html.ValidationMessageFor(model => model.WarrantyStartDate, "", new { @class = "text-danger" })*@
+                                  @Html.ValidationMessageFor(model => model.WarrantyStartDate, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -99,9 +99,9 @@
                                         <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
                                     </div>
                                 </div>
-                                @*   @Html.ValidationMessageFor(model => model.WarrantyEndDate, "", new { @class = "text-danger" })*@
+                                   @Html.ValidationMessageFor(model => model.WarrantyEndDate, "", new { @class = "text-danger" })
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                     <div class="row">
                         <div class="col-sm-9">
@@ -501,7 +501,7 @@
         });
     });
 </script>
-<script>
+@*<script>
     //Date picker
     $(function () {
         var cultureInfo = '@sysFormat';
@@ -545,4 +545,4 @@
         $('.startDate').data("DateTimePicker").maxDate(e.date);
     });   
 });
-</script>
+</script>*@

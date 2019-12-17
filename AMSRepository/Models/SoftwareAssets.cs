@@ -18,8 +18,8 @@ namespace AMSRepository.Models
         public int AssetID { get; set; }
         public string ProductName { get; set; }
         public string LicenceNumber { get; set; }
-        public System.DateTime LicencePurchaseDate { get; set; }
-        public System.DateTime LicenceExpiryDate { get; set; }
+        public Nullable<System.DateTime> LicencePurchaseDate { get; set; }
+        public Nullable<System.DateTime> LicenceExpiryDate { get; set; }
         public string Comment { get; set; }
     
         public virtual Assets Assets { get; set; }

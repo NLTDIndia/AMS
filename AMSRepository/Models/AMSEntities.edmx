@@ -159,7 +159,7 @@
           <Property Name="EmployeeRoleID" Type="int" Nullable="false" />
           <Property Name="EmployeeName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="SeatID" Type="int" />
-          <Property Name="MailID" Type="nvarchar" MaxLength="100" />
+          <Property Name="MailID" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ISActive" Type="bit" Nullable="false" />
           <Property Name="ManagerID" Type="int" />
           <Property Name="CorpId" Type="varchar" MaxLength="50" />
@@ -194,8 +194,8 @@
           <Property Name="Model" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="ServiceTag" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Manufacturer" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="WarrantyStartDate" Type="datetime" Nullable="false" />
-          <Property Name="WarrantyEndDate" Type="datetime" Nullable="false" />
+          <Property Name="WarrantyStartDate" Type="datetime" />
+          <Property Name="WarrantyEndDate" Type="datetime" />
           <Property Name="Comment" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Location">
@@ -272,8 +272,8 @@
           <Property Name="AssetID" Type="int" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="LicenceNumber" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="LicencePurchaseDate" Type="datetime" Nullable="false" />
-          <Property Name="LicenceExpiryDate" Type="datetime" Nullable="false" />
+          <Property Name="LicencePurchaseDate" Type="datetime" />
+          <Property Name="LicenceExpiryDate" Type="datetime" />
           <Property Name="Comment" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Vendor">
@@ -289,7 +289,7 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__AssetRequ__Appro__6FE99F9F">
+        <Association Name="FK__AssetRequ__Appro__02084FDA">
           <End Role="AssetRequestStatus" Type="Self.AssetRequestStatus" Multiplicity="1" />
           <End Role="AssetRequestApprovalHistory" Type="Self.AssetRequestApprovalHistory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -301,7 +301,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AssetRequ__Asset__6EF57B66">
+        <Association Name="FK__AssetRequ__Asset__01142BA1">
           <End Role="AssetRequestStatus" Type="Self.AssetRequestStatus" Multiplicity="1" />
           <End Role="AssetRequest" Type="Self.AssetRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -313,7 +313,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AssetRequ__Asset__70DDC3D8">
+        <Association Name="FK__AssetRequ__Asset__02FC7413">
           <End Role="AssetRequest" Type="Self.AssetRequest" Multiplicity="1" />
           <End Role="AssetRequestApprovalHistory" Type="Self.AssetRequestApprovalHistory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -361,7 +361,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Seats__LocationI__06CD04F7">
+        <Association Name="FK__Seats__LocationI__19DFD96B">
           <End Role="Location" Type="Self.Location" Multiplicity="1" />
           <End Role="Seats" Type="Self.Seats" Multiplicity="*" />
           <ReferentialConstraint>
@@ -689,15 +689,15 @@
           <EntitySet Name="Seats" EntityType="Self.Seats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SoftwareAssets" EntityType="Self.SoftwareAssets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__AssetRequ__Appro__6FE99F9F" Association="Self.FK__AssetRequ__Appro__6FE99F9F">
+          <AssociationSet Name="FK__AssetRequ__Appro__02084FDA" Association="Self.FK__AssetRequ__Appro__02084FDA">
             <End Role="AssetRequestStatus" EntitySet="AssetRequestStatus" />
             <End Role="AssetRequestApprovalHistory" EntitySet="AssetRequestApprovalHistory" />
           </AssociationSet>
-          <AssociationSet Name="FK__AssetRequ__Asset__6EF57B66" Association="Self.FK__AssetRequ__Asset__6EF57B66">
+          <AssociationSet Name="FK__AssetRequ__Asset__01142BA1" Association="Self.FK__AssetRequ__Asset__01142BA1">
             <End Role="AssetRequestStatus" EntitySet="AssetRequestStatus" />
             <End Role="AssetRequest" EntitySet="AssetRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK__AssetRequ__Asset__70DDC3D8" Association="Self.FK__AssetRequ__Asset__70DDC3D8">
+          <AssociationSet Name="FK__AssetRequ__Asset__02FC7413" Association="Self.FK__AssetRequ__Asset__02FC7413">
             <End Role="AssetRequest" EntitySet="AssetRequest" />
             <End Role="AssetRequestApprovalHistory" EntitySet="AssetRequestApprovalHistory" />
           </AssociationSet>
@@ -713,7 +713,7 @@
             <End Role="Assets" EntitySet="Assets" />
             <End Role="EmployeeAssetMapping" EntitySet="EmployeeAssetMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__Seats__LocationI__06CD04F7" Association="Self.FK__Seats__LocationI__06CD04F7">
+          <AssociationSet Name="FK__Seats__LocationI__19DFD96B" Association="Self.FK__Seats__LocationI__19DFD96B">
             <End Role="Location" EntitySet="Location" />
             <End Role="Seats" EntitySet="Seats" />
           </AssociationSet>
@@ -1011,7 +1011,7 @@
           <Property Name="EmployeeRoleID" Type="Int32" Nullable="false" />
           <Property Name="EmployeeName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SeatID" Type="Int32" />
-          <Property Name="MailID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MailID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ISActive" Type="Boolean" Nullable="false" />
           <Property Name="ManagerID" Type="Int32" />
           <Property Name="CorpId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1054,8 +1054,8 @@
           <Property Name="Model" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ServiceTag" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Manufacturer" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="WarrantyStartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="WarrantyEndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="WarrantyStartDate" Type="DateTime" Precision="3" />
+          <Property Name="WarrantyEndDate" Type="DateTime" Precision="3" />
           <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Assets" Relationship="Self.FK_HardwareAssets_Assets" FromRole="HardwareAssets" ToRole="Assets" />
         </EntityType>
@@ -1144,8 +1144,8 @@
           <Property Name="AssetID" Type="Int32" Nullable="false" />
           <Property Name="ProductName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LicenceNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LicencePurchaseDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LicenceExpiryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LicencePurchaseDate" Type="DateTime" Precision="3" />
+          <Property Name="LicenceExpiryDate" Type="DateTime" Precision="3" />
           <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Assets" Relationship="Self.FK_SoftwareAssets_Assets" FromRole="SoftwareAssets" ToRole="Assets" />
         </EntityType>

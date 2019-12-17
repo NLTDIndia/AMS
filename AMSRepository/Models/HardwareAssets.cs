@@ -19,8 +19,8 @@ namespace AMSRepository.Models
         public string Model { get; set; }
         public string ServiceTag { get; set; }
         public string Manufacturer { get; set; }
-        public System.DateTime WarrantyStartDate { get; set; }
-        public System.DateTime WarrantyEndDate { get; set; }
+        public Nullable<System.DateTime> WarrantyStartDate { get; set; }
+        public Nullable<System.DateTime> WarrantyEndDate { get; set; }
         public string Comment { get; set; }
     
         public virtual Assets Assets { get; set; }

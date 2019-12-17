@@ -4,7 +4,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Create Asset";
-    string sysFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+   // string sysFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
 }
 @using (Html.BeginForm("CreateSoftwareAsset", "Asset", FormMethod.Post, new { @id = "formCreateAsset", @class = "formAssetCreation" }))
 {
@@ -69,32 +69,30 @@
                                 @Html.ValidationMessageFor(model => model.LicenceNumber, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="From">License Purchase Date</label>
-                                <div class="input-group mb-3">
-                                    @Html.TextBox("LicencePurchaseDate", DateTime.Now.ToString("MM/dd/yyyy"), new { @id = "licencePurchaseDate", @class = "startDate form-control", autocomplete = "off" })
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
-                                    </div>
-                                </div>
-                                @Html.ValidationMessageFor(model => model.LicencePurchaseDate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="To">License Expiry Date</label>
-                                <div class="input-group mb-3">
-                                    @Html.TextBox("LicenceExpiryDate", "", new { @id = "licenceExpiryDate", @class = "endDate form-control", autocomplete = "off" })
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
-                                    </div>
-                                </div>
-                                @Html.ValidationMessageFor(model => model.LicenceExpiryDate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                        @*<div class="col-sm-3">
+            <div class="form-group">
+                <label for="From">License Purchase Date</label>
+                <div class="input-group mb-3">
+                    @Html.TextBox("LicencePurchaseDate", DateTime.Now.ToString("MM/dd/yyyy"), new { @id = "licencePurchaseDate", @class = "startDate form-control", autocomplete = "off" })
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
                     </div>
-                    <div class="row">
+                </div>
+                @Html.ValidationMessageFor(model => model.LicencePurchaseDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="To">License Expiry Date</label>
+                <div class="input-group mb-3">
+                    @Html.TextBox("LicenceExpiryDate", "", new { @id = "licenceExpiryDate", @class = "endDate form-control", autocomplete = "off" })
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(model => model.LicenceExpiryDate, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
                         <div class="col-sm-9">
                             <div class="form-group">
                                 <label class="required" for="Reason">Software Description</label>
@@ -102,6 +100,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="partialPlaceHolder"></div>
                     <div class="row">
                         <div class="col-sm-12" style="float:right">
@@ -221,7 +220,7 @@
             $('#'+selectId).append('<option value="'+optionValue+'">'+optionText+'</option>');
     }
 </script>
-<script>
+@*<script>
     //Date picker
     $(function () {
         var cultureInfo = '@sysFormat';
@@ -265,4 +264,4 @@
         $('.startDate').data("DateTimePicker").maxDate(e.date);
     });
 });
-</script>
+</script>*@

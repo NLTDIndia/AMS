@@ -32,7 +32,7 @@ namespace AMSRepository.Models
         public bool ISActive { get; set; }
         public Nullable<int> ManagerID { get; set; }
         public string CorpId { get; set; }
-        public Nullable<System.DateTime> RelievingDate { get; set;}
+        public Nullable<System.DateTime> RelievingDate { get; set; }
         public Nullable<System.DateTime> JoiningDate { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }

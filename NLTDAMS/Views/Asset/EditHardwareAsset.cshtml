@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "EditHardwareAsset";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    string sysFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+   // string sysFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
 }
 <!-- iCheck for checkboxes and radio inputs -->
 <link href="~/Content/AMS/iCheck/all.css" rel="stylesheet" />
@@ -13,17 +13,17 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(fet => fet.AssetID)
 
-    string warrantyStartDate = DateTime.Now.ToString("MM/dd/yyyy");
-    if (Model.WarrantyStartDate != DateTime.MinValue && Model.WarrantyStartDate != null)
-    {
-        warrantyStartDate = Model.WarrantyStartDate.ToString("MM/dd/yyyy");
-    }
+    //string warrantyStartDate = DateTime.Now.ToString("MM/dd/yyyy");
+    //if (Model.WarrantyStartDate != DateTime.MinValue && Model.WarrantyStartDate != null)
+    //{
+    //    warrantyStartDate = Model.WarrantyStartDate.ToString("MM/dd/yyyy");
+    //}
 
-    string warrantyEndDate = "";
-    if (Model.WarrantyEndDate != DateTime.MinValue && Model.WarrantyEndDate != null)
-    {
-        warrantyEndDate = Model.WarrantyEndDate.ToString("MM/dd/yyyy");
-    }
+    //string warrantyEndDate = "";
+    //if (Model.WarrantyEndDate != DateTime.MinValue && Model.WarrantyEndDate != null)
+    //{
+    //    warrantyEndDate = Model.WarrantyEndDate.ToString("MM/dd/yyyy");
+    //}
     <div class="row">
         <div class="col-sm-12">
             <div class="box box-primary">
@@ -89,7 +89,7 @@
                             @Html.TextBoxFor(model => model.Manufacturer, Model.Manufacturer as string, new { @id = "manufacturer", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Manufacturer, "", new { @class = "text-danger" })
                         </div>
-                        <div class="col-sm-3">
+                        @*<div class="col-sm-3">
                             <div class="form-group">
                                 <label for="From">Warranty Start Date</label>
                                 <div class="input-group mb-3">
@@ -112,7 +112,7 @@
                                 </div>
                                 @Html.ValidationMessageFor(model => model.WarrantyEndDate, "", new { @class = "text-danger" })
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                     <div class="row">
                         <div class="col-sm-9">
@@ -305,7 +305,7 @@
     });
 </script>
 
-<script>
+@*<script>
     //Date picker
     $(function () {
         var cultureInfo = '@sysFormat';
@@ -349,4 +349,4 @@
         $('.startDate').data("DateTimePicker").maxDate(e.date);
     });
 });
-</script>
+</script>*@

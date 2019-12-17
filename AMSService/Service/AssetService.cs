@@ -522,7 +522,8 @@ namespace AMSService.Service
                     {
                         AssetID = assetModel.ID,
                         EmployeeID = assetModel.EmployeeID,
-                        CreatedDate = assetModel.AssignDate,
+                        CreatedDate = DateTime.Now,
+                       // CreatedDate = assetModel.AssignDate,
                         CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
                     });
 
