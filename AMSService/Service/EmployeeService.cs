@@ -89,32 +89,6 @@ namespace AMSService.Service
             }
         }
 
-        public List<EmployeeModel> GetAssetCategories()
-        {
-            var employees = _employeeRepository.GetEmployees();
-            if (employees != null && employees.Count > 0)
-            {
-                return employees.Select(ac => new EmployeeModel
-                {
-                    ID = ac.ID,
-                    EmployeeID = ac.EmployeeID,
-                    EmployeeRoleID = ac.EmployeeRoleID,
-                    EmployeeName = ac.EmployeeName,
-                    SeatID = ac.SeatID,
-                    MailID = ac.MailID,
-                    CreatedDate = ac.CreatedDate,
-                    CreatedBy = ac.ID,
-                    ISActive = ac.ISActive,
-                    ManagerID = ac.ManagerID,
-                    CorpId = ac.CorpId,
-                }).ToList();
-            }
-            else
-            {
-                return new List<EmployeeModel> { };
-            }
-        }
-
         public SelectList GetDropdownEmployees(int selectedId = -1)
         {
             List<SelectListItem> EmployeesItems = new List<SelectListItem> { new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Employee", Value = "" } };

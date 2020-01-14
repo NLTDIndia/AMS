@@ -41,7 +41,7 @@ namespace AMSUtilities.Models
         [Display(Name = "Warranty Start Date")]
         public System.DateTime? WarrantyStartDate { get; set; }
 
-        [Display(Name = "Warranty End Date")]       
+        [Display(Name = "Warranty End Date")]
         public System.DateTime? WarrantyEndDate { get; set; }
 
         public string Comment { get; set; }

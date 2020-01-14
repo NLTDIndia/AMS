@@ -9,8 +9,6 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
-
-
 namespace AMSService.Service
 {
     public class AssetService : IAssetService
@@ -68,18 +66,13 @@ namespace AMSService.Service
         }
 
         public HardwareAssetModel CreateHardwareAsset(HardwareAssetModel hardwareAssetModel)        {
-
             using (var scope = new TransactionScope(TransactionScopeOption.Required))
             {                try                {                    Assets assets = new Assets                    {                        AssetName = hardwareAssetModel.AssetName,                        SerialNumber = hardwareAssetModel.SerialNumber,                        AssetTypeID = hardwareAssetModel.AssetTypeID,                        AssetStatusID = (int)AssetTrackingStatus.New,                        CreatedDate = DateTime.Now,                        CreatedBy = GetLoginEmployeeId()                    };                    var createdAsset = _assetRepository.CreateAsset(assets);                    hardwareAssetModel.AssetID = createdAsset.ID;                    _hardwareAssetService.CreateHardwareAsset(hardwareAssetModel);                    AssetTrackerModel assetTrackerModel = new AssetTrackerModel                    {                        AssetID = hardwareAssetModel.AssetID,                        AssetStatusID = (int)AssetTrackingStatus.New,                        CreatedDate = DateTime.Now,                        CreatedBy = assets.CreatedBy,                        Remarks = hardwareAssetModel.Comment,                    };                    _assetTrackerService.CreateAssetTracker(assetTrackerModel);                    if (hardwareAssetModel.ComponentAssetMapping != null)                    {                        if (hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList().Count > 0)                        {                            foreach (var item in hardwareAssetModel.ComponentAssetMapping.Where(fet => fet.ComponentID != 0).ToList())                            {                                item.AssignedAssetID = createdAsset.ID;                                item.ActualAssetID = createdAsset.ID;                                item.AssignedDate = DateTime.Now;                                item.AssignedBy = GetLoginEmployeeId();                                item.CreatedDate = DateTime.Now;                                item.CreatedBy = GetLoginEmployeeId();                                item.ComponentStatusId = (int)ComponentTrackingStatus.Assign;                                _componentAssetMappingService.CreateComponentAssetMapping(item);                                ComponentTrackerModel componentTrackerModel = new ComponentTrackerModel                                {                                    AssetID = createdAsset.ID,                                    ComponentID = item.ComponentID,                                    ComponentStatusID = (int)ComponentTrackingStatus.Assign,                                    CreatedBy = GetLoginEmployeeId(),                                    CreatedDate = DateTime.Now                                };                                _componentTrackerService.CreateComponentTracker(componentTrackerModel);                            }                        }                    }                    scope.Complete();                    return hardwareAssetModel;                }                catch (Exception)                {
                     scope.Dispose();                    throw;                }            }
-
-
-           
         }
 
         //public HardwareAssetModel CreateHardwareAsset(HardwareAssetModel hardwareAssetModel)
         // {
-
         //     Assets assets = new Assets
         //     {
         //         AssetName = hardwareAssetModel.AssetName,
@@ -188,11 +181,9 @@ namespace AMSService.Service
                     scope.Complete();
                     return softwareAssetModel;
                 }
-
                 catch (Exception)
                 {
                     scope.Dispose();                    throw;
-
                 }
             }
         }
@@ -356,7 +347,6 @@ namespace AMSService.Service
             {
                 try
                 {
-
                     Assets selectedAsset = _assetRepository.GetAssetByID(hardwareAssetModel.AssetID);
                     if (selectedAsset != null)
                     {
@@ -396,14 +386,12 @@ namespace AMSService.Service
                     scope.Complete();
                     return hardwareAssetModel;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     scope.Dispose();
                     throw;
-
                 }
-                }
-
+            }
         }
 
         public SoftwareAssetModel UpdateSoftwareAsset(SoftwareAssetModel softwareAssetModel)
@@ -451,12 +439,12 @@ namespace AMSService.Service
                     scope.Complete();
                     return softwareAssetModel;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     scope.Dispose();
                     throw;
                 }
-                }
+            }
         }
 
         public List<ComponentTypeModel> GetComponentTypes()
@@ -523,7 +511,7 @@ namespace AMSService.Service
                         AssetID = assetModel.ID,
                         EmployeeID = assetModel.EmployeeID,
                         CreatedDate = DateTime.Now,
-                       // CreatedDate = assetModel.AssignDate,
+                        // CreatedDate = assetModel.AssignDate,
                         CreatedBy = _employeeService.GetEmployeeByCorpId(HttpContext.Current.User.Identity.Name).ID,
                     });
 
@@ -547,12 +535,12 @@ namespace AMSService.Service
                     scope.Complete();
                     return assetModel.ID;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     scope.Dispose();
                     throw;
                 }
-                }
+            }
         }
 
         public void UnassignAsset(AssetModel assetModel)
@@ -588,12 +576,12 @@ namespace AMSService.Service
                     }
                     scope.Complete();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     scope.Dispose();
                     throw;
                 }
-                }
+            }
         }
 
         public int UpdateAsset(AssetModel assetModel)
