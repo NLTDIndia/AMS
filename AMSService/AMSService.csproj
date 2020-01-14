@@ -107,6 +107,7 @@
     <Compile Include="Service\QuotationService.cs" />
     <Compile Include="Service\SoftwareAssetService.cs" />
     <Compile Include="Service\VendorService.cs" />
+    <Compile Include="UnityConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
