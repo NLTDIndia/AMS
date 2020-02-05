@@ -491,6 +491,7 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="libman.json" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\Libraries\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Libraries\jquery-3.4.1.js" />
     <Content Include="Scripts\Libraries\jquery-3.4.1.min.js" />
