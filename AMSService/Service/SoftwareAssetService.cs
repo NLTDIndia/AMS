@@ -1,6 +1,7 @@
 ﻿using AMSRepository.Models;
 using AMSRepository.Repository;
 using AMSUtilities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -39,8 +40,8 @@ namespace AMSService.Service
                 softwareAsset.AssetID = softwareAssetModel.AssetID;
                 softwareAsset.ProductName = softwareAssetModel.ProductName;
                 softwareAsset.LicenceNumber = softwareAssetModel.LicenceNumber;
-                softwareAsset.LicencePurchaseDate = softwareAssetModel.LicencePurchaseDate;
-                softwareAsset.LicenceExpiryDate = softwareAssetModel.LicenceExpiryDate;
+                softwareAsset.LicencePurchaseDate =softwareAssetModel.LicencePurchaseDate;
+                softwareAsset.LicenceExpiryDate =softwareAssetModel.LicenceExpiryDate;
                 softwareAsset.Comment = softwareAssetModel.Comment;
             }
             _softwareAssetRepository.UpdateSoftwareAsset(softwareAsset);
@@ -58,7 +59,7 @@ namespace AMSService.Service
                     AssetID = ac.AssetID,
                     ProductName = ac.ProductName,
                     LicenceNumber = ac.LicenceNumber,
-                    LicencePurchaseDate = ac.LicencePurchaseDate,
+                    LicencePurchaseDate =ac.LicencePurchaseDate,
                     LicenceExpiryDate = ac.LicenceExpiryDate,
                     Comment = ac.Comment
                 }).ToList();

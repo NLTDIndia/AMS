@@ -386,6 +386,7 @@
     <Content Include="Scripts\AdminLte\adminlte.js" />
     <Content Include="Scripts\AdminLte\adminlte.min.js" />
     <Content Include="Scripts\AMS\AMS.js" />
+    <Content Include="Scripts\AMS\AMSCalendar.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />

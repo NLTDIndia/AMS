@@ -1,10 +1,9 @@
 ﻿@model AMSUtilities.Models.HardwareAssetModel
 @using AMSUtilities.Enums
-@using System.Globalization
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Create Asset";
-   // string sysFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+    ViewBag.Title = "Create Asset";  
 }
 @using (Html.BeginForm("CreateHardwareAsset", "Asset", FormMethod.Post, new { @name = "createHardwareAsset", @id = "formCreateAsset", @class = "formAssetCreation" }))
 {
@@ -21,23 +20,23 @@
                     <div class="row">
                         @*<div class="col-sm-3">*@
                         @*<div class="form-group">
-                            <label for="InvoiceNumber">Invoice</label>
-                            <select id="invoiceId" name="InvoiceId" class="form-control">
-                                <option disabled selected value="">Please select value</option>
-                                <option value="1">00123</option>
-                                <option value="2">00124</option>
-                                <option value="3">00125</option>
-                            </select>*@
+                    <label for="InvoiceNumber">Invoice</label>
+                    <select id="invoiceId" name="InvoiceId" class="form-control">
+                        <option disabled selected value="">Please select value</option>
+                        <option value="1">00123</option>
+                        <option value="2">00124</option>
+                        <option value="3">00125</option>
+                    </select>*@
                         @*@Html.ValidationMessageFor(model => model.InvoiceId, "", new { @class = "text-danger" })*@
                         @*<div class="col-sm-1 text-left">
-                                <a data-toggle="modal" data-target="#createModal" data-select="assigned_user_select" class="btn btn-sm btn-default">New</a>
-                            </div>*@
+                        <a data-toggle="modal" data-target="#createModal" data-select="assigned_user_select" class="btn btn-sm btn-default">New</a>
+                    </div>*@
                         @*</div>*@
                         @*</div>*@
                         @*<div class="col-sm-3">
-                                <label for="Asset_Category">Asset Category</label>
-                                @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
-                            </div>*@
+                        <label for="Asset_Category">Asset Category</label>
+                        @Html.DropDownListFor(model => model.AssetCategoryId, Model.AssetCategories, new { @id = "assetCategory", @class = "form-control", @disabled = "true" })
+                    </div>*@
                         <div class="col-sm-3">
                             <label for="Asset_Type">Asset Type</label>
                             @Html.DropDownListFor(model => model.AssetTypeID, Model.AssetTypes, new { @id = "assetType", @class = "form-control" })
@@ -78,30 +77,30 @@
                             @Html.TextBoxFor(model => model.Manufacturer, "" as string, new { @id = "manufacturer", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Manufacturer, "", new { @class = "text-danger" })
                         </div>
-                        @*<div class="col-sm-3">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="From">Warranty Start Date</label>
                                 <div class="input-group mb-3">
-                                    @Html.TextBox("WarrantyStartDate", DateTime.Now.ToString("MM/dd/yyyy"), new { @id = "warrantyStartDate", @class = "startDate form-control", autocomplete = "off" })
+                                    @Html.TextBoxFor(model => model.WarrantyStartDate, DateTime.Now.ToString(), new { @id = "warrantyStartDate", @class = "startDate form-control" , autocomplete = "off"})
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
                                     </div>
                                 </div>
-                                  @Html.ValidationMessageFor(model => model.WarrantyStartDate, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.WarrantyStartDate, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="To">Warranty End Date</label>
                                 <div class="input-group mb-3">
-                                    @Html.TextBox("WarrantyEndDate", "", new { @id = "warrantyEndDate", @class = "endDate form-control", autocomplete = "off" })
+                                    @Html.TextBoxFor(model => model.WarrantyEndDate, "", new { @id = "warrantyEndDate", @class = "endDate form-control" , autocomplete = "off"})
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
                                     </div>
                                 </div>
-                                   @Html.ValidationMessageFor(model => model.WarrantyEndDate, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.WarrantyEndDate, "", new { @class = "text-danger" })
                             </div>
-                        </div>*@
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-9">
@@ -113,169 +112,7 @@
                     </div>
                     <div id="alert-messageComponent"></div>
                     <div id="partialPlaceHolder"></div>
-                    @* <div class="row" id="componentsTab" style="display:none">
-                             <div class="col-sm-12" style="margin-top:20px">
-                                 <!-- Custom Tabs -->
-                                 <div class="nav-tabs-custom">
-                                     <ul class="nav nav-tabs">
-                                         <li class="active"><a href="#tab_1" data-toggle="tab">Hardware Components</a></li>
-                                         <li><a href="#tab_2" data-toggle="tab">Software Components(OEM)</a></li>
-                                     </ul>
-                                     <div class="tab-content">
-                                         <div class="tab-pane active" id="tab_1">
-                                             <div class="box-body">
-                                                 @if (Model.ComponentTypeModels != null)
-                                                 {
-                                                     if (Model.ComponentTypeModels.Where(fet => fet.AssetCategoryId == (int)AMSUtilities.Enums.AssetCategories.Hardware).ToList().Count > 0)
-                                                     {
 
-                                                         foreach (var item in Model.ComponentTypeModels.Where(fet => fet.AssetCategoryId == (int)AMSUtilities.Enums.AssetCategories.Hardware))
-                                                         {
-                                                             var selectList = new SelectList(Model.ComponentsModels.Where(fet => fet.ComponentTypeID == item.ID).ToList(), "ID", "ComponentName");
-                                                             var modalId = "modal-" + item.Name + item.ID;
-                                                             int assetCategoryId = (int)AMSUtilities.Enums.AssetCategories.Hardware;
-                                                             var dropdownId = "drp" + item.Name + item.ID;
-                                                             var componentNameId = "txtComponent" + item.Name + item.ID;
-                                                             var descriptionId = "txtDescription" + item.Name + item.ID;
-                                                             var compValidationId = "compValidation" + item.Name + item.ID;
-                                                             var descValidationId = "descValidation" + item.Name + item.ID;
-                                                             <div class="col-md-8">
-                                                                 <div class="form-group row-space">
-                                                                     <label for="inputEmail3" class="col-sm-2 control-label">@item.Name</label>
-                                                                     @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeName", @item.Name)
-                                                                     @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeID", @item.ID)
-                                                                     @Html.Hidden("ComponentAssetMapping[" + i + "].AssetCategoryId", @item.AssetCategoryId)
-                                                                     <div class="col-sm-8">
-                                                                         @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
-                                                                     </div>
-                                                                     <div class="col-sm-1 text-left">
-                                                                         <a data-toggle="modal" data-target="#@modalId" data-select="assigned_user_select" data-backdrop="static" class="btn btn-sm btn-default">New</a>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                                             <div class="modal" id="@modalId">
-                                                                 <div class="modal-dialog">
-                                                                     <div class="modal-content">
-                                                                         <div class="modal-header">
-                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                 <span aria-hidden="true">&times;</span>
-                                                                             </button>
-                                                                             <h4 class="modal-title">Add @item.Name</h4>
-                                                                         </div>
-                                                                         <div class="modal-body">
-                                                                             <div class="col-md-12">
-                                                                                 <div class="form-group row-space">
-                                                                                     <label for="inputEmail3" class="col-sm-2 control-label">Component: </label>
-                                                                                     <div class="col-sm-7">
-                                                                                         @Html.TextBox("componentName", "" as string, new { @id = componentNameId, @class = "form-control" })
-                                                                                         <label class="has-error" style="color:red;display:none" id="@compValidationId">Invalid Component name </label>
-                                                                                     </div>
-                                                                                 </div>
-                                                                             </div>
-                                                                             <div class="col-md-12">
-                                                                                 <div class="form-group row-space">
-                                                                                     <label for="inputEmail3" class="col-sm-2 control-label">Description: </label>
-                                                                                     <div class="col-sm-7">
-                                                                                         @Html.TextBox("componentName", "" as string, new { @id = descriptionId, @class = "form-control" })
-                                                                                         <label class="has-error" style="color:red;display:none" id="@descValidationId">Invalid Description </label>
-                                                                                     </div>
-                                                                                 </div>
-                                                                             </div>
-                                                                         </div>
-                                                                         <div class="modal-footer" style="border-top:none">
-                                                                             <button type="button" class="btn btn-primary" onclick="createComponent(@item.ID,@assetCategoryId,'@dropdownId','@componentNameId','@descriptionId','@compValidationId','@descValidationId','@modalId')">Add Component</button>
-                                                                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                                                             <label class="success componentSuccess" style="color:green;display:none">Component added successfully</label>
-                                                                         </div>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                                             i++;
-                                                         }
-                                                     }
-                                                 }
-                                             </div>
-                                         </div>
-                                         <div class="tab-pane" id="tab_2">
-                                             <div class="box-body">
-                                                 @if (Model.ComponentTypeModels != null)
-                                                 {
-                                                     if (Model.ComponentTypeModels.Where(fet => fet.AssetCategoryId == (int)AMSUtilities.Enums.AssetCategories.Software).ToList().Count > 0)
-                                                     {
-                                                         foreach (var item in Model.ComponentTypeModels.Where(fet => fet.AssetCategoryId == (int)AMSUtilities.Enums.AssetCategories.Software))
-                                                         {
-                                                             var selectList = new SelectList(Model.ComponentsModels.Where(fet => fet.ComponentTypeID == item.ID).ToList(), "ID", "ComponentName");
-                                                             var modalId = "modal-" + item.Name + item.ID;
-                                                             int assetCategoryId = (int)AMSUtilities.Enums.AssetCategories.Software;
-                                                             var dropdownId = "drp" + item.Name + item.ID;
-                                                             var componentNameId = "txtComponent" + item.Name + item.ID;
-                                                             var descriptionId = "txtDescription" + item.Name + item.ID;
-                                                             var compValidationId = "compValidation" + item.Name + item.ID;
-                                                             var descValidationId = "descValidation" + item.Name + item.ID;
-                                                             <div class="col-md-8">
-                                                                 <div class="form-group row-space">
-                                                                     <label for="inputEmail3" class="col-sm-2 control-label">@item.Name</label>
-                                                                     @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeName", @item.Name)
-                                                                     @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeID", @item.ID)
-                                                                     @Html.Hidden("ComponentAssetMapping[" + i + "].AssetCategoryId", @item.AssetCategoryId)
-                                                                     <div class="col-sm-8">
-                                                                         @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
-                                                                     </div>
-                                                                     <div class="col-sm-1 text-left">
-                                                                         <a data-toggle="modal" data-target="#@modalId" data-select="assigned_user_select" data-backdrop="static" class="btn btn-sm btn-default">New</a>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                                             <div class="modal" id="@modalId">
-                                                                 <div class="modal-dialog">
-                                                                     <div class="modal-content">
-                                                                         <div class="modal-header">
-                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                 <span aria-hidden="true">&times;</span>
-                                                                             </button>
-                                                                             <h4 class="modal-title">Add @item.Name</h4>
-                                                                         </div>
-                                                                         <div class="modal-body">
-                                                                             <div class="col-md-12">
-                                                                                 <div class="form-group row-space">
-                                                                                     <label for="inputEmail3" class="col-sm-2 control-label">Component: </label>
-                                                                                     <div class="col-sm-7">
-                                                                                         @Html.TextBox("componentName", "" as string, new { @id = componentNameId, @class = "form-control" })
-                                                                                         <label class="has-error" style="color:red;display:none" id="@compValidationId">Invalid Component name </label>
-                                                                                     </div>
-                                                                                 </div>
-                                                                             </div>
-                                                                             <div class="col-md-12">
-                                                                                 <div class="form-group row-space">
-                                                                                     <label for="inputEmail3" class="col-sm-2 control-label">Description: </label>
-                                                                                     <div class="col-sm-7">
-                                                                                         @Html.TextBox("componentName", "" as string, new { @id = descriptionId, @class = "form-control" })
-                                                                                         <label class="has-error" style="color:red;display:none" id="@descValidationId">Invalid Description </label>
-                                                                                     </div>
-                                                                                 </div>
-                                                                             </div>
-                                                                         </div>
-                                                                         <div class="modal-footer" style="border-top:none">
-                                                                             <button type="button" class="btn btn-primary" onclick="createComponent(@item.ID,@assetCategoryId,'@dropdownId','@componentNameId','@descriptionId','@compValidationId','@descValidationId','@modalId')">Add Component</button>
-                                                                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                                                             <label class="success componentSuccess" style="color:green;display:none">Component added successfully</label>
-                                                                         </div>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                                             i++;
-                                                         }
-                                                     }
-                                                 }
-                                             </div>
-                                         </div>
-                                         <!-- /.tab-pane -->
-                                     </div>
-                                     <!-- /.tab-content -->
-                                 </div>
-                                 <!-- nav-tabs-custom -->
-                             </div>
-                        </div>*@
                     <div class="row">
                         <div class="col-sm-12" style="float:right">
                             <button type="button" style="margin-left:10px" class="btn btn-primary pull-right" id="btnCancel">
@@ -291,6 +128,8 @@
                     </div>
                 </div>
             </div>
+            @Html.Hidden("isClone", false, new { @id = "cloneId" })
+            @Html.Hidden("WarrantyStartDate", "", new { @id = "cloneId" })
             @Html.Hidden("isClone", false, new { @id = "cloneId" })
         </div>
     </div>
@@ -435,6 +274,7 @@
         }
     });
 </script>
+<script src="~/Scripts/AMS/AMSCalendar.js"></script>
 
 @*<script src="~/Scripts/AMS/jquery-1.10.0.min.js"></script>
     <script src="~/Scripts/AMS/jquery-ui.min.js"></script>*@
@@ -500,48 +340,3 @@
         });
     });
 </script>
-@*<script>
-    //Date picker
-    $(function () {
-        var cultureInfo = '@sysFormat';
-        cultureInfo = cultureInfo.toUpperCase();
-    $('.startDate').datetimepicker({
-        ignoreReadonly: true,
-        format: cultureInfo,
-        useCurrent: false,
-        icons: {
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-arrow-up",
-            down: "fa fa-arrow-down",
-            previous: "fa fa-chevron-left",
-            next: "fa fa-chevron-right",
-            today: "fa fa-clock-o",
-            clear: "fa fa-trash-o"
-        }
-    });
-    var dateToday = new Date();
-    $('.endDate').datetimepicker({
-        ignoreReadonly: true,
-        format: cultureInfo,
-        useCurrent: false,
-        minDate: dateToday,
-        icons: {
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-arrow-up",
-            down: "fa fa-arrow-down",
-            previous: "fa fa-chevron-left",
-            next: "fa fa-chevron-right",
-            today: "fa fa-clock-o",
-            clear: "fa fa-trash-o"
-        }
-    });
-    $(".startDate").on("dp.change", function (e) {
-        $('.endDate').data("DateTimePicker").minDate(e.date);
-    });
-    $(".endDate").on("dp.change", function (e) {
-        $('.startDate').data("DateTimePicker").maxDate(e.date);
-    });
-});
-</script>*@

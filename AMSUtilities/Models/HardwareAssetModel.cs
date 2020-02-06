@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System;
 
 namespace AMSUtilities.Models
 {
@@ -39,10 +40,11 @@ namespace AMSUtilities.Models
         public string Manufacturer { get; set; }
 
         [Display(Name = "Warranty Start Date")]
-        public System.DateTime? WarrantyStartDate { get; set; }
-
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime? WarrantyStartDate { get; set; }
         [Display(Name = "Warranty End Date")]
-        public System.DateTime? WarrantyEndDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime? WarrantyEndDate { get; set; }
 
         public string Comment { get; set; }
 
