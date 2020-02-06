@@ -117,7 +117,7 @@
     </div>
 }
 @Scripts.Render("~/bundles/jqueryval")
-<script src="~/Scripts/AMS/AMSCalendar.js"></script>
+
 <script>
     $(function () {
          if ('@TempData["Message"]'!= null &&'@TempData["Message"]'!= ""&&'@TempData["MessageType"]'!= null &&'@TempData["MessageType"]'!= "")
@@ -211,3 +211,4 @@
             $('#'+selectId).append('<option value="'+optionValue+'">'+optionText+'</option>');
     }
 </script>
+<script src="~/Scripts/AMS/AMSCalendar.js"></script>

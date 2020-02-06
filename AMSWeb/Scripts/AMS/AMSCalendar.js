@@ -14,12 +14,11 @@
             clear: "fa fa-trash-o"
         }
     });
-    var dateToday = new Date();
+   
     $('.endDate').datetimepicker({
         ignoreReadonly: true,
         format: "MM/DD/YYYY",
-        useCurrent: false,
-        minDate: dateToday,
+        useCurrent: false,       
         icons: {
             time: "fa fa-clock-o",
             date: "fa fa-calendar",
