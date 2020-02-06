@@ -328,3 +328,13 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/NLTDAMS/Content
+/NLTDAMS/fonts
+/NLTDAMS/Scripts/AMS/CreateAsset.js
+/NLTDAMS/Scripts/AMS/jquery-1.10.0.min.js
+/NLTDAMS/Scripts/AMS/jquery-ui.min.js
+/NLTDAMS/Scripts/Libraries
+/NLTDAMS/Views/Home
+/NLTDAMS/Scripts/AMS/AMSCalender.js
+/NLTDAMS/Scripts/AMS/AMSCalender.js~Stashed changes
+/NLTDAMS/Views/Asset/HardwareAsset.cshtml

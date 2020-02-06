@@ -1,10 +1,8 @@
 ﻿@model AMSUtilities.Models.HardwareAssetModel
 @using AMSUtilities.Enums
-@using System.Globalization
 @{
     ViewBag.Title = "EditHardwareAsset";
     Layout = "~/Views/Shared/_Layout.cshtml";
-   // string sysFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
 }
 <!-- iCheck for checkboxes and radio inputs -->
 <link href="~/Content/AMS/iCheck/all.css" rel="stylesheet" />
@@ -12,18 +10,6 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(fet => fet.AssetID)
-
-    //string warrantyStartDate = DateTime.Now.ToString("MM/dd/yyyy");
-    //if (Model.WarrantyStartDate != DateTime.MinValue && Model.WarrantyStartDate != null)
-    //{
-    //    warrantyStartDate = Model.WarrantyStartDate.ToString("MM/dd/yyyy");
-    //}
-
-    //string warrantyEndDate = "";
-    //if (Model.WarrantyEndDate != DateTime.MinValue && Model.WarrantyEndDate != null)
-    //{
-    //    warrantyEndDate = Model.WarrantyEndDate.ToString("MM/dd/yyyy");
-    //}
     <div class="row">
         <div class="col-sm-12">
             <div class="box box-primary">
@@ -89,11 +75,11 @@
                             @Html.TextBoxFor(model => model.Manufacturer, Model.Manufacturer as string, new { @id = "manufacturer", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Manufacturer, "", new { @class = "text-danger" })
                         </div>
-                        @*<div class="col-sm-3">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="From">Warranty Start Date</label>
                                 <div class="input-group mb-3">
-                                    @Html.TextBox("WarrantyStartDate", DateTime.Now.ToString("MM/dd/yyyy"), new { @id = "warrantyStartDate", @class = "startDate form-control", autocomplete = "off" })
+                                    @Html.TextBoxFor(model => model.WarrantyStartDate, "", new { @id = "warrantyStartDate", @class = "startDate form-control", autocomplete = "off" })
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
                                     </div>
@@ -105,14 +91,14 @@
                             <div class="form-group">
                                 <label for="To">Warranty End Date</label>
                                 <div class="input-group mb-3">
-                                    @Html.TextBox("WarrantyEndDate", "", new { @id = "warrantyEndDate", @class = "endDate form-control", autocomplete = "off" })
+                                    @Html.TextBoxFor(model => model.WarrantyEndDate, "", new { @id = "warrantyEndDate", @class = "endDate form-control", autocomplete = "off" })
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fa fa-calendar fa-fw"></i></span>
                                     </div>
                                 </div>
                                 @Html.ValidationMessageFor(model => model.WarrantyEndDate, "", new { @class = "text-danger" })
                             </div>
-                        </div>*@
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-9">
@@ -140,6 +126,7 @@
 }
 @Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/Libraries/icheck.min.js"></script>
+<script src="~/Scripts/AMS/AMSCalendar.js"></script>
 <script>
     $(function () {
         if ('@TempData["Message"]'!= null &&'@TempData["Message"]'!= ""&&'@TempData["MessageType"]'!= null &&'@TempData["MessageType"]'!= "")
@@ -305,48 +292,3 @@
     });
 </script>
 
-@*<script>
-    //Date picker
-    $(function () {
-        var cultureInfo = '@sysFormat';
-        cultureInfo = cultureInfo.toUpperCase();
-    $('.startDate').datetimepicker({
-        ignoreReadonly: true,
-        format: cultureInfo,
-        useCurrent: false,
-        icons: {
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-arrow-up",
-            down: "fa fa-arrow-down",
-            previous: "fa fa-chevron-left",
-            next: "fa fa-chevron-right",
-            today: "fa fa-clock-o",
-            clear: "fa fa-trash-o"
-        }
-    });
-    var dateToday = new Date();
-    $('.endDate').datetimepicker({
-        ignoreReadonly: true,
-        format: cultureInfo,
-        useCurrent: false,
-        minDate: dateToday,
-        icons: {
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-arrow-up",
-            down: "fa fa-arrow-down",
-            previous: "fa fa-chevron-left",
-            next: "fa fa-chevron-right",
-            today: "fa fa-clock-o",
-            clear: "fa fa-trash-o"
-        }
-    });
-    $(".startDate").on("dp.change", function (e) {
-        $('.endDate').data("DateTimePicker").minDate(e.date);
-    });
-    $(".endDate").on("dp.change", function (e) {
-        $('.startDate').data("DateTimePicker").maxDate(e.date);
-    });
-});
-</script>*@
