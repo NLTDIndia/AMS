@@ -1,7 +1,11 @@
 ﻿$(function () {
+
+    $.validator.methods.date = function (value, element) {
+        return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+    }
     $('.startDate').datetimepicker({
         ignoreReadonly: true,
-        format: "MM/DD/YYYY",
+        format: "DD/MM/YYYY",
         useCurrent: false,
         icons: {
             time: "fa fa-clock-o",
@@ -16,8 +20,8 @@
     });
    
     $('.endDate').datetimepicker({
-        ignoreReadonly: true,
-        format: "MM/DD/YYYY",
+        
+        format: "DD/MM/YYYY",
         useCurrent: false,       
         icons: {
             time: "fa fa-clock-o",
@@ -30,6 +34,7 @@
             clear: "fa fa-trash-o"
         }
     });
+
     $(".startDate").on("dp.change", function (e) {
         $('.endDate').data("DateTimePicker").minDate(e.date);
     });

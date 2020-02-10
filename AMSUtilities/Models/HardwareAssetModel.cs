@@ -40,10 +40,10 @@ namespace AMSUtilities.Models
         public string Manufacturer { get; set; }
 
         [Display(Name = "Warranty Start Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? WarrantyStartDate { get; set; }
         [Display(Name = "Warranty End Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? WarrantyEndDate { get; set; }
 
         public string Comment { get; set; }

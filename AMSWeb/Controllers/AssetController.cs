@@ -409,6 +409,6 @@ namespace AMSWeb.Controllers
                                         val = M.Manufacturer
                                     }).Distinct().ToList();
             return Json(ManufacturerAuto);
-        }
+        }      
     }
 }

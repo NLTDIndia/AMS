@@ -18,26 +18,19 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="~/Content/AMS/_all-skins.min.css">
-    <!-- Date Picker -->
-    @*<link rel="stylesheet" href="~/Content/AMS/bootstrap-datepicker.min.css">*@
+    <!-- Date Picker -->  
+    <link href="~/Content/AMS/bootstrap-datetimepicker.css" rel="stylesheet" />
     <!-- Daterange picker -->
     <link rel="stylesheet" href="~/Content/AMS/daterangepicker.css">
-    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/Content/Site.css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Google Font -->
+
     <link rel="stylesheet" href="~/Content/AMS/Sans.css">
 
     <link href="~/Content/Datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-
         <header class="main-header">
             <!-- Logo -->
             <a href="@Url.Action("Index", "Home")" class="logo">
@@ -173,12 +166,13 @@
         <script src="~/Scripts/Libraries/jquery-jvectormap-1.2.2.min.js"></script>
         <script src="~/Scripts/Libraries/jquery-jvectormap-world-mill-en.js"></script>
         <!-- daterangepicker -->
-        <script src="~/Scripts/moment.js"></script>
-        @*<script src="~/Scripts/Libraries/moment.min.js"></script>*@
+        @*<script src="~/Scripts/moment.js"></script>*@
+        <script src="~/Scripts/Libraries/moment.min.js"></script>
         <!--<script src="~/Scripts/Libraries/daterangepicker.js"></script>-->
         <!-- datepicker -->
-        <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
-        @*<script src="~/Scripts/Libraries/bootstrap-datepicker.min.js"></script>*@
+        <script src="~/Scripts/Libraries/bootstrap-datetimepicker.js"></script>
+        <script src="~/Scripts/Libraries/jquery.validate.min.js"></script>
+        <script src="~/Scripts/Libraries/jquery.validate.unobtrusive.js"></script>
         <!-- Slimscroll -->
         <script src="~/Scripts/Libraries/jquery.slimscroll.min.js"></script>
         <!-- FastClick -->

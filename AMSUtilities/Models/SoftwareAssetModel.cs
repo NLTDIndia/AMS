@@ -37,11 +37,11 @@ namespace AMSUtilities.Models
         public string LicenceNumber { get; set; }
 
         [Display(Name = "License Purchase Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? LicencePurchaseDate { get; set; }
 
         [Display(Name = "License Expiry Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? LicenceExpiryDate { get; set; }
 
         public string Comment { get; set; }
