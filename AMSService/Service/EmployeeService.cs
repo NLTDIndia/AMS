@@ -92,12 +92,12 @@ namespace AMSService.Service
         public SelectList GetDropdownEmployees(int selectedId = -1)
         {
             List<SelectListItem> EmployeesItems = new List<SelectListItem> { new SelectListItem { Selected = selectedId == -1 ? true : false, Text = "Select Employee", Value = "" } };
-            var Employees = _employeeRepository.GetEmployees();
+            var Employees = _employeeRepository.GetEmployees().OrderBy(emp => emp.EmployeeName).ToList();
             if (Employees != null && Employees.Count > 0)
             {
                 Employees.ForEach(at =>
                 {
-                    EmployeesItems.Add(new SelectListItem { Selected = selectedId == at.ID ? true : false, Text = at.EmployeeName, Value = at.ID.ToString() });
+                    EmployeesItems.Add(new SelectListItem { Selected = selectedId == at.ID ? true : false, Text = at.EmployeeName + " - " + at.EmployeeID , Value = at.ID.ToString() });
                 });
             }
 

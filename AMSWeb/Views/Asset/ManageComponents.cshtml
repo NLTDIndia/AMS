@@ -2,9 +2,7 @@
 @{
     int i = 0;
 }
-<link href="~/Content/Site.css" rel="stylesheet" />
-<!-- iCheck for checkboxes and radio inputs -->
-<link href="~/Content/AMS/iCheck/all.css" rel="stylesheet" />
+
 @model AMSUtilities.Models.HardwareAssetModel
 <div class="row" id="componentsTab" style="@Model.componentStyle">
     <div class="col-sm-12" style="margin-top:20px">
@@ -77,32 +75,16 @@
                                         var compValidationId = "compValidation" + item.ID;
                                         var descValidationId = "descValidation" + item.ID;
 
-                                            <div class="row">
-                                                <div class="col-sm-2 col-md-2">
-                                                    <label for="inputEmail3" class="control-label" style="@style">@item.Name</label>
-                                                    @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeName", @item.Name)
-                                                    @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeID", @item.ID)
+                                        <div class="row">
+                                            <div class="col-sm-2 col-md-2">
+                                                <label for="inputEmail3" class="control-label" style="@style">@item.Name</label>
+                                                @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeName", @item.Name)
+                                                @Html.Hidden("ComponentAssetMapping[" + i + "].ComponentTypeID", @item.ID)
 
-                                                    @if (Model.ComponentAssetMapping.ToList().Count > 0)
-                                                    {
-                                                        var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
-                                                        if (component != null || item.Mandatory == true)
-                                                        {
-                                                            if (item.Mandatory == true)
-                                                            {
-                                                                <label class="required-label"><sup>*</sup></label>
-                                                            }
-                                                            else
-                                                            {
-                                                                <label class="required-label">  </label>
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            <label class="required-label">  </label>
-                                                        }
-                                                    }
-                                                    else
+                                                @if (Model.ComponentAssetMapping.ToList().Count > 0)
+                                                {
+                                                    var component = Model.ComponentAssetMapping.Where(fet => fet.ComponentTypeID == item.ID).FirstOrDefault();
+                                                    if (component != null || item.Mandatory == true)
                                                     {
                                                         if (item.Mandatory == true)
                                                         {
@@ -113,44 +95,60 @@
                                                             <label class="required-label">  </label>
                                                         }
                                                     }
-                                                </div>
-                                                @if (item.Mandatory == true)
-                                                {
-                                                    if (Model.ComponentAssetMapping.ToList().Count > 0)
+                                                    else
                                                     {
-                                                        if (Model.ComponentAssetMapping.ToList().Count <= count)
-                                                        {
-                                                            <div class="col-sm-7">
-                                                                @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })
-                                                            </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="col-sm-7">
-                                                                @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
-                                                            </div>
-                                                        }
+                                                        <label class="required-label">  </label>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (item.Mandatory == true)
+                                                    {
+                                                        <label class="required-label"><sup>*</sup></label>
                                                     }
                                                     else
+                                                    {
+                                                        <label class="required-label">  </label>
+                                                    }
+                                                }
+                                            </div>
+                                            @if (item.Mandatory == true)
+                                            {
+                                                if (Model.ComponentAssetMapping.ToList().Count > 0)
+                                                {
+                                                    if (Model.ComponentAssetMapping.ToList().Count <= count)
                                                     {
                                                         <div class="col-sm-7">
                                                             @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })
                                                         </div>
                                                     }
-                                                    count++;
+                                                    else
+                                                    {
+                                                        <div class="col-sm-7">
+                                                            @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
+                                                        </div>
+                                                    }
                                                 }
                                                 else
                                                 {
                                                     <div class="col-sm-7">
-                                                        @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
+                                                        @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control", @required = "required" })
                                                     </div>
                                                 }
-                                                <div class="col-sm-1 text-left">
-                                                    <a data-toggle="modal" data-target="#@modalId" data-select="assigned_user_select" data-backdrop="static" class="btn btn-primary">New</a>
+                                                count++;
+                                            }
+                                            else
+                                            {
+                                                <div class="col-sm-7">
+                                                    @Html.DropDownList("ComponentAssetMapping[" + i + "].ComponentID", selectList, "Please Select", new { @id = dropdownId, @class = "form-control" })
                                                 </div>
+                                            }
+                                            <div class="col-sm-1 text-left">
+                                                <a data-toggle="modal" data-target="#@modalId" data-select="assigned_user_select" data-backdrop="static" class="btn btn-primary">New</a>
                                             </div>
+                                        </div>
 
-                                        <div class="modal" id="@modalId">
+                                        <div class="modal fade show" id="@modalId">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -205,8 +203,8 @@
         <!-- nav-tabs-custom -->
     </div>
 </div>
-<script src="~/Scripts/Libraries/icheck.min.js"></script>
-<script>
+@*<script src="~/Scripts/Libraries/icheck.min.js"></script>*@
+@*<script>
     //iCheck for checkbox and radio inputs
 $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
     checkboxClass: 'icheckbox_minimal-blue',
@@ -228,4 +226,4 @@ $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
             $("#" + this.id.replace("checkMandate","drp")).prop('required', false);
         }
     });
-</script>
+</script>*@
