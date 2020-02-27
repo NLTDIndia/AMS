@@ -52,7 +52,7 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a>
-                                <span class="hidden-xs">@AMSUtilities.Common.UserDetails.GetFullName(User.Identity)</span>
+                                <span class="hidden-xs">@Session["userName"].ToString()</span>
                             </a>
                         </li>
                         <!-- Control Sidebar Toggle Button -->
