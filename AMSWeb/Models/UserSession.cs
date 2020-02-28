@@ -29,7 +29,7 @@ namespace AMSWeb.Models
                     return instance;
                 }
             }
-            public bool getname()
+            public bool GetSession()
             {
                 if (HttpContext.Current.Session["userName"] == null)
                 {

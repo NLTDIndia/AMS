@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using AMSWeb.Models;
 
-
 namespace AMSWeb.Controllers
 {
     public class UserController : Controller
@@ -18,12 +17,12 @@ namespace AMSWeb.Controllers
         public ActionResult Index()
         {
             var session = UserSession.Instance;
-            bool issessionNull = session.getname();
-            if (issessionNull == true)
+            bool isSessionNull = session.GetSession();
+            if (isSessionNull == true)
             {
-                var corpid = _employeeService.ValidateUser();
-                Session["userName"] = _employeeService.GetEmployeeByCorpId(corpid.CorpId).EmployeeName;
-                Session["CorpID"] = corpid.CorpId;
+                var corpId = _employeeService.ValidateUser();
+                Session["userName"] = _employeeService.GetEmployeeByCorpId(corpId.CorpId).EmployeeName;
+                Session["CorpID"] = corpId.CorpId;
                 return RedirectToAction("ManageAssets", "Asset");
             }
             else
