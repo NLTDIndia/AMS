@@ -1,19 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using AMSService.Service;
 using System.Web.Mvc;
-
 
 namespace AMSWeb.Controllers
 {
     public class UserController : Controller
     {
+        private readonly IEmployeeService _employeeService;
+
+        public UserController(IEmployeeService employeeService)
+        {
+            _employeeService = employeeService;
+        }
+
         // GET: User
         public ActionResult Index()
-        {
-            Session["userName"] = AMSUtilities.Common.UserDetails.GetFullName(User.Identity);
-            return RedirectToAction("ManageAssets", "Asset");          
+        {            
+            var corpid = _employeeService.ValidateUser();
+            Session["userName"] = _employeeService.GetEmployeeByCorpId(corpid.CorpId).EmployeeName;
+            Session["CorpID"] = corpid.CorpId; 
+            return RedirectToAction("ManageAssets", "Asset");         
+
         }
     }
 }
